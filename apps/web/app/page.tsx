@@ -17,12 +17,6 @@ export default function Page() {
             </Link>
           </div>
           <h1 className="title-2 mb-32">Welcome back!</h1>
-          {/* {this.shouldShowSpinnerOverlay && (
-            <QSpinner
-              className={`${styles['q-spinner--overlay']}`}
-              data-test-register-connect-provider-loading
-            />
-          )} */}
           {/* <AuthButtons
             onSignInGoogleSuccess={this.onGoogleSignInSuccessTask}
             onSignInAppleSuccess={this.onAppleSignInSuccessTask}
