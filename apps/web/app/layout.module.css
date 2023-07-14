@@ -1,0 +1,8 @@
+body.app {
+  height: 100%;
+}
+
+.l-container__app {
+  min-width: 980px;
+  height: 100%;
+}
