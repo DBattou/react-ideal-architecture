@@ -31,14 +31,14 @@
   .header-logo {
     margin-top: 24px;
   
-    /* svg {
+    .svg {
       width: 100px;
       height: auto;
   
-      path {
+      /* path {
         fill: var(--content-primary-a);
-      }
-    } */
+      } */
+    }
   }
   
   .links {

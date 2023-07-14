@@ -2,6 +2,7 @@
 import Lottie from "lottie-react";
 import styles from './page.module.css';
 import * as animationData from './lottie/first-screen-mint.json';
+import Link from "next/link";
 
 export default function Page() {
   let backgroundColor = 'mint';
@@ -11,9 +12,9 @@ export default function Page() {
       <div className={styles['form']}>
         <div className={styles['form-wrapper']}>
           <div className={`${styles['header-logo']} mb-32`}>
-            {/* <Link to="/signin">
-              <img src={require('../assets/images/qonto.svg')} alt="qonto" />
-            </Link> */}
+            <Link href="/signin" className={styles['header-logo']}>
+              <img src="/logo.svg" alt="qonto" className={styles.svg} />
+            </Link>
           </div>
           <h1 className="title-2 mb-32">Welcome back!</h1>
           {/* {this.shouldShowSpinnerOverlay && (
