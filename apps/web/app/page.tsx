@@ -1,10 +1,12 @@
+import styles from './page.module.css';
+
 export default function Page() {
   return (
-    <div className="l-container__app">
-      <div className="signin">
-        <div className="form">
-          <div className="form-wrapper">
-            <div className="header-logo mb-32">
+    <div className={styles['l-container__app']}>
+      <div className={styles['signin']}>
+        <div className={styles['form']}>
+          <div className={styles['form-wrapper']}>
+            <div className={`${styles['header-logo']} mb-32`}>
               {/* <Link to="/signin">
                 <img src={require('../assets/images/qonto.svg')} alt="qonto" />
               </Link> */}
@@ -12,7 +14,7 @@ export default function Page() {
             <h1 className="title-2 mb-32">Welcome back!</h1>
             {/* {this.shouldShowSpinnerOverlay && (
               <QSpinner
-                className="q-spinner--overlay"
+                className={`${styles['q-spinner--overlay']}`}
                 data-test-register-connect-provider-loading
               />
             )} */}
@@ -22,22 +24,22 @@ export default function Page() {
             /> */}
             {/* <LoginForm
               local-form="inputs"
-              className="mb-32"
+              className={`${styles['mb-32']}`}
               authenticate={this.authenticateTask}
             /> */}
-            <div className="links mb-32">
-              <span className="no-account-label body-2">Don't have an account?</span>
-              {/* <a href={this.registerJsURL} className="m-link m-link--black body-1" data-test-register-link>
+            <div className={`${styles['links']} mb-32`}>
+              <span className={`${styles['no-account-label']} body-2`}>Don't have an account?</span>
+              {/* <a href={this.registerJsURL} className={`${styles['m-link']} ${styles['m-link--black']} ${styles['body-1']}`} data-test-register-link>
                 Register now
               </a> */}
             </div>
           </div>
         </div>
         {/* {!this.deviceManager.isMobile && (
-          <div className={`illustration ${this.backgroundColor}`}>
-            <div className="illustration-wrapper">
+          <div className={`${styles['illustration']} ${styles[this.backgroundColor]}`}>
+            <div className={styles['illustration-wrapper']}>
               <Lottie
-                className={`animation ${!this.animationReady && 'hidden'}`}
+                className={`${styles['animation']} ${!this.animationReady && styles['hidden']}`}
                 autoplay={!this.deviceManager.isSafariDesktop}
                 path={require(`../assets/lotties/first-screen-${this.backgroundColor}.json`)}
                 onDataReady={() => this.animationReady = true}
