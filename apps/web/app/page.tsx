@@ -1,6 +1,11 @@
+"use client"; // This is a client component 👈🏽
+import Lottie from "lottie-react";
 import styles from './page.module.css';
+import * as animationData from './lottie/first-screen-mint.json';
 
 export default function Page() {
+  let backgroundColor = '';
+  let isSafariDesktop = true;
   return (
     <div className={styles['l-container__app']}>
       <div className={styles['signin']}>
@@ -35,19 +40,16 @@ export default function Page() {
             </div>
           </div>
         </div>
-        {/* {!this.deviceManager.isMobile && (
-          <div className={`${styles['illustration']} ${styles[this.backgroundColor]}`}>
+          <div className={`${styles['illustration']} ${styles[backgroundColor]}`}>
             <div className={styles['illustration-wrapper']}>
               <Lottie
-                className={`${styles['animation']} ${!this.animationReady && styles['hidden']}`}
-                autoplay={!this.deviceManager.isSafariDesktop}
-                path={require(`../assets/lotties/first-screen-${this.backgroundColor}.json`)}
-                onDataReady={() => this.animationReady = true}
+                className={`${styles['animation']}`}
+                autoplay={isSafariDesktop}
+                animationData={animationData}
                 data-test-lottie-signin-animation={true}
               />
             </div>
           </div>
-        )} */}
       </div>
     </div>
   );

@@ -17,21 +17,8 @@
     align-items: center;
     justify-content: center;
     width: 50%;
-  
-    &.purple {
-      background-color: var(--lottie-background-purple);
-    }
-  
     &.mint {
       background-color: var(--lottie-background-mint);
-    }
-  
-    &.mustard {
-      background-color: var(--lottie-background-mustard);
-    }
-  
-    &.peach {
-      background-color: var(--lottie-background-peach);
     }
   }
   
