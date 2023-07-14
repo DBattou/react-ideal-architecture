@@ -4,7 +4,7 @@ import styles from './page.module.css';
 import * as animationData from './lottie/first-screen-mint.json';
 
 export default function Page() {
-  let backgroundColor = '';
+  let backgroundColor = 'mint';
   let isSafariDesktop = true;
   return (
     <div className={styles['l-container__app']}>

@@ -1,6 +1,7 @@
 .signin {
     display: flex;
     height: 100%;
+    --lottie-background-mint: var(--mint50);
   }
   
   .form {
