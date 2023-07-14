@@ -1,0 +1,72 @@
+:root {
+  /* Primary */
+  --primary-white: #fff;
+  --primary-black: #1d1d1b;
+
+  /* Gray */
+  --gray50: #f9f9f7;
+  --gray100: #f3f3f0;
+  --gray200: #ebebe8;
+  --gray300: #dcdcd9;
+  --gray400: #b8b8b5;
+  --gray500: #999896;
+  --gray600: #636360;
+  --gray700: #393937;
+  --gray800: #292927;
+
+  /* Accent */
+  --purple50: #efe9fe;
+  --purple100: #d5c8fb;
+  --purple400: #bcabf9;
+  --purple800: #9b81f6;
+  --purple900: #816bcd;
+  --purple1000: #4e417b;
+
+  /* Success */
+  --success50: #e3f8ee;
+  --success300: #54d59f;
+  --success400: #45b184;
+  --success800: #39936e;
+  --success1000: #173b2c;
+
+  /* Warning */
+  --warning50: #fff3e5;
+  --warning300: #efac6d;
+  --warning400: #ec9b50;
+  --warning800: #c58143;
+  --warning1000: #4f341b;
+
+  /* Error */
+  --error50: #ffeaed;
+  --error300: #fa7272;
+  --error400: #f95656;
+  --error800: #cf4848;
+  --error1000: #531d1d;
+
+  /* Brand */
+  --mint50: #dff9f0;
+  --mint100: #cef6e9;
+  --mint800: #b0f0da;
+  --mint900: #93c8b6;
+  --mint1000: #3b5049;
+  --mustard50: #fdffd0;
+  --mustard100: #f4f8ac;
+  --mustard800: #f1f78e;
+  --mustard900: #c9ce76;
+  --mustard1000: #50522f;
+  --peach50: #ffeadd;
+  --peach100: #ffd6bc;
+  --peach800: #ffbc90;
+  --peach900: #d49d78;
+  --peach1000: #553f30;
+
+  /* Additionals */
+  --blue100: #c9d5f9;
+  --blue800: #88a2f2;
+  --green100: #cff5d4;
+  --green800: #91e89d;
+  --pink100: #ffd4e3;
+  --pink800: #ffa3c3;
+  --yellow100: #fff4bc;
+  --yellow800: #ffe770;
+}

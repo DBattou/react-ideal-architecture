@@ -1,0 +1,10 @@
+:root {
+  /* dimensions */
+  --radius-input: 4px;
+  --radius-textarea: 4px;
+  --radius-dropdown: 4px;
+  --padding-left-input: 16px;
+  --padding-input: 0 11px 0 var(--padding-left-input);
+  --dropdown-option-height: 25px;
+  --q-toggle-box-animation-duration: 350ms;
+}

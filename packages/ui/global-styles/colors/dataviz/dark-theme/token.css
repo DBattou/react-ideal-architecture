@@ -1,0 +1,41 @@
+:root .dark-theme {
+  --dataviz-slice1: var(--purple800);
+  --dataviz-slice2: var(--mint800);
+  --dataviz-slice3: var(--blue800);
+  --dataviz-slice4: var(--mustard800);
+  --dataviz-slice5: var(--peach800);
+  --dataviz-slice6: var(--yellow800);
+  --dataviz-slice7: var(--pink800);
+  --dataviz-balance: var(--purple800);
+  --dataviz-change: var(--warning400);
+  --dataviz-inflow: var(--success400);
+  --dataviz-outflow: var(--error400);
+  --dataviz-other: var(--gray400);
+  --dataviz-empty: var(--gray700);
+  --dataviz-uncategorized: var(--gray600);
+
+  /* Overlays on light backgrounds */
+  --hover-mix-blend-mode: lighten;
+
+  /* Overlays on dark backgrounds */
+  --hover-on-dark-mix-blend-mode: darken;
+
+  /* loading animation */
+  --dataviz-animation-primary: var(--gray700);
+  --dataviz-animation-secondary: var(--gray600);
+  --dataviz-animation: dataviz-loading 1.5s linear infinite;
+
+  @keyframes dataviz-loading {
+    8% {
+      fill: var(--dataviz-animation-primary);
+    }
+
+    18% {
+      fill: var(--dataviz-animation-secondary);
+    }
+
+    33% {
+      fill: var(--dataviz-animation-primary);
+    }
+  }
+}

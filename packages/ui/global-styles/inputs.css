@@ -1,0 +1,54 @@
+.input-field {
+  width: 100%;
+  padding: 8px 12px;
+  font-size: var(--body-1-font-size);
+  font-weight: var(--body-1-font-weight);
+  line-height: 22px;
+  color: var(--content-primary-a);
+  background-color: var(--elevation-default);
+  border: 1px solid var(--border-secondary);
+  border-radius: 4px;
+  transition: border-color 0.5s;
+
+  &::placeholder {
+    line-height: 22px;
+    color: var(--content-tertiary);
+    text-overflow: ellipsis !important;
+    opacity: 1;
+  }
+
+  &:focus-visible {
+    border-color: var(--border-accent-high);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--elevation-low);
+    opacity: 0.45;
+  }
+}
+
+// because non editable elements like "div" are "readonly"
+// and because there are wrapping "div" with the "input-field" CSS class
+// we have to target which readonly elements to style
+input.input-field,
+textarea.input-field {
+  &:read-only:not(:disabled) {
+    background-color: var(--elevation-low);
+    box-shadow: none;
+
+    /* Fix the input disabled opacity and text color on iOS */
+    opacity: 1;
+    -webkit-text-fill-color: var(--content-primary-a);
+  }
+
+  &:read-only:focus-visible {
+    border-color: var(--border-accent-high);
+    outline: none;
+    box-shadow: 0 0 0 4px var(--border-accent-low);
+  }
+}
+
+.input-field--error {
+  border-color: var(--border-error);
+}
