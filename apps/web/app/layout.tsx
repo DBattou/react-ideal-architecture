@@ -1,3 +1,4 @@
+import 'normalize.css/normalize.css';
 import "ui/global-styles/variables.css"
 import "ui/global-styles/typo.css"
 import "ui/global-styles/font-system.css"
