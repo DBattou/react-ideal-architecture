@@ -1,0 +1,6 @@
+:root {
+  --overlay-opacity: 0;
+  --hover-opacity: 0.08;
+  --pressed-opacity: 0.12;
+  --disabled-opacity: 0.45;
+}

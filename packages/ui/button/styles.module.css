@@ -28,7 +28,7 @@
     width: 100%;
     height: 100%;
     pointer-events: none;
-    content: '';
+    content: "";
     background-color: var(--overlay-primary-a-color);
     opacity: var(--overlay-opacity);
   }
@@ -42,7 +42,7 @@
   }
 
   &[disabled],
-  &[aria-disabled='true'] {
+  &[aria-disabled="true"] {
     cursor: not-allowed;
 
     &::after {
@@ -66,7 +66,7 @@
   }
 }
 
-// primary
+/* primary */
 
 .btn--primary {
   --bg-color: var(--background-primary);
@@ -83,7 +83,7 @@ a.btn {
   text-decoration: none;
 }
 
-// tertiary
+/* tertiary */
 .btn--tertiary {
   --bg-color: none;
   --fg-color: var(--content-primary-a);
@@ -112,7 +112,7 @@ a.btn {
   }
 
   &[disabled]::after,
-  &[aria-disabled='true']::after {
+  &[aria-disabled="true"]::after {
     border-top: 0;
     border-right: 0;
     border-bottom: 1px solid var(--fg-color);
@@ -132,7 +132,7 @@ a.btn {
   border: none;
 }
 
-// icons only
+/* icons only */
 
 .btn--icon-only {
   --bg-color: var(--background-secondary);
@@ -160,7 +160,7 @@ a.btn {
     width: 48px;
     height: 48px;
 
-    svg {
+    & svg {
       width: 16px;
       height: 16px;
     }
@@ -180,7 +180,7 @@ a.btn {
   }
 }
 
-// SIZES
+/* SIZES */
 
 .btn--small:not(.btn--tertiary) {
   height: 32px;
@@ -190,35 +190,35 @@ a.btn {
   height: 48px;
 }
 
-// STRETCH
+/* STRETCH */
 
 .btn--stretch:not(.btn--tertiary) {
   display: flex;
   width: 100%;
 }
 
-// SVG ICON SUPPORT
+/* SVG ICON SUPPORT */
 
 .btn > svg {
   width: 12px;
   height: 12px;
 
-  path {
+  & path {
     fill: var(--fg-color);
   }
 }
 
-// SPINNER SUPPORT
+/* SPINNER SUPPORT */
 
 .btn .x-spinner {
-  svg {
-    circle {
+  & svg {
+    & circle {
       stroke: var(--fg-color);
     }
   }
 }
 
-// FILTERS UI
+/* FILTERS UI */
 
 .btn-filter {
   --border-color: var(--border-secondary);
@@ -238,7 +238,7 @@ a.btn {
   }
 
   &[disabled],
-  &[aria-disabled='true'] {
+  &[aria-disabled="true"] {
     cursor: not-allowed;
 
     --overlay-primary-a-color: var(--overlay-primary-b-color);
@@ -271,7 +271,7 @@ a.btn {
     width: calc(100% + 2px);
     height: calc(100% + 2px);
     pointer-events: none;
-    content: '';
+    content: "";
     background-color: var(--overlay-primary-a-color);
     border-radius: var(--border-radius);
     opacity: var(--overlay-opacity);
@@ -286,11 +286,11 @@ a.btn {
     --border-color: var(--content-accent);
   }
 
-  svg {
+  & svg {
     width: 12px;
     height: 12px;
 
-    path {
+    & path {
       fill: var(--fg-color);
     }
   }
@@ -300,8 +300,8 @@ a.btn {
   }
 
   .x-spinner {
-    svg {
-      circle {
+    & svg {
+      & circle {
         stroke: var(--fg-color);
       }
     }
