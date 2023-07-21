@@ -3,6 +3,7 @@ import Lottie from "lottie-react";
 import styles from './page.module.css';
 import * as animationData from './lottie/first-screen-mint.json';
 import Link from "next/link";
+import { LoginForm } from "./LoginForm";
 
 export default function Page() {
   let backgroundColor = 'mint';
@@ -17,20 +18,15 @@ export default function Page() {
             </Link>
           </div>
           <h1 className="title-2 mb-32">Welcome back!</h1>
+          
           {/* <AuthButtons
             onSignInGoogleSuccess={this.onGoogleSignInSuccessTask}
             onSignInAppleSuccess={this.onAppleSignInSuccessTask}
           /> */}
-          {/* <LoginForm
-            local-form="inputs"
-            className={`${styles['mb-32']}`}
-            authenticate={this.authenticateTask}
-          /> */}
+          <LoginForm className="mb-32" />
           <div className={`${styles['links']} mb-32`}>
-            <span className={`${styles['no-account-label']} body-2`}>Don't have an account?</span>
-            {/* <a href={this.registerJsURL} className={`${styles['m-link']} ${styles['m-link--black']} ${styles['body-1']}`} data-test-register-link>
-              Register now
-            </a> */}
+            <span className={`${styles['no-account-label']} body-2`}>Don't have an account?</span>{' '}
+            <a href="https://welcome.qonto.com" className="body-1">Open an account</a>
           </div>
         </div>
       </div>
