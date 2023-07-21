@@ -1,0 +1,29 @@
+@import url("normalize.css/normalize.css");
+@import url("ui/global-styles/variables.css");
+@import url("ui/global-styles/typo.css"); /* where do we actually keep the fonts assets? */
+@import url("ui/global-styles/font-system.css");
+@import url("ui/global-styles/margin-helpers.css");
+@import url("ui/global-styles/colors/base-palette/token.css");
+@import url("ui/global-styles/colors/light-theme/token.css");
+@import url("ui/global-styles/overlay.css");
+
+/* global stylesheet vs :global in layout.module.css? */
+html {
+  box-sizing: border-box;
+  font-size: 14px;
+  text-rendering: optimizelegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
