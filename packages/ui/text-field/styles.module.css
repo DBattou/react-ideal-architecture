@@ -1,4 +1,4 @@
-.input-field {
+.input {
   width: 100%;
   padding: 8px 12px;
   font-size: var(--body-1-font-size);
@@ -28,11 +28,11 @@
   }
 }
 
-// because non editable elements like "div" are "readonly"
-// and because there are wrapping "div" with the "input-field" CSS class
-// we have to target which readonly elements to style
-input.input-field,
-textarea.input-field {
+/*  because non editable elements like "div" are "readonly"
+ and because there are wrapping "div" with the "input-field" CSS class
+ we have to target which readonly elements to style */
+input.input,
+textarea.input {
   &:read-only:not(:disabled) {
     background-color: var(--elevation-low);
     box-shadow: none;
@@ -49,6 +49,17 @@ textarea.input-field {
   }
 }
 
-.input-field--error {
+.input--error {
   border-color: var(--border-error);
+}
+
+.error-message {
+  margin-top: 4px;
+  display: inline-block;
+  visibility: hidden;
+  color: var(--content-error);
+}
+
+[aria-invalid="true"] ~ .error-message {
+  visibility: visible;
 }
