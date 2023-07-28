@@ -6,6 +6,7 @@
 @import url("ui/global-styles/colors/base-palette/token.css");
 @import url("ui/global-styles/colors/light-theme/token.css");
 @import url("ui/global-styles/overlay.css");
+@import url("ui/global-styles/presets.css");
 
 /* global stylesheet vs :global in layout.module.css? */
 html {
@@ -26,4 +27,25 @@ body {
 *::before,
 *::after {
   box-sizing: inherit;
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ol,
+ul,
+p {
+  margin: 0;
 }
