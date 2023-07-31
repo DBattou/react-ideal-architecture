@@ -1,12 +1,4 @@
-@import url("normalize.css/normalize.css");
-@import url("ui/global-styles/variables.css");
-@import url("ui/global-styles/typo.css"); /* where do we actually keep the fonts assets? */
-@import url("ui/global-styles/font-system.css");
-@import url("ui/global-styles/margin-helpers.css");
-@import url("ui/global-styles/colors/base-palette/token.css");
-@import url("ui/global-styles/colors/light-theme/token.css");
-@import url("ui/global-styles/overlay.css");
-@import url("ui/global-styles/presets.css");
+@import url("ui/styles.css");
 
 /* global stylesheet vs :global in layout.module.css? */
 html {
