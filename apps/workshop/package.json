@@ -19,6 +19,7 @@
     "@storybook/react-vite": "^7.2.0",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "postcss-nested": "^6.0.1",
     "storybook": "^7.2.0",
     "typescript": "^5.0.2"
   }

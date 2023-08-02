@@ -97,6 +97,9 @@ importers:
       '@types/react-dom':
         specifier: ^18.2.7
         version: 18.2.7
+      postcss-nested:
+        specifier: ^6.0.1
+        version: 6.0.1(postcss@8.4.26)
       storybook:
         specifier: ^7.2.0
         version: 7.2.0
