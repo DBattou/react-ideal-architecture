@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { Button, TextField } from "ui";
 import styles from "./styles.module.css";
