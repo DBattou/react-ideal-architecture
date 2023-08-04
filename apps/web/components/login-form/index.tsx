@@ -3,11 +3,21 @@ import Link from "next/link";
 import { Button, TextField } from "ui";
 import styles from "./styles.module.css";
 import cx from "classnames";
-import { FormHTMLAttributes } from "react";
+import { FormHTMLAttributes, useState } from "react";
 
 type LoginFormProps = FormHTMLAttributes<HTMLFormElement>;
 
+const INITIAL_ERRORS_STATE = {
+  email: "",
+  password: "",
+};
+
 export const LoginForm = (props: LoginFormProps) => {
+  const [errors, setErrors] =
+    useState<typeof INITIAL_ERRORS_STATE>(INITIAL_ERRORS_STATE);
+
+  const clearErrors = () => setErrors(INITIAL_ERRORS_STATE);
+
   return (
     <form {...props}>
       <div className="mb-24">
@@ -19,6 +29,7 @@ export const LoginForm = (props: LoginFormProps) => {
           id="email"
           type="email"
           required
+          errorMessage={errors.email}
         />
         <TextField
           label="Password"
@@ -27,6 +38,7 @@ export const LoginForm = (props: LoginFormProps) => {
           name="password"
           id="password"
           type="password"
+          errorMessage={errors.password}
         />
       </div>
       <div className="controls">
