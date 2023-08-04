@@ -38,8 +38,12 @@ export const LoginForm = (props: LoginFormProps) => {
     }
   };
 
+  const handleChange = () => {
+     clearErrors()
+  }
+
   return (
-    <form {...props} onSubmit={handleSubmit}>
+    <form {...props} onSubmit={handleSubmit} onChange={handleChange}>
       <div className="mb-24">
         <TextField
           label="Email address"
