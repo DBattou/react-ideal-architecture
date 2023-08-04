@@ -3,7 +3,8 @@ import Link from "next/link";
 import { Button, TextField } from "ui";
 import styles from "./styles.module.css";
 import cx from "classnames";
-import { FormHTMLAttributes, useState } from "react";
+import { FormEvent, FormHTMLAttributes, useState } from "react";
+import { authenticate } from "@/services/session";
 
 type LoginFormProps = FormHTMLAttributes<HTMLFormElement>;
 
@@ -18,8 +19,27 @@ export const LoginForm = (props: LoginFormProps) => {
 
   const clearErrors = () => setErrors(INITIAL_ERRORS_STATE);
 
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const data = new FormData(event.currentTarget);
+    try {
+      await authenticate({
+        email: data.get("email") as string,
+        password: data.get("password") as string,
+      });
+    } catch (error) {
+      if (error.message === 'Unauthorized') {
+        setErrors((s) => ({
+          ...s,
+          password: "Your login credentials aren't correct. Try again."
+        }));
+      }
+    }
+  };
+
   return (
-    <form {...props}>
+    <form {...props} onSubmit={handleSubmit}>
       <div className="mb-24">
         <TextField
           label="Email address"
