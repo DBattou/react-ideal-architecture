@@ -1,16 +1,8 @@
-import { createServer, Model, Factory } from "miragejs";
+import { createServer, Model, Factory, Response } from "miragejs";
 export type User = {
-  name: string;
+  email: string;
   password: string;
 };
-
-type UserResponse = {
-  users: User[];
-};
-
-export const fetchUsers = (url: string) =>
-  fetch(url).then<UserResponse>((r) => r.json());
-
 
 export function makeServer({ environment = "test" }) {
   return createServer({
@@ -18,7 +10,7 @@ export function makeServer({ environment = "test" }) {
 
     factories: {
       user: Factory.extend<Partial<User>>({
-        name: 'owner@qonto.com',
+        email: 'owner@qonto.com',
         password: 'HelloQonto!',
       }),
     },
@@ -30,11 +22,24 @@ export function makeServer({ environment = "test" }) {
     routes() {
       this.namespace = "api";
 
-      this.get("users");
+      this.post("/users/session", (schema, request) => {
+        let requestJSON = JSON.parse(request.requestBody);
+        let reqUser = requestJSON.user;
+        let email = reqUser.email;
+        let user = schema.db.users.findBy({ email });
+
+        if (!user) {
+          return new Response(404, {}, { message: 'Not found' });
+        }
+        if (user.password !== reqUser.password) {
+          return new Response(401, {}, { message: 'Unauthorized' });
+        }
+        return schema.db.users.findBy({ name: requestJSON.name, password: requestJSON.password });
+      });
     },
 
     seeds(server) {
-      server.create("user", { name: 'admin@qonto.com', password: 'HelloQonto!' });
+      server.create("user");
     },
   });
 }
