@@ -1,23 +1,12 @@
-import { createServer, Model, Factory, Response } from "miragejs";
-export type User = {
-  email: string;
-  password: string;
-};
+import { createServer, Response } from "miragejs";
+import models from "./models";
+import factories from "./factories";
 
 export function makeServer({ environment = "test" }) {
   return createServer({
     environment,
-
-    factories: {
-      user: Factory.extend<Partial<User>>({
-        email: 'owner@qonto.com',
-        password: 'HelloQonto!',
-      }),
-    },
-
-    models: {
-      user: Model.extend<Partial<User>>({}),
-    },
+    factories,
+    models,
 
     routes() {
       this.namespace = "api";
