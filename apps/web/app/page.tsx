@@ -4,9 +4,6 @@ import styles from "./page.module.css";
 import animationData from "./lottie/first-screen-mint.json";
 import Link from "next/link";
 import { LoginForm } from "@/components/login-form";
-import { makeServer } from "qonto-mirage";
-
-makeServer({ environment: "development" });
 
 export default function Page() {
   let backgroundColor = "mint";
