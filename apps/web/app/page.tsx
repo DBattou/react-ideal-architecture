@@ -1,3 +1,4 @@
+'use client';
 import Lottie from "@/components/lottie";
 import styles from "./page.module.css";
 import animationData from "./lottie/first-screen-mint.json";
