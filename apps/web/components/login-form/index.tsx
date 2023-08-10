@@ -29,7 +29,7 @@ export const LoginForm = (props: LoginFormProps) => {
         password: data.get("password") as string,
       });
     } catch (error) {
-      if (error.message === 'Unauthorized') {
+      if (['Unauthorized', 'Not found'].includes(error.message)) {
         setErrors((s) => ({
           ...s,
           password: "Your login credentials aren't correct. Try again."
