@@ -25,7 +25,7 @@ export default function Page() {
           <LoginForm className="mb-32" />
           <div className={`${styles.links} mb-32`}>
             <span className={`${styles["no-account-label"]} body-2`}>
-              Don't have an account?
+              Don&apos;t have an account?
             </span>{" "}
             <a href="https://welcome.qonto.com" className="body-1">
               Open an account
