@@ -2,3 +2,10 @@
   outline: none;
   box-shadow: 0 0 0 4px var(--border-accent-low);
 }
+
+/* This one was in the dummy app, is ui responsible for the global resets? */
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
