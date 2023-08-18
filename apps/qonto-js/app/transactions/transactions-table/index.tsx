@@ -1,10 +1,11 @@
 "use client";
 
 import { Cell, HeaderCell, Row, Table } from "@/components/table";
-import type { RowSelectionState } from "@tanstack/react-table";
+import type { RowSelectionState, SortingState } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
+  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { columns } from "./columns";
@@ -13,15 +14,19 @@ import { useState } from "react";
 
 export function TransactionsTable() {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+  const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
     columns: columns,
     data: getTransactions(),
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
+    onSortingChange: setSorting,
     getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
     state: {
       rowSelection,
+      sorting,
     },
   });
   return (
@@ -30,7 +35,12 @@ export function TransactionsTable() {
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
             {headerGroup.headers.map((header) => (
-              <HeaderCell key={header.id} isSortable={false}>
+              <HeaderCell
+                key={header.id}
+                isSortable={header.column.getCanSort()}
+                onSort={header.column.getToggleSortingHandler()}
+                isSorted={header.column.getIsSorted()}
+              >
                 {flexRender(
                   header.column.columnDef.header,
                   header.getContext()
