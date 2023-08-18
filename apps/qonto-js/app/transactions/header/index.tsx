@@ -1,5 +1,13 @@
 import styles from "./styles.module.css";
 
-export function Header() {
-  return <header className={styles.header}>Header !</header>;
+type HeaderProps = {
+  title: string;
+};
+
+export function Header({ title }: HeaderProps) {
+  return (
+    <header className={styles.header}>
+      <h1 className={styles.title}>{title}</h1>
+    </header>
+  );
 }
