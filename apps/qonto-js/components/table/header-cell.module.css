@@ -1,0 +1,26 @@
+.headerCell {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 40px;
+  padding: 0 24px 0 0;
+  text-align: left;
+  white-space: nowrap;
+  background: var(--elevation-default);
+  border-top: 1px solid var(--border-tertiary);
+  border-bottom: 1px solid var(--border-tertiary);
+
+  @media only screen and (width <= 1365px) {
+    border-top: none;
+  }
+}
+
+.headerContent {
+  composes: caption-bold from global;
+  padding: 0;
+  color: var(--content-secondary);
+
+  &[aria-pressed="true"] {
+    color: var(--content-primary-a);
+  }
+}
