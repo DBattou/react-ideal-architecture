@@ -1,6 +1,7 @@
 "use client";
 
 import { Cell, HeaderCell, Row, Table } from "@/components/table";
+import type { RowSelectionState } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
@@ -8,12 +9,20 @@ import {
 } from "@tanstack/react-table";
 import { columns } from "./columns";
 import { getTransactions } from "@/services/transactions";
+import { useState } from "react";
 
 export function TransactionsTable() {
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
+
   const table = useReactTable({
     columns: columns,
     data: getTransactions(),
+    enableRowSelection: true,
+    onRowSelectionChange: setRowSelection,
     getCoreRowModel: getCoreRowModel(),
+    state: {
+      rowSelection,
+    },
   });
   return (
     <Table caption="List of transactions">
