@@ -1,4 +1,5 @@
 import { Header } from "./header";
+import { Filters } from "./filters";
 
 const FAKE_AMOUNT = 24.32;
 
@@ -11,7 +12,7 @@ export default function TransactionsIndex() {
           currency: "eur",
         })}
       />
-      <form>Transactions filters</form>
+      <Filters />
       <table>Transactions table</table>
     </section>
   );
