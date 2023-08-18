@@ -1,0 +1,9 @@
+.row {
+  position: relative;
+  height: 64px;
+
+  &:hover {
+    cursor: pointer;
+    background-color: var(--elevation-low);
+  }
+}
