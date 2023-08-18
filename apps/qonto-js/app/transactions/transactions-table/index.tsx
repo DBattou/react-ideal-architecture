@@ -1,28 +1,36 @@
-import { Cell, HeaderCell, Row, Table } from "@/components/table";
+"use client";
+
+import { HeaderCell, Table, Row, Cell } from "@/components/table";
+import {
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+import { columns } from "./columns";
+import { getTransactions } from "@/services/transactions";
 import { Checkbox } from "ui";
 
 export function TransactionsTable() {
+  const table = useReactTable({
+    columns: columns,
+    data: getTransactions(),
+    getCoreRowModel: getCoreRowModel(),
+  });
   return (
     <Table caption="List of transactions">
       <thead>
-        <tr>
-          <HeaderCell isSortable={false}>
-            <Checkbox />
-          </HeaderCell>
-          <HeaderCell isSortable={true} isSorted={false}>
-            Transaction
-          </HeaderCell>
-          <HeaderCell isSortable={true} isSorted={false}>
-            Method
-          </HeaderCell>
-          <HeaderCell isSortable={true} isSorted="desc">
-            Operation Date
-          </HeaderCell>
-          <HeaderCell isSortable={false}>Attachment</HeaderCell>
-          <HeaderCell isSortable={true} isSorted={false}>
-            Amount
-          </HeaderCell>
-        </tr>
+        {table.getHeaderGroups().map((headerGroup) => (
+          <tr key={headerGroup.id}>
+            {headerGroup.headers.map((header) => (
+              <HeaderCell key={header.id} isSortable={false}>
+                {flexRender(
+                  header.column.columnDef.header,
+                  header.getContext()
+                )}
+              </HeaderCell>
+            ))}
+          </tr>
+        ))}
       </thead>
       <tbody>
         <Row>
