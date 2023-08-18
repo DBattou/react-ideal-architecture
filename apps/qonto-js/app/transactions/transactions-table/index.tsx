@@ -1,6 +1,6 @@
 "use client";
 
-import { HeaderCell, Table, Row, Cell } from "@/components/table";
+import { Cell, HeaderCell, Row, Table } from "@/components/table";
 import {
   flexRender,
   getCoreRowModel,
@@ -8,7 +8,6 @@ import {
 } from "@tanstack/react-table";
 import { columns } from "./columns";
 import { getTransactions } from "@/services/transactions";
-import { Checkbox } from "ui";
 
 export function TransactionsTable() {
   const table = useReactTable({
@@ -33,16 +32,15 @@ export function TransactionsTable() {
         ))}
       </thead>
       <tbody>
-        <Row>
-          <Cell>
-            <Checkbox />
-          </Cell>
-          <Cell>hi</Cell>
-          <Cell>hi</Cell>
-          <Cell>hi</Cell>
-          <Cell>hi</Cell>
-          <Cell>hi</Cell>
-        </Row>
+        {table.getRowModel().rows.map((row) => (
+          <Row key={row.id}>
+            {row.getVisibleCells().map((cell) => (
+              <Cell key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </Cell>
+            ))}
+          </Row>
+        ))}
       </tbody>
     </Table>
   );
