@@ -1,7 +1,11 @@
+"use client";
+
+import { SearchInput } from "./search-input";
+
 export function Filters() {
   return (
     <form>
-      <input type="search" placeholder="Search transactions..." />
+      <SearchInput placeholder="Search transactions..." />
     </form>
   );
 }

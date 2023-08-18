@@ -42,3 +42,17 @@ ul,
 p {
   margin: 0;
 }
+
+button {
+  display: inline-block;
+  margin: 0;
+  text-decoration: none;
+  appearance: none !important;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
+
+button:hover {
+  text-decoration: none;
+}
