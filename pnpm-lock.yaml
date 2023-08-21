@@ -79,6 +79,9 @@ importers:
       '@playwright/experimental-ct-react':
         specifier: ^1.36.2
         version: 1.36.2(@types/node@17.0.45)(vite@4.4.7)
+      '@playwright/test':
+        specifier: ^1.36.2
+        version: 1.36.2
       '@types/node':
         specifier: ^17.0.12
         version: 17.0.45
