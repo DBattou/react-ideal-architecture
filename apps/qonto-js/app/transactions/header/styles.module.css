@@ -1,0 +1,11 @@
+.header {
+  margin: 32px 48px;
+
+  @media only screen and (width <= 1365px) {
+    width: 100%;
+    max-width: 1060px;
+    padding: 0 48px 0;
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
