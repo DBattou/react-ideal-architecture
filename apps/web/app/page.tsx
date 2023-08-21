@@ -39,7 +39,7 @@ export default function Page() {
             className={`${styles["animsation"]}`}
             autoplay={isSafariDesktop}
             animationData={animationData}
-            data-test-lottie-signin-animation={true}
+            data-testid="lottie-signin-animation"
           />
         </div>
       </div>
