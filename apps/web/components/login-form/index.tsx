@@ -4,7 +4,7 @@ import { Button, TextField } from "ui";
 import styles from "./styles.module.css";
 import cx from "classnames";
 import { FormEvent, FormHTMLAttributes, useState } from "react";
-import { authenticate } from "@/services/session";
+import { authenticate } from "../../services/session";
 
 type LoginFormProps = FormHTMLAttributes<HTMLFormElement>;
 
