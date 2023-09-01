@@ -22,6 +22,7 @@ export function Filters() {
         placeholder="Search transactions..."
         defaultValue={params.get("query") ?? ""}
         onChange={handleQueryChange}
+        className="mb-16"
       />
     </div>
   );
