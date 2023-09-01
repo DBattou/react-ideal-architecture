@@ -20,4 +20,4 @@ lint:
     - pnpm config set store-dir .pnpm-store
     - pnpm install
   script:
-    - pnpm run lint
+    -  NEXT_TELEMETRY_DISABLED=1 pnpm run lint
