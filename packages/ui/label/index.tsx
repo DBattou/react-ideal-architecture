@@ -1,10 +1,10 @@
-import { LabelHTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 import cx from "classnames";
 import styles from "./styles.module.css";
 
 type LabelProps = {
   isOptional: boolean;
-} & LabelHTMLAttributes<HTMLLabelElement>;
+} & ComponentPropsWithoutRef<"label">;
 
 export const Label = ({
   isOptional,
