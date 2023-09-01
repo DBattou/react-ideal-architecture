@@ -112,6 +112,9 @@ importers:
 
   apps/workshop:
     dependencies:
+      qonto-js:
+        specifier: workspace:*
+        version: link:../qonto-js
       react:
         specifier: ^18.2.0
         version: 18.2.0
