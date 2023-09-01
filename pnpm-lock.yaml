@@ -47,6 +47,9 @@ importers:
       ui:
         specifier: workspace:*
         version: link:../../packages/ui
+      use-debounce:
+        specifier: ^9.0.4
+        version: 9.0.4(react@18.2.0)
     devDependencies:
       tsconfig:
         specifier: workspace:*
@@ -9208,6 +9211,15 @@ packages:
       react: 18.2.0
       tslib: 2.5.0
     dev: true
+
+  /use-debounce@9.0.4(react@18.2.0):
+    resolution: {integrity: sha512-6X8H/mikbrt0XE8e+JXRtZ8yYVvKkdYRfmIhWZYsP8rcNs9hk3APV8Ua2mFkKRLcJKVdnX2/Vwrmg2GWKUQEaQ==}
+    engines: {node: '>= 10.0.0'}
+    peerDependencies:
+      react: '>=16.8.0'
+    dependencies:
+      react: 18.2.0
+    dev: false
 
   /use-resize-observer@9.1.0(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-R25VqO9Wb3asSD4eqtcxk8sJalvIOYBqS8MNZlpDSQ4l4xMQxC/J7Id9HoTqPq8FwULIn0PVW+OAqF2dyYbjow==}
