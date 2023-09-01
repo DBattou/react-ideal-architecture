@@ -1,0 +1,10 @@
+image: 930600874599.dkr.ecr.eu-west-3.amazonaws.com/tech/docker-images/node:18-112-ci
+
+stages:
+  - test
+
+variables:
+  FORCE_COLOR: 1
+  APP_NAME: 'web-ideal-architecture'
+  FRONT_APP: 'true'
+  PNPM_VERSION: 8.6.11
