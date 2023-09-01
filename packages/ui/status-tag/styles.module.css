@@ -29,6 +29,6 @@
 }
 
 .gray {
-  color: var(--gray600);
+  color: var(--content-primary-a);
   background: var(--background-tertiary);
 }
