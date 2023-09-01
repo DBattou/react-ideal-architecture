@@ -1,5 +1,6 @@
 import { Header } from "./header";
 import { Filters } from "./filters";
+import { TransactionsTable } from "./transactions-table";
 
 const FAKE_AMOUNT = 24.32;
 
@@ -13,7 +14,7 @@ export default function TransactionsIndex() {
         })}
       />
       <Filters />
-      <table>Transactions table</table>
+      <TransactionsTable />
     </section>
   );
 }

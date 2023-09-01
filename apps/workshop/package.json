@@ -10,7 +10,9 @@
   "dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "ui": "workspace:*"
+    "ui": "workspace:*",
+    "qonto-js": "workspace:*"
+    
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^7.2.0",
@@ -21,6 +23,7 @@
     "@types/react-dom": "^18.2.7",
     "postcss-nested": "^6.0.1",
     "storybook": "^7.2.0",
-    "typescript": "^5.0.2"
+    "typescript": "^5.0.2",
+    "tsconfig": "workspace:*"
   }
 }

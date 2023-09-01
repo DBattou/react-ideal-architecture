@@ -21,7 +21,10 @@ const config: StorybookConfig = {
   },
   typescript: {
     reactDocgenTypescriptOptions: {
-      include: [join(getAbsolutePath("ui"), "**/**.tsx")],
+      include: [
+        join(getAbsolutePath("ui"), "**/**.tsx"),
+        join(getAbsolutePath("qonto-js"), "**/**.tsx"),
+      ],
     },
   },
 };
