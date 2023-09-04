@@ -87,6 +87,9 @@ importers:
       '@types/react-dom':
         specifier: 18.2.7
         version: 18.2.7
+      classnames:
+        specifier: ^2.3.2
+        version: 2.3.2
       next:
         specifier: ^13.4.1
         version: 13.4.1(@babel/core@7.22.9)(react-dom@18.2.0)(react@18.2.0)
