@@ -1,4 +1,4 @@
-import { InputHTMLAttributes, ReactNode, useState } from "react";
+import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Label } from "../label";
 import styles from "./styles.module.css";
 import cx from "classnames";
@@ -6,10 +6,10 @@ import cx from "classnames";
 /* enforcing mandatory name and id here */
 type TextFieldProps = {
   id: string;
-  name: string; 
+  name: string;
   label: ReactNode;
   errorMessage?: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+} & ComponentPropsWithoutRef<"input">;
 
 export const TextField = ({
   label,
@@ -36,7 +36,10 @@ export const TextField = ({
         })}
         {...props}
       />
-      <span id={`${id}-error`} className={cx(styles["error-message"], 'caption')}>
+      <span
+        id={`${id}-error`}
+        className={cx(styles["error-message"], "caption")}
+      >
         {errorMessage}
       </span>
     </div>

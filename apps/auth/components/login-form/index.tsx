@@ -3,10 +3,10 @@ import Link from "next/link";
 import { Button, TextField } from "ui";
 import styles from "./styles.module.css";
 import cx from "classnames";
-import { FormEvent, FormHTMLAttributes, useState } from "react";
+import { ComponentPropsWithoutRef, FormEvent, useState } from "react";
 import { authenticate } from "@/services/session";
 
-type LoginFormProps = FormHTMLAttributes<HTMLFormElement>;
+type LoginFormProps = ComponentPropsWithoutRef<"form">;
 
 const INITIAL_ERRORS_STATE = {
   email: "",
@@ -29,18 +29,18 @@ export const LoginForm = (props: LoginFormProps) => {
         password: data.get("password") as string,
       });
     } catch (error) {
-      if (['Unauthorized', 'Not found'].includes(error.message)) {
+      if (["Unauthorized", "Not found"].includes(error.message)) {
         setErrors((s) => ({
           ...s,
-          password: "Your login credentials aren't correct. Try again."
+          password: "Your login credentials aren't correct. Try again.",
         }));
       }
     }
   };
 
   const handleChange = () => {
-     clearErrors()
-  }
+    clearErrors();
+  };
 
   return (
     <form {...props} onSubmit={handleSubmit} onChange={handleChange}>

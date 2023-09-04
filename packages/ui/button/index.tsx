@@ -1,6 +1,6 @@
 import cx from "classnames";
 import styles from "./styles.module.css";
-import { ButtonHTMLAttributes } from "react";
+import { ComponentPropsWithoutRef } from "react";
 
 export type ButtonProps = {
   /**
@@ -27,7 +27,7 @@ export type ButtonProps = {
    * - `false` (default) the button's width will match its content
    */
   stretch?: boolean;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+} & ComponentPropsWithoutRef<"button">;
 
 export const Button = ({
   variant = "secondary",
