@@ -10,8 +10,5 @@
     "miragejs": "^0.1.47",
     "tsconfig": "workspace:*",
     "typescript": "^4.5.2"
-  },
-  "scripts": {
-    "build": "turbo build"
   }
 }
