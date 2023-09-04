@@ -1,0 +1,23 @@
+image: 930600874599.dkr.ecr.eu-west-3.amazonaws.com/tech/docker-images/node:18-112-ci
+
+stages:
+  - test
+
+variables:
+  FORCE_COLOR: 1
+  APP_NAME: 'web-ideal-architecture'
+  FRONT_APP: 'true'
+  PNPM_VERSION: 8.6.11
+
+lint:
+  stage: test
+  needs: []
+  timeout: 20m
+  before_script:
+    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.qonto.co".insteadOf "https://gitlab.qonto.co"
+    - node -v
+    - npm install --global pnpm@${PNPM_VERSION}
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install
+  script:
+    -  NEXT_TELEMETRY_DISABLED=1 pnpm run lint
