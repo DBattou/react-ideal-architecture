@@ -55,6 +55,7 @@ test:
 deploy-storybook:
   stage: deploy
   needs: ["build"]
+  when: manual
   before_script:
     - npm install --global pnpm@${PNPM_VERSION}
     - pnpm config set store-dir .pnpm-store
