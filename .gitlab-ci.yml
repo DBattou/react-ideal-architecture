@@ -56,4 +56,4 @@ deploy-storybook:
     - pnpm config set store-dir .pnpm-store
     - pnpm install
   script:
-    - npx chromatic --project-token=$CHROMATIC_TOKEN
+    - npx chromatic --project-token=$CHROMATIC_TOKEN --exit-zero-on-changes -d apps/workshop/storybook-static
