@@ -1,26 +1,29 @@
-image: 930600874599.dkr.ecr.eu-west-3.amazonaws.com/tech/docker-images/node:18-112-ci
+variables:
+  FORCE_COLOR: 1
+  APP_NAME: 'web-ideal-architecture'
+  FRONT_APP: 'true'
+
+default:
+  image: 930600874599.dkr.ecr.eu-west-3.amazonaws.com/tech/docker-images/node:18-112-ci
+  before_script:
+    - corepack enable
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
 
 stages:
   - build
   - test
   - deploy
 
-variables:
-  FORCE_COLOR: 1
-  APP_NAME: 'web-ideal-architecture'
-  FRONT_APP: 'true'
-  PNPM_VERSION: 8.6.11
-
 build:
   stage: build
-  before_script:
-    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.qonto.co".insteadOf "https://gitlab.qonto.co"
-    - node -v
-    - npm install --global pnpm@${PNPM_VERSION}
-    - pnpm config set store-dir .pnpm-store
-    - pnpm install
-  script:
-    - NEXT_TELEMETRY_DISABLED=1 pnpm run build
+  script: NEXT_TELEMETRY_DISABLED=1 pnpm run build
   artifacts:
     expire_in: 30 mins
     paths:
@@ -29,38 +32,19 @@ build:
 lint:
   needs: []
   timeout: 20m
-  before_script:
-    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.qonto.co".insteadOf "https://gitlab.qonto.co"
-    - node -v
-    - npm install --global pnpm@${PNPM_VERSION}
-    - pnpm config set store-dir .pnpm-store
-    - pnpm install
-  script:
-    -  NEXT_TELEMETRY_DISABLED=1 pnpm run lint
+  script: NEXT_TELEMETRY_DISABLED=1 pnpm run lint
 
 test:
   image: mcr.microsoft.com/playwright:v1.37.0-jammy
   stage: test
   needs: []
   timeout: 20m
-  before_script:
-    - git config --global url."https://gitlab-ci-token:${CI_JOB_TOKEN}@gitlab.qonto.co".insteadOf "https://gitlab.qonto.co"
-    - node -v
-    - npm install --global pnpm@${PNPM_VERSION}
-    - pnpm config set store-dir .pnpm-store
-    - pnpm install
-  script:
-    - pnpm run test
+  script: pnpm run test
 
 deploy-storybook:
   stage: deploy
   needs: ["build"]
   when: manual
-  before_script:
-    - npm install --global pnpm@${PNPM_VERSION}
-    - pnpm config set store-dir .pnpm-store
-    - pnpm install
   dependencies:
     - "build"
-  script:
-    - npx chromatic --project-token=$CHROMATIC_TOKEN --exit-zero-on-changes -d apps/workshop/storybook-static
+  script: npx chromatic --project-token=$CHROMATIC_TOKEN --exit-zero-on-changes -d apps/workshop/storybook-static
