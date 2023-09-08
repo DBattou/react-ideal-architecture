@@ -1,0 +1,85 @@
+:root .dark-theme {
+  color-scheme: dark;
+
+  /* Elevations */
+  --elevation-default: var(--primary-black);
+  --elevation-low: var(--gray800);
+  --elevation-mid: var(--gray800);
+  --elevation-high: var(--gray700);
+
+  /* Content */
+  --content-primary-a: var(--gray200);
+  --content-primary-b: var(--primary-black);
+  --content-secondary: var(--gray400);
+  --content-tertiary: var(--gray500);
+  --content-accent: var(--purple400);
+  --content-success: var(--success300);
+  --content-warning: var(--warning300);
+  --content-error: var(--error300);
+  --content-primary-a-static: var(--primary-black);
+  --content-primary-b-static: var(--primary-white);
+
+  /* Border */
+  --border-primary: var(--gray200);
+  --border-secondary: var(--gray600);
+  --border-tertiary: rgba(255, 255, 255, 0.16); /* primary-b alpha */
+  --border-accent-low: var(--purple1000);
+  --border-accent-high: var(--purple400);
+  --border-success: var(--success800);
+  --border-warning: var(--warning800);
+  --border-error: var(--error800);
+  --border-upsell: var(--mint900);
+  --border-feature-discoverability: var(--mustard900);
+
+  /* Background */
+  --background-primary: var(--gray200);
+  --background-secondary: var(--gray600);
+  --background-tertiary: var(--gray700);
+  --background-accent-low: var(--purple1000);
+  --background-accent-high: var(--purple900);
+  --background-success-low: var(--success1000);
+  --background-success-high: var(--success800);
+  --background-warning-low: var(--warning1000);
+  --background-warning-high: var(--warning800);
+  --background-error-low: var(--error1000);
+  --background-error-high: var(--error800);
+  --background-upsell: var(--mint1000);
+  --background-feature-discoverability: var(--mustard1000);
+  --background-splitscreen-peach: var(--peach900);
+  --background-toggle: var(--gray600);
+  --background-modal-overlay: rgba(29, 29, 27, 0.6); /* primary-black alpha */
+  --background-placeholder: linear-gradient(
+    to right,
+    var(--gray700) 8%,
+    var(--gray600) 18%,
+    var(--gray700) 33%
+  );
+
+  /* Separator */
+  --separator-bottom: inset 0 -1px 0 0 var(--border-tertiary);
+
+  /* Shadows */
+  --shadow-low: 0 3px 3px 0 rgba(16, 16, 15, 0.32);
+  --shadow-high: 0 3px 12px 0 rgba(16, 16, 15, 0.64);
+
+  /* Overlays color */
+  --overlay-primary-a-color: var(--primary-white);
+  --overlay-primary-b-color: var(--primary-black);
+
+  /* States */
+
+  /* Overlays on light backgrounds */
+  --state-primary-a-hover: rgba(255, 255, 255, var(--hover-opacity)); /* primary-white alpha 8% */
+  --state-primary-a-pressed: rgba(
+    255,
+    255,
+    255,
+    var(--pressed-opacity)
+  ); /* primary-white alpha 12% */
+
+  /* Overlays on dark backgrounds */
+  --state-primary-b-hover: rgba(29, 29, 27, var(--hover-opacity)); /* primary-black alpha 8% */
+  --state-primary-b-pressed: rgba(29, 29, 27, var(--pressed-opacity)); /* primary-black alpha 12% */
+  --state-selected: var(--purple1000);
+  --state-selected-hover: #5c5086; /* do not use - for legacy dropdowns only. Otherwise, please use the overlay class */
+}

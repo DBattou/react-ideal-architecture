@@ -1,0 +1,34 @@
+.statusTag {
+  display: inline-block;
+  height: 24px;
+  padding: 4px 8px;
+  font-size: var(--caption-font-size);
+  font-weight: var(--caption-font-weight);
+  line-height: var(--caption-line-height);
+  border-radius: 4px;
+}
+
+.green {
+  color: var(--content-success);
+  background: var(--background-success-low);
+}
+
+.red {
+  color: var(--content-error);
+  background: var(--background-error-low);
+}
+
+.purple {
+  color: var(--content-accent);
+  background: var(--background-accent-low);
+}
+
+.orange {
+  color: var(--content-warning);
+  background: var(--background-warning-low);
+}
+
+.gray {
+  color: var(--content-primary-a);
+  background: var(--background-tertiary);
+}
