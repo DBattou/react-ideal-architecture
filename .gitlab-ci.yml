@@ -41,6 +41,13 @@ test:
   timeout: 20m
   script: pnpm run test
 
+test-components:
+  image: mcr.microsoft.com/playwright:v1.37.0-jammy
+  stage: test
+  needs: []
+  timeout: 20m
+  script: pnpm run test-ct
+
 deploy-storybook:
   stage: deploy
   needs: ["build"]

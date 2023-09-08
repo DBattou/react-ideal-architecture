@@ -16,6 +16,9 @@
     "test": {
       "dependsOn": ["^depsChange"]
     },
+    "test-ct": {
+      "dependsOn": ["^depsChange"]
+    },
     "depsChange": {
       "inputs": [],
       "outputs": []
