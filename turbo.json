@@ -16,6 +16,10 @@
     "test": {
       "dependsOn": ["^depsChange"]
     },
+    "test:ui": {
+      "cache": false,
+      "persistent": true
+    },
     "test-ct": {
       "dependsOn": ["^depsChange"]
     },
