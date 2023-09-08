@@ -28,6 +28,7 @@ build:
     expire_in: 30 mins
     paths:
       - apps/workshop/storybook-static
+      - apps/auth/out
 
 lint:
   needs: []
