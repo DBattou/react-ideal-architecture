@@ -7,6 +7,7 @@
     "test": "turbo run test",
     "test:ui": "turbo run test:ui",
     "test-ct": "turbo run test-ct",
+    "test-ct:ui": "turbo run test-ct:ui",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
