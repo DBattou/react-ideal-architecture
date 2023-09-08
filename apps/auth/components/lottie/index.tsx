@@ -1,3 +1,3 @@
-'use client';
+"use client";
 
-export { default } from 'lottie-react';
+export { default } from "lottie-react";

@@ -18,12 +18,15 @@ export function makeServer({ environment = "test" }) {
         let user = schema.db.users.findBy({ email });
 
         if (!user) {
-          return new Response(404, {}, { message: 'Not found' });
+          return new Response(404, {}, { message: "Not found" });
         }
         if (user.password !== reqUser.password) {
-          return new Response(401, {}, { message: 'Unauthorized' });
+          return new Response(401, {}, { message: "Unauthorized" });
         }
-        return schema.db.users.findBy({ name: requestJSON.name, password: requestJSON.password });
+        return schema.db.users.findBy({
+          name: requestJSON.name,
+          password: requestJSON.password,
+        });
       });
     },
 

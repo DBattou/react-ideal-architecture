@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import Lottie from "@/components/lottie";
 import styles from "./page.module.css";
 import animationData from "./lottie/first-screen-mint.json";
@@ -13,7 +13,7 @@ export default function Page() {
       <div className={styles["form"]}>
         <div className={styles["form-wrapper"]}>
           <div className="mb-32">
-            <Link href="/" className={styles['header-logo']}>
+            <Link href="/" className={styles["header-logo"]}>
               <img src="/logo.svg" alt="qonto" width={100} height={30} />
             </Link>
           </div>

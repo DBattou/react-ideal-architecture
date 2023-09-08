@@ -1,2 +1,2 @@
 // Import styles, initialize component theme here.
-import '../app/styles/global.css';
+import "../app/styles/global.css";
