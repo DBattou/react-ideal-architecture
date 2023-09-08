@@ -1,5 +1,5 @@
 import { AriaAttributes, ComponentPropsWithoutRef } from "react";
-import styles from "./header-cell.module.css";
+import styles from "./styles.module.css";
 import cx from "classnames";
 
 type BaseHeaderCellProps = ComponentPropsWithoutRef<"th">;

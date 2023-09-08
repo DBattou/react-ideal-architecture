@@ -1,6 +1,6 @@
 import { ComponentPropsWithoutRef } from "react";
 import cx from "classnames";
-import styles from "./row.module.css";
+import styles from "./styles.module.css";
 
 type RowProps = ComponentPropsWithoutRef<"tr">;
 

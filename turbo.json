@@ -23,6 +23,10 @@
     "test-ct": {
       "dependsOn": ["^depsChange"]
     },
+    "test-ct:ui": {
+      "cache": false,
+      "persistent": true
+    },
     "depsChange": {
       "inputs": [],
       "outputs": []

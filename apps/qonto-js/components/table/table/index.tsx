@@ -1,5 +1,5 @@
 import { ComponentPropsWithoutRef } from "react";
-import styles from "./table.module.css";
+import styles from "./styles.module.css";
 import cx from "classnames";
 
 type TableProps = {
