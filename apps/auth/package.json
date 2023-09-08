@@ -10,7 +10,7 @@
     "test-ct": "playwright test -c playwright-ct.config.ts",
     "test-ct:ui": "pnpm run test-ct --ui",
     "test": "playwright test -c playwright.config.ts",
-    "test:ui": "pnpm run test-ct --ui"
+    "test:ui": "pnpm run test --ui"
   },
   "dependencies": {
     "classnames": "^2.3.2",
