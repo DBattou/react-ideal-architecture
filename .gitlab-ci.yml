@@ -20,6 +20,7 @@ stages:
   - build
   - test
   - deploy
+  - pages
 
 build:
   stage: build
@@ -31,14 +32,14 @@ build:
       - apps/auth/out
 
 pages:
-  stage: deploy
+  stage: pages
   script:
+    - rm -rf public/
+    - mkdir public/
     - mv apps/auth/out public/auth
   artifacts:
     paths:
       - public
-      - apps/auth/out
-
 lint:
   needs: []
   timeout: 20m
