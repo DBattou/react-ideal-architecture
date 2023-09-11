@@ -37,6 +37,7 @@ pages:
   artifacts:
     paths:
       - public
+      - apps/auth/out
 
 lint:
   needs: []
