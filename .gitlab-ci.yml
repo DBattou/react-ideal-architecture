@@ -33,7 +33,7 @@ build:
 pages:
   stage: deploy
   script:
-    - mv /auth/out public/auth
+    - mv apps/auth/out public/auth
   artifacts:
     paths:
       - public
