@@ -33,6 +33,7 @@ build:
 
 pages:
   stage: pages
+  needs: ['build']
   script:
     - rm -rf public/
     - mkdir public/
