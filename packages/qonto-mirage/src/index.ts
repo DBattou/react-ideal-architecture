@@ -2,6 +2,7 @@ import { createServer, Response } from "miragejs";
 import models from "./models";
 import factories from "./factories";
 import setupApi from "./api";
+import serializers from "./serializers";
 
 export function makeServer({ environment = "test" }) {
   return createServer({
@@ -36,5 +37,7 @@ export function makeServer({ environment = "test" }) {
     seeds(server) {
       server.create("user");
     },
+
+    serializers,
   });
 }
