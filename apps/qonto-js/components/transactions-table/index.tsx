@@ -1,9 +1,5 @@
 import { Cell, HeaderCell, Row, Table } from "@/components/table";
-import type {
-  ColumnFiltersState,
-  RowSelectionState,
-  SortingState,
-} from "@tanstack/react-table";
+import type { RowSelectionState, SortingState } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
@@ -12,31 +8,11 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { columns } from "./columns";
-import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
-
-const columnIDsByParam = {
-  query: "transaction",
-};
+import { useState } from "react";
 
 export function TransactionsTable({ transactions }) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
-
-  const params = useSearchParams();
-
-  const columnFilters = useMemo<ColumnFiltersState>(() => {
-    let filters = [];
-
-    params.forEach((value, key) => {
-      let id = columnIDsByParam[key];
-      if (id) {
-        filters.push({ id, value });
-      }
-    });
-
-    return filters;
-  }, [params.toString()]);
 
   const table = useReactTable({
     columns: columns,
@@ -50,7 +26,6 @@ export function TransactionsTable({ transactions }) {
     state: {
       rowSelection,
       sorting,
-      columnFilters,
     },
   });
   return (
