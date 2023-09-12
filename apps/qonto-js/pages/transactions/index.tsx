@@ -1,6 +1,6 @@
-import { Header } from "./header";
-import { Filters } from "./filters";
-import { TransactionsTable } from "./transactions-table";
+import { Header } from "@/components/header";
+import { Filters } from "@/components/filters";
+import { TransactionsTable } from "@/components/transactions-table";
 
 const FAKE_AMOUNT = 24.32;
 
