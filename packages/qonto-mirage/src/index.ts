@@ -1,6 +1,7 @@
 import { createServer, Response } from "miragejs";
 import models from "./models";
 import factories from "./factories";
+import setupApi from "./api";
 
 export function makeServer({ environment = "test" }) {
   return createServer({
@@ -28,6 +29,8 @@ export function makeServer({ environment = "test" }) {
           password: requestJSON.password,
         });
       });
+
+      setupApi(this);
     },
 
     seeds(server) {
