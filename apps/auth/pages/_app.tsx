@@ -6,10 +6,9 @@ import { makeServer } from "qonto-mirage";
 makeServer({ environment: "development" });
 
 export default function App({ Component, pageProps }: AppProps) {
-  const AnyComponent = Component as any;
   return (
     <div className={styles["l-container__app"] }>
-      <AnyComponent {...pageProps} />
+      <Component {...pageProps} />
     </div>
   )
 }
