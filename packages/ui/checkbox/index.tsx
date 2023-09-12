@@ -1,5 +1,3 @@
-"use client";
-
 import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
 import cx from "classnames";
 import styles from "./styles.module.css";
