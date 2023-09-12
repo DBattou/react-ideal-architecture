@@ -36,6 +36,7 @@ export function makeServer({ environment = "test" }) {
 
     seeds(server) {
       server.create("user");
+      server.createList("transaction", 100);
     },
 
     serializers,
