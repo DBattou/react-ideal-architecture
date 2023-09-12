@@ -12,7 +12,6 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { columns } from "./columns";
-import { getTransactions } from "@/services/transactions";
 import { useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
@@ -20,7 +19,7 @@ const columnIDsByParam = {
   query: "transaction",
 };
 
-export function TransactionsTable() {
+export function TransactionsTable({ transactions }) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
   const [sorting, setSorting] = useState<SortingState>([]);
 
@@ -41,7 +40,7 @@ export function TransactionsTable() {
 
   const table = useReactTable({
     columns: columns,
-    data: getTransactions(),
+    data: transactions,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
     onSortingChange: setSorting,
