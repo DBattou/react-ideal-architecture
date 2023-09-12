@@ -32,6 +32,9 @@ export function makeServer({ environment = "test" }) {
       });
 
       setupApi(this);
+
+      this.namespace = "";
+      this.passthrough();
     },
 
     seeds(server) {
