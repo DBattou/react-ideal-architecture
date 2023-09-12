@@ -1,5 +1,3 @@
-"use client";
-
 import { Cell, HeaderCell, Row, Table } from "@/components/table";
 import type {
   ColumnFiltersState,
