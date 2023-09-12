@@ -4,10 +4,11 @@ import "../styles/global.css"
 import MirageServer from '@/components/mirage-server'
  
 export default function App({ Component, pageProps }: AppProps) {
+  const AnyComponent = Component as any;
   return (
     <div className={styles["l-container__app"] }>
       <MirageServer />
-      <Component {...pageProps} />
+      <AnyComponent {...pageProps} />
     </div>
   )
 }
