@@ -115,6 +115,9 @@ importers:
         specifier: ^9.0.4
         version: 9.0.4(react@18.2.0)
     devDependencies:
+      qonto-mirage:
+        specifier: workspace:*
+        version: link:../../packages/qonto-mirage
       tsconfig:
         specifier: workspace:*
         version: link:../../packages/tsconfig
