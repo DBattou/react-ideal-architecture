@@ -1,7 +1,6 @@
-"use client";
 import Lottie from "@/components/lottie";
 import styles from "./page.module.css";
-import animationData from "./lottie/first-screen-mint.json";
+import animationData from "../lottie/first-screen-mint.json";
 import Link from "next/link";
 import { LoginForm } from "@/components/login-form";
 
