@@ -4,25 +4,24 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { columns } from "./columns";
 import { useState } from "react";
 
-export function TransactionsTable({ transactions }) {
+export function TransactionsTable({ transactions, onSortingChange, sorting }) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [sorting, setSorting] = useState<SortingState>([]);
 
   const table = useReactTable({
     columns: columns,
     data: transactions,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
+    onSortingChange,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    manualSorting: true,
+    enableSortingRemoval: false,
     state: {
       rowSelection,
       sorting,
