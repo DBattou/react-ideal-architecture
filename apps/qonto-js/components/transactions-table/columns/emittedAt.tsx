@@ -1,7 +1,7 @@
 import { columnHelper } from "./utils/helper";
 
-export const operationDateColumn = columnHelper.accessor("emittedAt", {
-  id: "operationDate",
+export const emittedAtColumn = columnHelper.accessor("emittedAt", {
+  id: "emitted_at",
   header: "Operation date",
   cell: (info) =>
     info.getValue().toLocaleString("en-US", {
