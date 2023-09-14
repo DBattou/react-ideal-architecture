@@ -39,12 +39,12 @@ function transformTransactionsListPayload(data): TransactionsListPayload {
   return { transactions: data.transactions.map(transformTransaction) };
 }
 
-export async function searchTransactions({
-  query = "",
-  sortParam = "",
-  sortDirection = "",
-}): Promise<TransactionsListPayload> {
+export async function searchTransactions(
+  { query = "", sortParam = "", sortDirection = "" },
+  fetchOptions
+): Promise<TransactionsListPayload> {
   const result = await fetch(`/api/v6/transactions/search`, {
+    ...fetchOptions,
     method: "post",
     body: JSON.stringify({
       search: query,

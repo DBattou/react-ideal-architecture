@@ -5,6 +5,7 @@ import { Transaction, searchTransactions } from "@/services/transactions";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { InferGetServerSidePropsType } from "next";
+import { isAbortError } from "@/utils/error";
 
 const FAKE_AMOUNT = 24.32;
 
@@ -26,16 +27,26 @@ export default function TransactionsIndex({
   ];
 
   useEffect(() => {
+    const abortController = new AbortController();
     const fetchTransactions = async () => {
-      let result = await searchTransactions({
-        sortDirection,
-        sortParam,
-        query,
-      });
-      setTransactions(result.transactions);
+      try {
+        let result = await searchTransactions(
+          { sortDirection, sortParam, query },
+          { signal: abortController.signal }
+        );
+        setTransactions(result.transactions);
+      } catch (error) {
+        if (!isAbortError(error)) {
+          throw error;
+        }
+      }
     };
 
     fetchTransactions();
+
+    return () => {
+      abortController.abort();
+    };
   }, [sortDirection, sortParam, query]);
 
   const handleSortingChange = (sorting) => {
