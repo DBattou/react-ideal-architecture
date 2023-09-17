@@ -23,3 +23,25 @@ test("Inputing a search query from the search input should update the url", asyn
 
   await expect(page).toHaveURL("/transactions?query=my+query");
 });
+
+test("Search input should initially be filled with the 'query' QP", async ({
+  page,
+}) => {
+  await page.goto("/transactions?query=initial+value");
+
+  let searchInput = await page.getByPlaceholder("Search transactions...");
+
+  await expect(searchInput).toHaveValue("initial value");
+});
+
+test("Transactions table should be sorted according to the sort_by QP", async ({
+  page,
+}) => {
+  await page.goto("/transactions?sort_by=amount%3Aasc");
+
+  let amountColumn = await page.getByRole("columnheader", {
+    name: "Amount 🔼",
+  });
+
+  await expect(amountColumn).toHaveAttribute("aria-sort", "ascending");
+});
