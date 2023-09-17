@@ -30,6 +30,7 @@ export function HeaderCell({ className, children, ...props }: HeaderCellProps) {
       <th
         className={cx(styles.headerCell, className)}
         aria-sort={getAriaSort(isSorted)}
+        scope="col"
         {...rest}
       >
         <button
@@ -48,7 +49,7 @@ export function HeaderCell({ className, children, ...props }: HeaderCellProps) {
     );
   } else {
     return (
-      <th className={cx(styles.headerCell, className)}>
+      <th className={cx(styles.headerCell, className)} scope="col">
         <div className={styles.headerContent}>{children}</div>
       </th>
     );
