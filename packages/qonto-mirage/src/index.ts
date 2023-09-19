@@ -1,6 +1,8 @@
 import { createServer, Response } from "miragejs";
 import models from "./models";
 import factories from "./factories";
+import setupApi from "./api";
+import serializers from "./serializers";
 
 export function makeServer({ environment = "test" }) {
   return createServer({
@@ -28,10 +30,18 @@ export function makeServer({ environment = "test" }) {
           password: requestJSON.password,
         });
       });
+
+      setupApi(this);
+
+      this.namespace = "";
+      this.passthrough();
     },
 
     seeds(server) {
       server.create("user");
+      server.createList("transaction", 100);
     },
+
+    serializers,
   });
 }

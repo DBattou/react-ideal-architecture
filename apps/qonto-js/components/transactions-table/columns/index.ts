@@ -1,13 +1,13 @@
 import { amountColumn } from "./amount";
-import { methodColumn } from "./method";
-import { operationDateColumn } from "./operationDate";
+import { operationMethodColumn } from "./operationMethod";
+import { emittedAtColumn } from "./emittedAt";
 import { selectColumn } from "./select";
-import { transactionColumn } from "./transaction";
+import { counterpartyNameColumn } from "./counterpartyName";
 
 export const columns = [
   selectColumn,
-  transactionColumn,
-  methodColumn,
-  operationDateColumn,
+  counterpartyNameColumn,
+  operationMethodColumn,
+  emittedAtColumn,
   amountColumn,
 ];

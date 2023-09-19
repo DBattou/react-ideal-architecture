@@ -1,3 +1,5 @@
+import camelcaseKeys from "camelcase-keys";
+
 export type Transaction = {
   id: string;
   counterpartyName: string;
@@ -20,59 +22,35 @@ export type Transaction = {
   status: "completed" | "declined" | "pending" | "reversed";
 };
 
-const fakeData: Transaction[] = [
-  {
-    id: "1",
-    amount: 12,
-    operationMethod: "transfer",
-    counterpartyName: "Movistar",
-    emittedAt: new Date("2023-05-23"),
-    side: "credit",
-    activityTag: "other_income",
-    status: "pending",
-  },
-  {
-    id: "2",
-    amount: 22,
-    operationMethod: "direct_debit",
-    counterpartyName: "MR MORIN PATRICK",
-    emittedAt: new Date("2023-06-12"),
-    side: "debit",
-    activityTag: "other_expense",
-    status: "completed",
-  },
-  {
-    id: "3",
-    amount: 69,
-    operationMethod: "transfer",
-    counterpartyName: "David Laroche World Inc",
-    emittedAt: new Date("2023-08-14"),
-    side: "debit",
-    activityTag: "treasury_and_interco",
-    status: "declined",
-  },
-  {
-    id: "4",
-    amount: 420,
-    operationMethod: "transfer",
-    counterpartyName: "Deliveroo France SAS",
-    emittedAt: new Date("2023-09-07"),
-    side: "debit",
-    activityTag: "other_expense",
-    status: "completed",
-  },
-  {
-    id: "5",
-    amount: 42,
-    operationMethod: "transfer",
-    counterpartyName: "CONDOMINIO CADORE",
-    emittedAt: new Date("2023-12-12"),
-    side: "credit",
-    activityTag: "fees",
-    status: "pending",
-  },
-];
+type TransactionsListPayload = {
+  transactions: Transaction[];
+};
 
-export function getTransactions(): Transaction[] {
-  return fakeData;
+function transformTransaction(responseTransaction): Transaction {
+  return camelcaseKeys({
+    ...responseTransaction,
+    emitted_at: responseTransaction.emitted_at
+      ? new Date(responseTransaction.emitted_at)
+      : null,
+  });
+}
+
+function transformTransactionsListPayload(data): TransactionsListPayload {
+  return { transactions: data.transactions.map(transformTransaction) };
+}
+
+export async function searchTransactions(
+  { query = "", sortParam = "", sortDirection = "" },
+  fetchOptions
+): Promise<TransactionsListPayload> {
+  const result = await fetch(`/api/v6/transactions/search`, {
+    ...fetchOptions,
+    method: "post",
+    body: JSON.stringify({
+      search: query,
+      sort: { property: sortParam, direction: sortDirection },
+    }),
+  }).then((res) => res.json());
+
+  return transformTransactionsListPayload(result);
 }

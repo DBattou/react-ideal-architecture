@@ -1,7 +1,7 @@
 import { columnHelper } from "./utils/helper";
 
-export const methodColumn = columnHelper.accessor("operationMethod", {
-  id: "method",
+export const operationMethodColumn = columnHelper.accessor("operationMethod", {
+  id: "operation_method",
   header: "Method",
   cell: (info) => info.getValue(),
 });

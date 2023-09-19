@@ -1,57 +1,30 @@
 import { Cell, HeaderCell, Row, Table } from "@/components/table";
-import type {
-  ColumnFiltersState,
-  RowSelectionState,
-  SortingState,
-} from "@tanstack/react-table";
+import type { RowSelectionState, SortingState } from "@tanstack/react-table";
 import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
-  getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
 import { columns } from "./columns";
-import { getTransactions } from "@/services/transactions";
-import { useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 
-const columnIDsByParam = {
-  query: "transaction",
-};
-
-export function TransactionsTable() {
+export function TransactionsTable({ transactions, onSortingChange, sorting }) {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
-  const [sorting, setSorting] = useState<SortingState>([]);
-
-  const params = useSearchParams();
-
-  const columnFilters = useMemo<ColumnFiltersState>(() => {
-    let filters = [];
-
-    params.forEach((value, key) => {
-      let id = columnIDsByParam[key];
-      if (id) {
-        filters.push({ id, value });
-      }
-    });
-
-    return filters;
-  }, [params.toString()]);
 
   const table = useReactTable({
     columns: columns,
-    data: getTransactions(),
+    data: transactions,
     enableRowSelection: true,
     onRowSelectionChange: setRowSelection,
-    onSortingChange: setSorting,
+    onSortingChange,
     getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
+    manualSorting: true,
+    enableSortingRemoval: false,
     state: {
       rowSelection,
       sorting,
-      columnFilters,
     },
   });
   return (

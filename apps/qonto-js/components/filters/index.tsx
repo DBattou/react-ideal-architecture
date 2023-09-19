@@ -1,24 +1,25 @@
-import { useRouter, usePathname, useSearchParams } from "next/navigation";
+import { useRouter } from "next/router";
 import { useDebouncedCallback } from "use-debounce";
 import { SearchInput } from "./search-input";
 import styles from "./styles.module.css";
 
 export function Filters() {
-  const params = useSearchParams();
-
-  const pathname = usePathname();
   const router = useRouter();
 
   const handleQueryChange = useDebouncedCallback((query) => {
-    const search = new URLSearchParams({ query });
-    router.replace(`${pathname}?${search}`);
+    if (query) {
+      router.query.query = query;
+    } else {
+      delete router.query.query;
+    }
+    router.replace(router);
   }, 100);
 
   return (
     <div className={styles.filters}>
       <SearchInput
         placeholder="Search transactions..."
-        defaultValue={params.get("query") ?? ""}
+        defaultValue={(router.query.query as string) ?? ""}
         onChange={handleQueryChange}
         className="mb-16"
       />
