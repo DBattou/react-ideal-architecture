@@ -41,10 +41,13 @@ pages:
     - mkdir public/
     - mv apps/auth/out public/auth
     - mv apps/workshop/storybook-static public/storybook
-
+    
   artifacts:
     paths:
       - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+      when: always
 
 lint:
   needs: []
