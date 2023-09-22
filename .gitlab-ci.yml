@@ -40,9 +40,12 @@ pages:
     - rm -rf public/
     - mkdir public/
     - mv apps/auth/out public/auth
+    - mv apps/workshop/storybook-static public/storybook
+
   artifacts:
     paths:
       - public
+
 lint:
   needs: []
   timeout: 20m
