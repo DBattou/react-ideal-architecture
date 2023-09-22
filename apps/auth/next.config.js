@@ -3,5 +3,5 @@ module.exports = {
   transpilePackages: ["ui", "qonto-mirage"],
   output: 'export',
   distDir: 'out',
-  assetPrefix: '/web-ideal-architecture/auth/',
+  assetPrefix: process.env.PRODUCTION ? '/web-ideal-architecture/auth/' : '',
 };

@@ -25,6 +25,8 @@ stages:
 build:
   stage: build
   script: NEXT_TELEMETRY_DISABLED=1 pnpm run build
+  variables:
+    PRODUCTION: 'true'
   artifacts:
     expire_in: 30 mins
     paths:
