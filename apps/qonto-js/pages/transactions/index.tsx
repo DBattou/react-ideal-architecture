@@ -12,6 +12,8 @@ const FAKE_AMOUNT = 24.32;
 export default function TransactionsIndex({
   sortBy,
   query,
+  page,
+  perPage,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
 
@@ -31,7 +33,7 @@ export default function TransactionsIndex({
     const fetchTransactions = async () => {
       try {
         let result = await searchTransactions(
-          { sortDirection, sortParam, query },
+          { sortDirection, sortParam, query, page, perPage },
           { signal: abortController.signal }
         );
         setTransactions(result.transactions);
@@ -47,7 +49,7 @@ export default function TransactionsIndex({
     return () => {
       abortController.abort();
     };
-  }, [sortDirection, sortParam, query]);
+  }, [sortDirection, sortParam, query, page, perPage]);
 
   const handleSortingChange = (sorting) => {
     const [nextSort] = sorting(currentSort);
@@ -93,12 +95,16 @@ export async function getServerSideProps(context) {
    * we still need QPs from the first render
    * because we're passing them to a `defaultValue` prop
    */
-  const { sort_by = "emitted_at:desc", query = "" } = context.query as Record<
-    string,
-    string
-  >;
+  const {
+    sort_by = "emitted_at:desc",
+    query = "",
+    page = "1",
+    per_page = "25",
+  } = context.query as Record<string, string>;
   return {
     props: {
+      page: parseInt(page, 10),
+      perPage: parseInt(per_page, 10),
       sortBy: sort_by,
       query,
     },
