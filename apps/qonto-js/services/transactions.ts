@@ -40,7 +40,7 @@ function transformTransactionsListPayload(data): TransactionsListPayload {
 }
 
 export async function searchTransactions(
-  { query = "", sortParam = "", sortDirection = "" },
+  { query = "", sortParam = "", sortDirection = "", page = 1, perPage = 25 },
   fetchOptions
 ): Promise<TransactionsListPayload> {
   const result = await fetch(`/api/v6/transactions/search`, {
@@ -49,6 +49,7 @@ export async function searchTransactions(
     body: JSON.stringify({
       search: query,
       sort: { property: sortParam, direction: sortDirection },
+      pagination: { page, per_page: perPage },
     }),
   }).then((res) => res.json());
 
