@@ -33,6 +33,7 @@ export default function register(server: ReturnType<typeof makeServer>) {
     let {
       search = "",
       sort: { property = "emitted_at", direction = "desc" },
+      pagination: { page = 1, per_page = 25 },
     } = JSON.parse(request.requestBody);
 
     const formattedSortProperty = camelCase(property);
@@ -44,6 +45,7 @@ export default function register(server: ReturnType<typeof makeServer>) {
           .counterpartyName!.toLowerCase()
           .includes(search.toLowerCase())
       )
-      .sort(getSortFn(formattedSortProperty, direction));
+      .sort(getSortFn(formattedSortProperty, direction))
+      .slice((page - 1) * per_page, page * per_page);
   });
 }
