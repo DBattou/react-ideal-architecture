@@ -1,7 +1,11 @@
 import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
 import { TransactionsTable } from "@/components/transactions-table";
-import { Transaction, searchTransactions } from "@/services/transactions";
+import {
+  Transaction,
+  TransactionsListMeta,
+  searchTransactions,
+} from "@/services/transactions";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { InferGetServerSidePropsType } from "next";
@@ -20,6 +24,7 @@ export default function TransactionsIndex({
   const router = useRouter();
 
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [meta, setMeta] = useState<TransactionsListMeta>(null);
 
   const [sortParam, sortDirection] = sortBy.split(":");
 
@@ -39,6 +44,7 @@ export default function TransactionsIndex({
           { signal: abortController.signal }
         );
         setTransactions(result.transactions);
+        setMeta(result.meta);
       } catch (error) {
         if (!isAbortError(error)) {
           throw error;
@@ -107,8 +113,10 @@ export default function TransactionsIndex({
         onPerPageChange={handlePerPageChange}
         page={page}
         perPage={perPage}
-        /* until mirage returns meta.total_count */
-        totalCount={100}
+        /**
+         * we're not handling loading states for now so 0 is a decent default
+         */
+        totalCount={meta?.totalCount ?? 0}
       />
     </section>
   );
