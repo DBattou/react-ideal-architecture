@@ -14,7 +14,7 @@ export function Filters() {
     }
     delete router.query.page;
 
-    router.replace(router);
+    router.replace({ query: router.query });
   }, 100);
 
   return (
