@@ -22,10 +22,12 @@ export type Transaction = {
   status: "completed" | "declined" | "pending" | "reversed";
 };
 
+export type TransactionsListMeta = {
+  totalCount: number;
+};
+
 type TransactionsListPayload = {
-  meta: {
-    totalCount: number;
-  };
+  meta: TransactionsListMeta;
   transactions: Transaction[];
 };
 
