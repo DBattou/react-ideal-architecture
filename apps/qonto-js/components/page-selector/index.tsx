@@ -42,6 +42,7 @@ export function PageSelector({
                 className={styles.option}
                 aria-pressed={perPage === option}
                 onClick={handlePerPageChange}
+                aria-label={`Display ${option} items per page`}
               >
                 {option}
               </button>
