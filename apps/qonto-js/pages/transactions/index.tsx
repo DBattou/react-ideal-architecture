@@ -6,6 +6,8 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { InferGetServerSidePropsType } from "next";
 import { isAbortError } from "@/utils/error";
+import { PageSelector } from "@/components/page-selector";
+import styles from "./styles.module.css";
 
 const FAKE_AMOUNT = 24.32;
 
@@ -63,8 +65,29 @@ export default function TransactionsIndex({
     router.replace(router);
   };
 
+  const handlePageChange = (page: number) => {
+    if (page !== 1) {
+      router.query.page = String(page);
+    } else {
+      delete router.query.page;
+    }
+
+    router.replace(router);
+  };
+
+  const handlePerPageChange = (perPage: number) => {
+    if (perPage !== 25) {
+      router.query.per_page = String(perPage);
+    } else {
+      delete router.query.per_page;
+    }
+    delete router.query.page;
+
+    router.replace(router);
+  };
+
   return (
-    <section>
+    <section className={styles.mainContent}>
       <Header
         title={FAKE_AMOUNT.toLocaleString("en-US", {
           style: "currency",
@@ -72,10 +95,20 @@ export default function TransactionsIndex({
         })}
       />
       <Filters />
-      <TransactionsTable
-        transactions={transactions}
-        onSortingChange={handleSortingChange}
-        sorting={currentSort}
+      <div className={styles.tableWrapper}>
+        <TransactionsTable
+          transactions={transactions}
+          onSortingChange={handleSortingChange}
+          sorting={currentSort}
+        />
+      </div>
+      <PageSelector
+        onPageChange={handlePageChange}
+        onPerPageChange={handlePerPageChange}
+        page={page}
+        perPage={perPage}
+        /* until mirage returns meta.total_count */
+        totalCount={100}
       />
     </section>
   );
