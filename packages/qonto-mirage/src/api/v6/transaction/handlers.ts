@@ -1,3 +1,4 @@
+import { Response } from "miragejs";
 import type { makeServer } from "../../../index";
 import camelCase from "lodash.camelcase";
 
@@ -38,14 +39,23 @@ export default function register(server: ReturnType<typeof makeServer>) {
 
     const formattedSortProperty = camelCase(property);
 
-    return schema
+    const collection = schema
       .all("transaction")
       .filter((transaction) =>
         transaction
           .counterpartyName!.toLowerCase()
           .includes(search.toLowerCase())
       )
-      .sort(getSortFn(formattedSortProperty, direction))
-      .slice((page - 1) * per_page, page * per_page);
+      .sort(getSortFn(formattedSortProperty, direction));
+
+    let meta = {
+      total_count: collection.length,
+    };
+
+    let responseBody = this.serialize(
+      collection.slice((page - 1) * per_page, page * per_page)
+    );
+
+    return new Response(200, {}, { ...responseBody, meta });
   });
 }
