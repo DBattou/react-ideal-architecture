@@ -23,20 +23,26 @@ export type Transaction = {
 };
 
 type TransactionsListPayload = {
+  meta: {
+    totalCount: number;
+  };
   transactions: Transaction[];
 };
 
 function transformTransaction(responseTransaction): Transaction {
-  return camelcaseKeys({
+  return {
     ...responseTransaction,
     emitted_at: responseTransaction.emitted_at
       ? new Date(responseTransaction.emitted_at)
       : null,
-  });
+  };
 }
 
 function transformTransactionsListPayload(data): TransactionsListPayload {
-  return { transactions: data.transactions.map(transformTransaction) };
+  return camelcaseKeys(
+    { ...data, transactions: data.transactions.map(transformTransaction) },
+    { deep: true }
+  );
 }
 
 export async function searchTransactions(
