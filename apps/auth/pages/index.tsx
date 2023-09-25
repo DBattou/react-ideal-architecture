@@ -13,7 +13,7 @@ export default function Page() {
         <div className={styles["form-wrapper"]}>
           <div className="mb-32">
             <Link href="/" className={styles["header-logo"]}>
-              <img src="/logo.svg" alt="qonto" width={100} height={30} />
+              <img src={`${process.env.PRODUCTION ? '/web-ideal-architecture/auth' : ''}/logo.svg`} alt="qonto" width={100} height={30} />
             </Link>
           </div>
           <h1 className="title-2 mb-32">Welcome back!</h1>

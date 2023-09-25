@@ -20,14 +20,34 @@ stages:
   - build
   - test
   - deploy
+  - pages
 
 build:
   stage: build
   script: NEXT_TELEMETRY_DISABLED=1 pnpm run build
+  variables:
+    PRODUCTION: 'true'
   artifacts:
     expire_in: 30 mins
     paths:
       - apps/workshop/storybook-static
+      - apps/auth/out
+
+pages:
+  stage: pages
+  needs: ['build']
+  script:
+    - rm -rf public/
+    - mkdir public/
+    - mv apps/auth/out public/auth
+    - mv apps/workshop/storybook-static public/storybook
+    
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'master'
+      when: always
 
 lint:
   needs: []
