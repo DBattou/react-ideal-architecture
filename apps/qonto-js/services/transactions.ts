@@ -22,25 +22,33 @@ export type Transaction = {
   status: "completed" | "declined" | "pending" | "reversed";
 };
 
+export type TransactionsListMeta = {
+  totalCount: number;
+};
+
 type TransactionsListPayload = {
+  meta: TransactionsListMeta;
   transactions: Transaction[];
 };
 
 function transformTransaction(responseTransaction): Transaction {
-  return camelcaseKeys({
+  return {
     ...responseTransaction,
     emitted_at: responseTransaction.emitted_at
       ? new Date(responseTransaction.emitted_at)
       : null,
-  });
+  };
 }
 
 function transformTransactionsListPayload(data): TransactionsListPayload {
-  return { transactions: data.transactions.map(transformTransaction) };
+  return camelcaseKeys(
+    { ...data, transactions: data.transactions.map(transformTransaction) },
+    { deep: true }
+  );
 }
 
 export async function searchTransactions(
-  { query = "", sortParam = "", sortDirection = "" },
+  { query = "", sortParam = "", sortDirection = "", page = 1, perPage = 25 },
   fetchOptions
 ): Promise<TransactionsListPayload> {
   const result = await fetch(`/api/v6/transactions/search`, {
@@ -49,6 +57,7 @@ export async function searchTransactions(
     body: JSON.stringify({
       search: query,
       sort: { property: sortParam, direction: sortDirection },
+      pagination: { page, per_page: perPage },
     }),
   }).then((res) => res.json());
 

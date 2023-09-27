@@ -12,6 +12,8 @@ export function Filters() {
     } else {
       delete router.query.query;
     }
+    delete router.query.page;
+
     router.replace(router);
   }, 100);
 

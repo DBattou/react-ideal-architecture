@@ -12,10 +12,22 @@ test("Transactions page display a search input and a transactions table", async 
   ).toBeVisible();
 });
 
-test("Inputing a search query from the search input should update the url", async ({
+test("Inputing a search query from the search input should set the query QP in url", async ({
   page,
 }) => {
   await page.goto("/transactions");
+
+  let searchInput = await page.getByPlaceholder("Search transactions...");
+
+  await searchInput.fill("my query");
+
+  await expect(page).toHaveURL("/transactions?query=my+query");
+});
+
+test("Inputing a search query from the search input should clear the page QP in url", async ({
+  page,
+}) => {
+  await page.goto("/transactions?page=2");
 
   let searchInput = await page.getByPlaceholder("Search transactions...");
 
@@ -44,4 +56,16 @@ test("Transactions table should be sorted according to the sort_by QP", async ({
   });
 
   await expect(amountColumn).toHaveAttribute("aria-sort", "ascending");
+});
+
+test("Transactions should show n items per page according to the per_page QP", async ({
+  page,
+}) => {
+  await page.goto("/transactions?per_page=50");
+
+  await expect(
+    await page.getByRole("button", {
+      name: "Display 50 items per page",
+    })
+  ).toHaveAttribute("aria-pressed", "true");
 });
