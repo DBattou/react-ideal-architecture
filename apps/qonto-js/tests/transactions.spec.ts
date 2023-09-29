@@ -17,9 +17,7 @@ test("Inputing a search query from the search input should set the query QP in u
 }) => {
   await page.goto("/transactions");
 
-  let searchInput = await page.getByPlaceholder("Search transactions...");
-
-  await searchInput.fill("my query");
+  await page.getByPlaceholder("Search transactions...").fill("my query");
 
   await expect(page).toHaveURL("/transactions?query=my+query");
 });
@@ -29,9 +27,7 @@ test("Inputing a search query from the search input should clear the page QP in 
 }) => {
   await page.goto("/transactions?page=2");
 
-  let searchInput = await page.getByPlaceholder("Search transactions...");
-
-  await searchInput.fill("my query");
+  await page.getByPlaceholder("Search transactions...").fill("my query");
 
   await expect(page).toHaveURL("/transactions?query=my+query");
 });
@@ -41,9 +37,9 @@ test("Search input should initially be filled with the 'query' QP", async ({
 }) => {
   await page.goto("/transactions?query=initial+value");
 
-  let searchInput = await page.getByPlaceholder("Search transactions...");
-
-  await expect(searchInput).toHaveValue("initial value");
+  await expect(page.getByPlaceholder("Search transactions...")).toHaveValue(
+    "initial value"
+  );
 });
 
 test("Transactions table should be sorted according to the sort_by QP", async ({
@@ -51,11 +47,11 @@ test("Transactions table should be sorted according to the sort_by QP", async ({
 }) => {
   await page.goto("/transactions?sort_by=amount%3Aasc");
 
-  let amountColumn = await page.getByRole("columnheader", {
-    name: "Amount 🔼",
-  });
-
-  await expect(amountColumn).toHaveAttribute("aria-sort", "ascending");
+  await expect(
+    page.getByRole("columnheader", {
+      name: "Amount 🔼",
+    })
+  ).toHaveAttribute("aria-sort", "ascending");
 });
 
 test("Transactions should show n items per page according to the per_page QP", async ({
@@ -64,7 +60,7 @@ test("Transactions should show n items per page according to the per_page QP", a
   await page.goto("/transactions?per_page=50");
 
   await expect(
-    await page.getByRole("button", {
+    page.getByRole("button", {
       name: "Display 50 items per page",
     })
   ).toHaveAttribute("aria-pressed", "true");
