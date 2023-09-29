@@ -68,7 +68,7 @@ export default function TransactionsIndex({
       delete router.query.sort_by;
     }
 
-    router.replace(router);
+    router.replace({ query: router.query });
   };
 
   const handlePageChange = (page: number) => {
@@ -78,7 +78,7 @@ export default function TransactionsIndex({
       delete router.query.page;
     }
 
-    router.replace(router);
+    router.replace({ query: router.query });
   };
 
   const handlePerPageChange = (perPage: number) => {
@@ -89,7 +89,7 @@ export default function TransactionsIndex({
     }
     delete router.query.page;
 
-    router.replace(router);
+    router.replace({ query: router.query });
   };
 
   return (
