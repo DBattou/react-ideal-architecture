@@ -5,7 +5,6 @@ type SearchInputProps = {
   className?: string;
   onChange?: (value: string) => void;
   placeholder?: string;
-  value?: string;
   defaultValue?: string;
 };
 
@@ -13,7 +12,6 @@ export function SearchInput({
   className,
   defaultValue,
   onChange,
-  value,
   placeholder,
 }: SearchInputProps) {
   const handleChange = (event) => {
@@ -28,7 +26,6 @@ export function SearchInput({
         onChange={handleChange}
         placeholder={placeholder}
         type="text"
-        value={value}
         defaultValue={defaultValue}
       />
     </div>

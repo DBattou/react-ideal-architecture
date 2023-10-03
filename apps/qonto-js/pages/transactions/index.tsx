@@ -2,11 +2,10 @@ import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
 import { TransactionsTable } from "@/components/transactions-table";
 import {
-  TransactionsListPayload,
+  type TransactionsListPayload,
   searchTransactions,
 } from "@/services/transactions";
 import { useRouter } from "next/router";
-import { InferGetServerSidePropsType } from "next";
 import { PageSelector } from "@/components/page-selector";
 import styles from "./styles.module.css";
 import { useQuery } from "@tanstack/react-query";
@@ -29,14 +28,13 @@ const PLACEHOLDER_DATA: TransactionsListPayload = {
   meta: { totalCount: 1 },
 };
 
-export default function TransactionsIndex({
-  sortBy,
-  query,
-  page,
-  perPage,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function TransactionsIndex() {
   const router = useRouter();
 
+  const query = (router.query.query as string) ?? "";
+  const page = parseInt((router.query.page as string) ?? "1");
+  const perPage = parseInt((router.query.per_page as string) ?? "25");
+  const sortBy = (router.query.sort_by as string) ?? "emitted_at:desc";
   const [sortParam, sortDirection] = sortBy.split(":");
 
   const currentSort = [
@@ -62,6 +60,7 @@ export default function TransactionsIndex({
       ),
     placeholderData: PLACEHOLDER_DATA,
     keepPreviousData: true,
+    enabled: router.isReady,
   });
 
   const handleSortingChange = (sorting) => {
@@ -122,34 +121,4 @@ export default function TransactionsIndex({
       />
     </section>
   );
-}
-
-export async function getServerSideProps(context) {
-  /**
-   * The transactions search request should ultimately land here, but mirage doesn't catch
-   * server-side requests so it's done on the client until mirage-msw is a thing.
-   */
-
-  /**
-   * Query params retrieval is done here since a page without `getServerSideProps`
-   * would get statically optimized by Next and first rendered without query params.
-   *
-   * Using `router.isReady` in this case would also fix the issue but
-   * we still need QPs from the first render
-   * because we're passing them to a `defaultValue` prop
-   */
-  const {
-    sort_by = "emitted_at:desc",
-    query = "",
-    page = "1",
-    per_page = "25",
-  } = context.query as Record<string, string>;
-  return {
-    props: {
-      page: parseInt(page, 10),
-      perPage: parseInt(per_page, 10),
-      sortBy: sort_by,
-      query,
-    },
-  };
 }
