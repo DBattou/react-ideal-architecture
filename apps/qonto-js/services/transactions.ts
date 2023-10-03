@@ -63,3 +63,25 @@ export async function searchTransactions(
 
   return transformTransactionsListPayload(result);
 }
+
+type TransactionPayload = {
+  transaction: Transaction;
+};
+
+function transformTransactionPayload(data): TransactionPayload {
+  return camelcaseKeys(
+    { transaction: transformTransaction(data.transaction) },
+    { deep: true }
+  );
+}
+
+export async function getTransaction(
+  id,
+  fetchOptions
+): Promise<TransactionPayload> {
+  const result = await fetch(`/api/v6/transactions/${id}`, fetchOptions).then(
+    (res) => res.json()
+  );
+
+  return transformTransactionPayload(result);
+}
