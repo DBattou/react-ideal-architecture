@@ -58,4 +58,14 @@ export default function register(server: ReturnType<typeof makeServer>) {
 
     return new Response(200, {}, { ...responseBody, meta });
   });
+
+  server.get("/v6/transactions/:id", function (schema, request) {
+    let transaction = schema.find("transaction", request.params.id);
+
+    if (!transaction) {
+      return new Response(404, {}, { message: "Not found" });
+    }
+
+    return transaction;
+  });
 }
