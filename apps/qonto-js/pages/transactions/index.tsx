@@ -2,18 +2,32 @@ import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
 import { TransactionsTable } from "@/components/transactions-table";
 import {
-  Transaction,
-  TransactionsListMeta,
+  TransactionsListPayload,
   searchTransactions,
 } from "@/services/transactions";
-import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { InferGetServerSidePropsType } from "next";
-import { isAbortError } from "@/utils/error";
 import { PageSelector } from "@/components/page-selector";
 import styles from "./styles.module.css";
+import { useQuery } from "@tanstack/react-query";
 
 const FAKE_AMOUNT = 24.32;
+
+const PLACEHOLDER_DATA: TransactionsListPayload = {
+  transactions: [
+    {
+      id: "0",
+      counterpartyName: "Dunder Mifflin Paper Company, Inc.",
+      operationMethod: "transfer",
+      emittedAt: new Date(),
+      amount: 0,
+      side: "credit",
+      activityTag: "other_expense",
+      status: "completed",
+    },
+  ],
+  meta: { totalCount: 1 },
+};
 
 export default function TransactionsIndex({
   sortBy,
@@ -22,9 +36,6 @@ export default function TransactionsIndex({
   perPage,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-
-  const [transactions, setTransactions] = useState<Transaction[]>([]);
-  const [meta, setMeta] = useState<TransactionsListMeta>(null);
 
   const [sortParam, sortDirection] = sortBy.split(":");
 
@@ -35,29 +46,23 @@ export default function TransactionsIndex({
     },
   ];
 
-  useEffect(() => {
-    const abortController = new AbortController();
-    const fetchTransactions = async () => {
-      try {
-        let result = await searchTransactions(
-          { sortDirection, sortParam, query, page, perPage },
-          { signal: abortController.signal }
-        );
-        setTransactions(result.transactions);
-        setMeta(result.meta);
-      } catch (error) {
-        if (!isAbortError(error)) {
-          throw error;
-        }
-      }
-    };
-
-    fetchTransactions();
-
-    return () => {
-      abortController.abort();
-    };
-  }, [sortDirection, sortParam, query, page, perPage]);
+  const { data } = useQuery({
+    queryKey: [
+      "transactions",
+      sortDirection, // will refresh when it update
+      sortParam,
+      query,
+      page,
+      perPage,
+    ],
+    queryFn: async ({ signal }) =>
+      await searchTransactions(
+        { sortDirection, sortParam, query, page, perPage },
+        { signal }
+      ),
+    placeholderData: PLACEHOLDER_DATA,
+    keepPreviousData: true,
+  });
 
   const handleSortingChange = (sorting) => {
     const [nextSort] = sorting(currentSort);
@@ -103,7 +108,7 @@ export default function TransactionsIndex({
       <Filters />
       <div className={styles.tableWrapper}>
         <TransactionsTable
-          transactions={transactions}
+          transactions={data.transactions}
           onSortingChange={handleSortingChange}
           sorting={currentSort}
         />
@@ -113,10 +118,7 @@ export default function TransactionsIndex({
         onPerPageChange={handlePerPageChange}
         page={page}
         perPage={perPage}
-        /**
-         * we're not handling loading states for now so 0 is a decent default
-         */
-        totalCount={meta?.totalCount ?? 0}
+        totalCount={data.meta.totalCount}
       />
     </section>
   );

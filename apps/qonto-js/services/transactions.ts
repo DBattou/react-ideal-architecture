@@ -26,7 +26,7 @@ export type TransactionsListMeta = {
   totalCount: number;
 };
 
-type TransactionsListPayload = {
+export type TransactionsListPayload = {
   meta: TransactionsListMeta;
   transactions: Transaction[];
 };
