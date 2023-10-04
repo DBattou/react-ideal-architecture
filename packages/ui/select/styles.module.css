@@ -1,0 +1,53 @@
+.label {
+  composes: body-1 mb-4 from global;
+}
+
+.control {
+  border-radius: 4px;
+  border: 1px solid var(--border-secondary);
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  composes: overlay from global;
+}
+
+.valueDisplay {
+  composes: body-1 from global;
+}
+
+.placeholder {
+  color: var(--content-tertiary);
+}
+
+.menu {
+  position: absolute;
+  background-color: var(--elevation-high);
+  box-shadow: var(--shadow-high);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  margin: 0;
+  padding: 8px 0;
+  max-height: 190px;
+  overflow-y: auto;
+}
+
+.item {
+  display: block;
+  position: relative;
+  padding: 8px 16px;
+  composes: body-2 overlay from global;
+  cursor: pointer;
+}
+
+.highlighted {
+  background-color: var(--background-secondary);
+}
+
+.chevron {
+  margin-left: auto;
+}
