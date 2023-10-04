@@ -47,11 +47,13 @@ export default function TransactionsIndex() {
   const { data } = useQuery({
     queryKey: [
       "transactions",
-      sortDirection, // will refresh when it update
-      sortParam,
-      query,
-      page,
-      perPage,
+      {
+        sortDirection,
+        sortParam,
+        query,
+        page,
+        perPage,
+      },
     ],
     queryFn: async ({ signal }) =>
       await searchTransactions(
