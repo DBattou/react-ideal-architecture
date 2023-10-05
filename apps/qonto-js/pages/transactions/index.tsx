@@ -1,3 +1,6 @@
+import type { SortingState } from "@tanstack/react-table";
+import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
 import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
 import { TransactionsTable } from "@/components/transactions-table";
@@ -5,10 +8,8 @@ import {
   type TransactionsListPayload,
   searchTransactions,
 } from "@/services/transactions";
-import { useRouter } from "next/router";
 import { PageSelector } from "@/components/page-selector";
 import styles from "./styles.module.css";
-import { useQuery } from "@tanstack/react-query";
 
 const FAKE_AMOUNT = 24.32;
 
@@ -28,7 +29,7 @@ const PLACEHOLDER_DATA: TransactionsListPayload = {
   meta: { totalCount: 1 },
 };
 
-export default function TransactionsIndex() {
+export default function TransactionsIndex(): JSX.Element {
   const router = useRouter();
 
   const query = (router.query.query as string) ?? "";
@@ -44,7 +45,7 @@ export default function TransactionsIndex() {
     },
   ];
 
-  const { data } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: [
       "transactions",
       {
@@ -55,8 +56,8 @@ export default function TransactionsIndex() {
         perPage,
       },
     ],
-    queryFn: async ({ signal }) =>
-      await searchTransactions(
+    queryFn: ({ signal }) =>
+      searchTransactions(
         { sortDirection, sortParam, query, page, perPage },
         { signal }
       ),
@@ -65,38 +66,48 @@ export default function TransactionsIndex() {
     enabled: router.isReady,
   });
 
-  const handleSortingChange = (sorting) => {
-    const [nextSort] = sorting(currentSort);
+  const handleSortingChange = (
+    sorting: (state: SortingState) => SortingState
+  ): void => {
+    const [nextSort]: SortingState = sorting(currentSort);
 
-    if (nextSort) {
-      router.query.sort_by = `${nextSort.id}:${nextSort.desc ? "desc" : "asc"}`;
-    } else {
+    if (nextSort.desc && nextSort.id === "emitted_at") {
       delete router.query.sort_by;
+    } else {
+      router.query.sort_by = `${nextSort.id}:${nextSort.desc ? "desc" : "asc"}`;
     }
 
-    router.replace({ query: router.query });
+    void router.replace({ query: router.query });
   };
 
-  const handlePageChange = (page: number) => {
-    if (page !== 1) {
-      router.query.page = String(page);
+  const handlePageChange = (selectedPage: number): void => {
+    if (selectedPage !== 1) {
+      router.query.page = String(selectedPage);
     } else {
       delete router.query.page;
     }
 
-    router.replace({ query: router.query });
+    void router.replace({ query: router.query });
   };
 
-  const handlePerPageChange = (perPage: number) => {
-    if (perPage !== 25) {
-      router.query.per_page = String(perPage);
+  const handlePerPageChange = (selectedPerPage: number): void => {
+    if (selectedPerPage !== 25) {
+      router.query.per_page = String(selectedPerPage);
     } else {
       delete router.query.per_page;
     }
     delete router.query.page;
 
-    router.replace({ query: router.query });
+    void router.replace({ query: router.query });
   };
+
+  /**
+   * These will not show up with the current RQ config
+   * but I'm using them for "data" type narrowing.
+   * without them data is not guaranteed to be filled so TS is not happy
+   */
+  if (isError) return <div>OH NO</div>;
+  if (isLoading) return <div>Loading ... Beep boop...</div>;
 
   return (
     <section className={styles.mainContent}>
@@ -109,9 +120,9 @@ export default function TransactionsIndex() {
       <Filters />
       <div className={styles.tableWrapper}>
         <TransactionsTable
-          transactions={data.transactions}
           onSortingChange={handleSortingChange}
           sorting={currentSort}
+          transactions={data.transactions}
         />
       </div>
       <PageSelector
