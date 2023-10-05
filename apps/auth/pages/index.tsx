@@ -1,19 +1,26 @@
-import Lottie from "@/components/lottie";
-import styles from "./page.module.css";
-import animationData from "../public/lottie/first-screen-mint.json";
 import Link from "next/link";
+import Lottie from "@/components/lottie";
 import { LoginForm } from "@/components/login-form";
+import animationData from "../public/lottie/first-screen-mint.json";
+import styles from "./page.module.css";
 
-export default function Page() {
-  let backgroundColor = "mint";
-  let isSafariDesktop = true;
+export default function Page(): JSX.Element {
+  const backgroundColor = "mint";
+  const isSafariDesktop = true;
   return (
-    <div className={styles["signin"]}>
-      <div className={styles["form"]}>
+    <div className={styles.signin}>
+      <div className={styles.form}>
         <div className={styles["form-wrapper"]}>
           <div className="mb-32">
-            <Link href="/" className={styles["header-logo"]}>
-              <img src={`${process.env.PRODUCTION ? '/web-ideal-architecture/auth' : ''}/logo.svg`} alt="qonto" width={100} height={30} />
+            <Link className={styles["header-logo"]} href="/">
+              <img
+                alt="qonto"
+                height={30}
+                src={`${
+                  process.env.PRODUCTION ? "/web-ideal-architecture/auth" : ""
+                }/logo.svg`}
+                width={100}
+              />
             </Link>
           </div>
           <h1 className="title-2 mb-32">Welcome back!</h1>
@@ -26,18 +33,18 @@ export default function Page() {
             <span className={`${styles["no-account-label"]} body-2`}>
               Don&apos;t have an account?
             </span>{" "}
-            <a href="https://welcome.qonto.com" className="body-1">
+            <a className="body-1" href="https://welcome.qonto.com">
               Open an account
             </a>
           </div>
         </div>
       </div>
-      <div className={`${styles["illustration"]} ${styles[backgroundColor]}`}>
+      <div className={`${styles.illustration} ${styles[backgroundColor]}`}>
         <div className={styles["illustration-wrapper"]}>
           <Lottie
-            className={`${styles["animsation"]}`}
-            autoplay={isSafariDesktop}
             animationData={animationData}
+            autoplay={isSafariDesktop}
+            className={`${styles.animsation}`}
             data-testid="lottie-signin-animation"
           />
         </div>
