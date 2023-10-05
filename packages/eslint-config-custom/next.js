@@ -42,5 +42,6 @@ module.exports = {
     "import/no-default-export": "off",
     "@typescript-eslint/consistent-type-definitions": ["error", "type"],
     "@next/next/no-img-element": "off",
+    "@typescript-eslint/no-unnecessary-condition": "off" /** false positive? */
   },
 };

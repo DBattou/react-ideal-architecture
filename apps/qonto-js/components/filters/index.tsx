@@ -21,7 +21,7 @@ export function Filters(): JSX.Element {
     <div className={styles.filters}>
       <SearchInput
         className="mb-16"
-        defaultValue={router.query.query as string}
+        defaultValue={(router.query.query as string) ?? ""}
         onChange={handleQueryChange}
         placeholder="Search transactions..."
       />
