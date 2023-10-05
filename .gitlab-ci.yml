@@ -60,6 +60,10 @@ test:
   needs: []
   timeout: 20m
   script: pnpm run test
+  artifacts:
+    expire_in: 1h
+    reports:
+      junit: 'apps/**/test-results-junit.xml'
 
 test-components:
   image: mcr.microsoft.com/playwright:v1.37.0-jammy
@@ -67,6 +71,10 @@ test-components:
   needs: []
   timeout: 20m
   script: pnpm run test-ct
+  artifacts:
+    expire_in: 1h
+    reports:
+      junit: 'apps/**/test-results-ct-junit.xml'
 
 deploy-storybook:
   stage: deploy
