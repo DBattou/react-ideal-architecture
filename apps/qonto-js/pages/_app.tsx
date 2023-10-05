@@ -1,12 +1,12 @@
 import { makeServer } from "qonto-mirage";
-import { type ReactElement, type ReactNode, useState } from "react";
+import { type ReactElement, type ReactNode, useMemo } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
-import "@/styles/global.css";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import "@/styles/global.css";
 
-export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
@@ -16,9 +16,13 @@ type AppPropsWithLayout = AppProps & {
 
 makeServer({ environment: "development" });
 
-export default function App({ Component, pageProps }: AppPropsWithLayout) {
-  const [queryClient] = useState(() => new QueryClient());
+export default function App({
+  Component,
+  pageProps,
+}: AppPropsWithLayout): JSX.Element {
+  const queryClient = useMemo(() => new QueryClient(), []);
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (

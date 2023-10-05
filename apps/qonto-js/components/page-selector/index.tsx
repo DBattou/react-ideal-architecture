@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import type { MouseEventHandler } from "react";
 import styles from "./styles.module.css";
 
 const PER_PAGE_OPTIONS = [25, 50, 100];
@@ -17,32 +17,33 @@ export function PageSelector({
   page,
   perPage,
   totalCount,
-}: PageSelectorProps) {
+}: PageSelectorProps): JSX.Element {
   const handlePerPageChange: MouseEventHandler<HTMLButtonElement> = (event) => {
     onPerPageChange?.(parseInt(event.currentTarget.value, 10));
   };
 
-  const handlePreviousPage = () => {
+  const handlePreviousPage = (): void => {
     onPageChange(page - 1);
   };
 
-  const handleNextPage = () => {
+  const handleNextPage = (): void => {
     onPageChange(page + 1);
   };
 
   return (
     <div className={styles.wrapper}>
-      {handlePerPageChange && (
+      {onPerPageChange ? (
         <div className={styles.perPageContainer}>
           <div className={styles.options}>
             {PER_PAGE_OPTIONS.map((option) => (
               <button
-                key={option}
-                value={option}
-                className={styles.option}
-                aria-pressed={perPage === option}
-                onClick={handlePerPageChange}
                 aria-label={`Display ${option} items per page`}
+                aria-pressed={perPage === option}
+                className={styles.option}
+                key={option}
+                onClick={handlePerPageChange}
+                type="button"
+                value={option}
               >
                 {option}
               </button>
@@ -50,7 +51,7 @@ export function PageSelector({
           </div>
           <div>Items per page</div>
         </div>
-      )}
+      ) : null}
 
       <div className={styles.pageContainer}>
         <div>
@@ -59,18 +60,20 @@ export function PageSelector({
         </div>
         <div className={styles.options}>
           <button
-            className={styles.option}
-            onClick={handlePreviousPage}
-            disabled={page === 1}
             aria-label="Previous page of items"
+            className={styles.option}
+            disabled={page === 1}
+            onClick={handlePreviousPage}
+            type="button"
           >
             👈
           </button>
           <button
-            className={styles.option}
-            onClick={handleNextPage}
-            disabled={page * perPage >= totalCount}
             aria-label="Next page of items"
+            className={styles.option}
+            disabled={page * perPage >= totalCount}
+            onClick={handleNextPage}
+            type="button"
           >
             👉
           </button>

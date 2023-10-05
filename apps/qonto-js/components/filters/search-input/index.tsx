@@ -1,5 +1,6 @@
-import styles from "./styles.module.css";
+import type { ChangeEventHandler } from "react";
 import cx from "classnames";
+import styles from "./styles.module.css";
 
 type SearchInputProps = {
   className?: string;
@@ -13,8 +14,8 @@ export function SearchInput({
   defaultValue,
   onChange,
   placeholder,
-}: SearchInputProps) {
-  const handleChange = (event) => {
+}: SearchInputProps): JSX.Element {
+  const handleChange: ChangeEventHandler<HTMLInputElement> = (event) => {
     onChange?.(event.currentTarget.value);
   };
 
@@ -23,10 +24,10 @@ export function SearchInput({
       <span className={styles.icon}>🔍</span>
       <input
         className={styles.bar}
+        defaultValue={defaultValue}
         onChange={handleChange}
         placeholder={placeholder}
         type="text"
-        defaultValue={defaultValue}
       />
     </div>
   );

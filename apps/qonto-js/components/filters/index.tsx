@@ -3,10 +3,10 @@ import { useDebouncedCallback } from "use-debounce";
 import { SearchInput } from "./search-input";
 import styles from "./styles.module.css";
 
-export function Filters() {
+export function Filters(): JSX.Element {
   const router = useRouter();
 
-  const handleQueryChange = useDebouncedCallback((query) => {
+  const handleQueryChange = useDebouncedCallback((query: string) => {
     if (query) {
       router.query.query = query;
     } else {
@@ -14,16 +14,16 @@ export function Filters() {
     }
     delete router.query.page;
 
-    router.replace({ query: router.query });
+    void router.replace({ query: router.query });
   }, 100);
 
   return (
     <div className={styles.filters}>
       <SearchInput
-        placeholder="Search transactions..."
-        defaultValue={(router.query.query as string) ?? ""}
-        onChange={handleQueryChange}
         className="mb-16"
+        defaultValue={router.query.query as string}
+        onChange={handleQueryChange}
+        placeholder="Search transactions..."
       />
     </div>
   );
