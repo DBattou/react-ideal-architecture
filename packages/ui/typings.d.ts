@@ -1,3 +1,4 @@
-declare module "*.module.css";
-
-// get rid of the ts error when using css modules in ui pkg
+declare module "*.module.css" {
+  const value: Record<string, string>;
+  export default value;
+}

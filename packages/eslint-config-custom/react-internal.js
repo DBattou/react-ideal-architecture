@@ -35,5 +35,6 @@ module.exports = {
   // add rules configurations here
   rules: {
     "import/no-default-export": "off",
+    "eslint-comments/disable-enable-pair": ["error", {"allowWholeFile": true}]
   },
 };

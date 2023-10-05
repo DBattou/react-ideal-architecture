@@ -1,7 +1,7 @@
-import { ComponentPropsWithoutRef, ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import cx from "classnames";
 import { Label } from "../label";
 import styles from "./styles.module.css";
-import cx from "classnames";
 
 /* enforcing mandatory name and id here */
 type TextFieldProps = {
@@ -11,7 +11,7 @@ type TextFieldProps = {
   errorMessage?: string;
 } & ComponentPropsWithoutRef<"input">;
 
-export const TextField = ({
+export function TextField({
   label,
   errorMessage,
   id,
@@ -19,29 +19,29 @@ export const TextField = ({
   className,
   type = "text",
   ...props
-}: TextFieldProps) => {
+}: TextFieldProps): JSX.Element {
   return (
     <div className={className}>
-      <Label htmlFor={id} className="mb-4" isOptional={!required}>
+      <Label className="mb-4" htmlFor={id} isOptional={!required}>
         {label}
       </Label>
       <input
-        id={id}
-        aria-invalid={!!errorMessage}
         aria-errormessage={`${id}-error`}
+        aria-invalid={Boolean(errorMessage)}
+        className={cx(styles.input, {
+          [styles["input--error"]]: Boolean(errorMessage),
+        })}
+        id={id}
         required={required}
         type={type}
-        className={cx(styles.input, {
-          [styles["input--error"]]: !!errorMessage,
-        })}
         {...props}
       />
       <span
-        id={`${id}-error`}
         className={cx(styles["error-message"], "caption")}
+        id={`${id}-error`}
       >
         {errorMessage}
       </span>
     </div>
   );
-};
+}
