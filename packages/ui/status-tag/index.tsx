@@ -2,11 +2,11 @@ import cx from "classnames";
 import type { ReactNode } from "react";
 import styles from "./styles.module.css";
 
-interface StatusTagProps {
+type StatusTagProps = {
   color: "green" | "red" | "purple" | "orange" | "gray";
   children: ReactNode;
   className?: string;
-}
+};
 
 export function StatusTag({
   children,
