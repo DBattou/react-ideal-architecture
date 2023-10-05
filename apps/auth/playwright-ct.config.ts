@@ -5,8 +5,9 @@ import { resolve } from "path";
  */
 export default defineConfig({
   testDir: "./components/",
+  outputDir: "./.playwright/test-results/",
   /* The base directory, relative to the config file, for snapshot files created with toMatchSnapshot and toHaveScreenshot. */
-  snapshotDir: "./__snapshots__",
+  snapshotDir: "./.playwright/__snapshots__",
   /* Maximum time one test can run for. */
   timeout: 10 * 1000,
   /* Run tests in files in parallel */
@@ -18,7 +19,9 @@ export default defineConfig({
   /* Opt out of parallel tests on CI. */
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
+  reporter: process.env.CI
+      ? [["junit", { outputFile: './.playwright/report/ct-junit.xml' }]]
+      : [["html", { outputFolder: './.playwright/report' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
