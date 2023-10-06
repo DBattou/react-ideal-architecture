@@ -1,6 +1,6 @@
 import { useSelect } from "downshift";
-import styles from "./styles.module.css";
 import cx from "classnames";
+import styles from "./styles.module.css";
 /**
  * We don't have to enforce an Option type if we expose an
  * itemToString prop for example, but this makes things a bit easier for now
@@ -9,7 +9,7 @@ import cx from "classnames";
 type Option = {
   id: string;
   label: string;
-  value: any;
+  value: string | object | number;
 };
 
 type SelectProps = {
@@ -28,8 +28,8 @@ export function Select({
   initialSelectedItem,
   selectedItem: selectedItemFromProps,
   onChange,
-}: SelectProps) {
-  const itemToString = (i: Option | null) => (i ? i.label : "");
+}: SelectProps): JSX.Element {
+  const itemToString = (i: Option | null): string => (i ? i.label : "");
 
   const {
     isOpen,
@@ -50,9 +50,9 @@ export function Select({
   return (
     <div>
       <div>
-        {label && (
+        {label ? (
           <label {...getLabelProps({ className: styles.label })}>{label}</label>
-        )}
+        ) : null}
         <div {...getToggleButtonProps({ className: styles.control })}>
           <span
             className={cx(styles.valueDisplay, {
@@ -67,7 +67,7 @@ export function Select({
         </div>
       </div>
       <div {...getMenuProps({ className: styles.menu })}>
-        {isOpen && (
+        {isOpen ? (
           <ul className={styles.list}>
             {options.map((item, index) => (
               <li
@@ -84,7 +84,7 @@ export function Select({
               </li>
             ))}
           </ul>
-        )}
+        ) : null}
       </div>
     </div>
   );
