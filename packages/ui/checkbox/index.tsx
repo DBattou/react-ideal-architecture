@@ -1,4 +1,5 @@
-import { ComponentPropsWithoutRef, useEffect, useRef } from "react";
+import type { ComponentPropsWithoutRef } from "react";
+import { useEffect, useRef } from "react";
 import cx from "classnames";
 import styles from "./styles.module.css";
 
@@ -11,7 +12,7 @@ export function Checkbox({
   indeterminate = false,
   className,
   ...props
-}: CheckboxProps) {
+}: CheckboxProps): JSX.Element {
   const ref = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (ref.current) {
@@ -21,9 +22,9 @@ export function Checkbox({
 
   return (
     <input
-      type="checkbox"
-      ref={ref}
       className={cx(styles.checkbox, "overlay", className)}
+      ref={ref}
+      type="checkbox"
       {...props}
     />
   );

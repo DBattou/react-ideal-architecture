@@ -1,5 +1,5 @@
-import { columnHelper } from "./utils/helper";
 import { TransactionCell } from "../transaction-cell";
+import { columnHelper } from "./utils/helper";
 
 export const counterpartyNameColumn = columnHelper.accessor(
   "counterpartyName",
@@ -12,9 +12,9 @@ export const counterpartyNameColumn = columnHelper.accessor(
 
       return (
         <TransactionCell
+          activityTag={activityTag}
           counterpartyName={counterpartyName}
           status={status}
-          activityTag={activityTag}
         />
       );
     },

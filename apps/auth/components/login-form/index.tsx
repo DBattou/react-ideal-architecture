@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { Button, TextField } from "ui";
-import styles from "./styles.module.css";
 import cx from "classnames";
-import { ComponentPropsWithoutRef, FormEvent, useState } from "react";
-import { authenticate } from "@/services/session";
+import type {
+  ChangeEventHandler,
+  ComponentPropsWithoutRef,
+  FormEventHandler,
+} from "react";
+import { useState } from "react";
+import { type UserCredentials, authenticate } from "@/services/session";
+import styles from "./styles.module.css";
 
 type LoginFormProps = ComponentPropsWithoutRef<"form">;
 
@@ -12,23 +17,22 @@ const INITIAL_ERRORS_STATE = {
   password: "",
 };
 
-export const LoginForm = (props: LoginFormProps) => {
+export function LoginForm(props: LoginFormProps): JSX.Element {
   const [errors, setErrors] =
     useState<typeof INITIAL_ERRORS_STATE>(INITIAL_ERRORS_STATE);
 
-  const clearErrors = () => setErrors(INITIAL_ERRORS_STATE);
+  const clearErrors = (): void => {
+    setErrors(INITIAL_ERRORS_STATE);
+  };
 
-  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const data = new FormData(event.currentTarget);
+  const handleLogin = async (credentials: UserCredentials): Promise<void> => {
     try {
-      await authenticate({
-        email: data.get("email") as string,
-        password: data.get("password") as string,
-      });
+      await authenticate(credentials);
     } catch (error) {
-      if (["Unauthorized", "Not found"].includes(error.message)) {
+      if (
+        error instanceof Error &&
+        ["Unauthorized", "Not found"].includes(error.message)
+      ) {
         setErrors((s) => ({
           ...s,
           password: "Your login credentials aren't correct. Try again.",
@@ -37,31 +41,41 @@ export const LoginForm = (props: LoginFormProps) => {
     }
   };
 
-  const handleChange = () => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+
+    void handleLogin({
+      email: data.get("email") as string,
+      password: data.get("password") as string,
+    });
+  };
+
+  const handleChange: ChangeEventHandler<HTMLFormElement> = () => {
     clearErrors();
   };
 
   return (
-    <form {...props} onSubmit={handleSubmit} onChange={handleChange}>
+    <form {...props} onChange={handleChange} onSubmit={handleSubmit}>
       <div className="mb-24">
         <TextField
-          label="Email address"
-          placeholder="Enter your email address"
           className="mb-16"
-          name="email"
-          id="email"
-          type="email"
-          required
           errorMessage={errors.email}
+          id="email"
+          label="Email address"
+          name="email"
+          placeholder="Enter your email address"
+          required
+          type="email"
         />
         <TextField
+          errorMessage={errors.password}
+          id="password"
           label="Password"
+          name="password"
           placeholder="Enter password"
           required
-          name="password"
-          id="password"
           type="password"
-          errorMessage={errors.password}
         />
       </div>
       <div className="controls">
@@ -69,12 +83,12 @@ export const LoginForm = (props: LoginFormProps) => {
           Sign in
         </Button>
         <Link
-          href="passwords.forgot"
           className={cx(styles["password-lost-link"], "body-1", "ml-24")}
+          href="passwords.forgot"
         >
           Forgot password?
         </Link>
       </div>
     </form>
   );
-};
+}

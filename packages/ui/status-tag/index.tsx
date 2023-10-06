@@ -1,6 +1,6 @@
 import cx from "classnames";
+import type { ReactNode } from "react";
 import styles from "./styles.module.css";
-import { ReactNode } from "react";
 
 type StatusTagProps = {
   color: "green" | "red" | "purple" | "orange" | "gray";
@@ -8,7 +8,11 @@ type StatusTagProps = {
   className?: string;
 };
 
-export function StatusTag({ children, className, color }: StatusTagProps) {
+export function StatusTag({
+  children,
+  className,
+  color,
+}: StatusTagProps): JSX.Element {
   return (
     <span className={cx(styles.statusTag, styles[color], className)}>
       {children}

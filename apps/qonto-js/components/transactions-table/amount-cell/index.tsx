@@ -5,7 +5,7 @@ type AmountCellProps = {
   value: number;
 };
 
-export function AmountCell({ value }: AmountCellProps) {
+export function AmountCell({ value }: AmountCellProps): JSX.Element {
   return (
     <span className={cx(styles.amount, { [styles.credit]: value > 0 })}>
       {value.toLocaleString("en-US", {

@@ -10,16 +10,16 @@ export function TransactionCell({
   status,
   activityTag,
   counterpartyName,
-}: TransactionCellProps) {
+}: TransactionCellProps): JSX.Element {
   return (
     <>
       <img
-        src={`/icons/${activityTag}.svg`}
-        role="presentation"
         alt=""
         className="mr-16"
-        width={32}
         height={32}
+        role="presentation"
+        src={`/icons/${activityTag}.svg`}
+        width={32}
       />
       <div className={styles.transactionBody}>
         <span className={styles.counterpartyName}>{counterpartyName}</span>

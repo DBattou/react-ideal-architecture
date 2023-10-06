@@ -7,15 +7,17 @@ const meta = {
   tags: ["autodocs"],
   argTypes: {
     onPageChange: { action: "page selected" },
-    onPerPageChange: { action: "per_page selected" }
-  }
+    onPerPageChange: { action: "per_page selected" },
+  },
 } satisfies Meta<typeof PageSelector>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = { args: {
+export const Default: Story = {
+  args: {
     page: 1,
     perPage: 25,
-    totalCount: 100
-} };
+    totalCount: 100,
+  },
+};

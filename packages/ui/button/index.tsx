@@ -1,6 +1,7 @@
+/* eslint-disable react/button-has-type */
 import cx from "classnames";
+import type { ComponentPropsWithoutRef } from "react";
 import styles from "./styles.module.css";
-import { ComponentPropsWithoutRef } from "react";
 
 export type ButtonProps = {
   /**
@@ -29,19 +30,19 @@ export type ButtonProps = {
   stretch?: boolean;
 } & ComponentPropsWithoutRef<"button">;
 
-export const Button = ({
+export function Button({
   variant = "secondary",
   size = "medium",
   children,
   className,
   stretch = false,
   ...props
-}: ButtonProps) => {
+}: ButtonProps): JSX.Element {
   return (
     <button
       className={cx(className, styles.btn, {
-        [styles[`btn--${variant}`]]: variant && variant !== "secondary",
-        [styles[`btn--${size}`]]: size && size !== "medium",
+        [styles[`btn--${variant}`]]: variant !== "secondary",
+        [styles[`btn--${size}`]]: size !== "medium",
         [styles[`btn--stretch`]]: stretch,
       })}
       {...props}
@@ -49,4 +50,4 @@ export const Button = ({
       {children}
     </button>
   );
-};
+}

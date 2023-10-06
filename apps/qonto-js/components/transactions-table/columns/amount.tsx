@@ -5,9 +5,8 @@ export const amountColumn = columnHelper.accessor(
   (data) => {
     if (data.side === "credit") {
       return data.amount;
-    } else {
-      return -1 * data.amount;
     }
+    return -1 * data.amount;
   },
   {
     id: "amount",

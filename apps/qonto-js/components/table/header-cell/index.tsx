@@ -1,6 +1,6 @@
-import { AriaAttributes, ComponentPropsWithoutRef } from "react";
-import styles from "./styles.module.css";
+import type { AriaAttributes, ComponentPropsWithoutRef } from "react";
 import cx from "classnames";
+import styles from "./styles.module.css";
 
 type BaseHeaderCellProps = ComponentPropsWithoutRef<"th">;
 
@@ -23,35 +23,40 @@ function getAriaSort(sort): AriaAttributes["aria-sort"] {
   return "none";
 }
 
-export function HeaderCell({ className, children, ...props }: HeaderCellProps) {
-  if (props.isSortable === true) {
-    const { onSort, isSorted, isSortable, ...rest } = props;
+export function HeaderCell({
+  className,
+  children,
+  ...props
+}: HeaderCellProps): JSX.Element {
+  if (props.isSortable) {
+    const { onSort, isSorted, isSortable: _, ...rest } = props;
     return (
       <th
-        className={cx(styles.headerCell, className)}
         aria-sort={getAriaSort(isSorted)}
+        className={cx(styles.headerCell, className)}
         scope="col"
         {...rest}
       >
         <button
+          aria-pressed={Boolean(isSorted)}
           className={styles.headerContent}
           onClick={onSort}
-          aria-pressed={!!isSorted}
+          type="button"
         >
           {children}
-          {isSorted &&
-            {
-              asc: " 🔼",
-              desc: " 🔽",
-            }[isSorted]}
+          {isSorted
+            ? {
+                asc: " 🔼",
+                desc: " 🔽",
+              }[isSorted]
+            : null}
         </button>
       </th>
     );
-  } else {
-    return (
-      <th className={cx(styles.headerCell, className)} scope="col">
-        <div className={styles.headerContent}>{children}</div>
-      </th>
-    );
   }
+  return (
+    <th className={cx(styles.headerCell, className)} scope="col">
+      <div className={styles.headerContent}>{children}</div>
+    </th>
+  );
 }
