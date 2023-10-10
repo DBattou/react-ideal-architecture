@@ -23,15 +23,13 @@ const test = testBase.extend({
       if (isChromium) {
         const [jsCoverage /*, cssCoverage*/] = await Promise.all([
           page.coverage.stopJSCoverage(),
-          //page.coverage.stopCSSCoverage(),
+          // page.coverage.stopCSSCoverage(),
         ]);
-        const coverageList = jsCoverage; //[...jsCoverage, ...cssCoverage];
-        // console.log(coverageList.map((item) => item.url));
+        const coverageList = [...jsCoverage /*, ...cssCoverage*/];
         await addCoverageReport(coverageList, test.info());
       }
     },
     {
-      // @ts-ignore
       scope: "test",
       auto: true,
     },
