@@ -33,6 +33,7 @@
     "@next/eslint-plugin-next": "^13.5.4",
     "qonto-mirage": "workspace:*",
     "tsconfig": "workspace:*",
+    "type-fest": "^4.4.0",
     "typescript": "^4.8.0"
   }
 }
