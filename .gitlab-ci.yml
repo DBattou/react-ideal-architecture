@@ -66,7 +66,7 @@ test:
       junit: 'apps/**/.playwright/report/junit.xml'
       coverage_report:
         coverage_format: cobertura
-        path: 'apps/**/.playwright/monocart/coverage/cobertura-coverage.xml'
+        path: 'apps/qonto-js/.playwright/monocart/coverage/cobertura-coverage.xml'
     paths:
       - 'apps/**/.playwright/'
 
