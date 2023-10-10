@@ -1,6 +1,6 @@
+@import url("ui/styles.css");
+
 #__next {
   /* target the next.js root element class */
   height: 100%;
 }
-
-@import url("ui/styles.css");
