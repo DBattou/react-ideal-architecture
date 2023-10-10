@@ -10,8 +10,8 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
-import { Cell, HeaderCell, Row, Table } from "@/src/components/table";
-import type { Transaction } from "@/src/services/transactions";
+import { Cell, HeaderCell, Row, Table } from "@/components/table";
+import type { Transaction } from "@/services/transactions";
 import { columns } from "./columns";
 
 type TransactionsTableProps = {

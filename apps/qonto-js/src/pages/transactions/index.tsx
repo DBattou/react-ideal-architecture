@@ -1,14 +1,14 @@
 import type { SortingState } from "@tanstack/react-table";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import { Header } from "@/src/components/header";
-import { Filters } from "@/src/components/filters";
-import { TransactionsTable } from "@/src/components/transactions-table";
+import { Header } from "@/components/header";
+import { Filters } from "@/components/filters";
+import { TransactionsTable } from "@/components/transactions-table";
 import {
   type TransactionsListPayload,
   searchTransactions,
-} from "@/src/services/transactions";
-import { PageSelector } from "@/src/components/page-selector";
+} from "@/services/transactions";
+import { PageSelector } from "@/components/page-selector";
 import styles from "./styles.module.css";
 
 const FAKE_AMOUNT = 24.32;
