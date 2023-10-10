@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { HeaderCell } from "qonto-js/src/components/table";
+import { HeaderCell } from "ui";
 
 const meta = {
   title: "qonto-js/table/header-cell",
