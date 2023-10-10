@@ -66,9 +66,8 @@ test:
       junit: 'apps/**/.playwright/report/junit.xml'
       coverage_report:
         coverage_format: cobertura
-        path: 'apps/qonto-js/.playwright/monocart/coverage/cobertura-coverage.xml'
-    paths:
-      - 'apps/**/.playwright/'
+        path: 'apps/**/.playwright/monocart/coverage/cobertura-coverage.xml'
+  coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
 
 test-components:
   image: mcr.microsoft.com/playwright:v1.37.0-jammy
