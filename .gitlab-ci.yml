@@ -67,6 +67,8 @@ test:
       coverage_report:
         coverage_format: cobertura
         path: 'apps/**/.playwright/monocart/coverage/cobertura-coverage.xml'
+    paths:
+      - 'apps/**/.playwright/'
 
 test-components:
   image: mcr.microsoft.com/playwright:v1.37.0-jammy
