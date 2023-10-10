@@ -10,7 +10,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useState } from "react";
-import { Cell, HeaderCell, Row, Table } from "@/components/table";
+import { Cell, HeaderCell, Row, Table } from "ui";
 import type { Transaction } from "@/services/transactions";
 import { columns } from "./columns";
 
