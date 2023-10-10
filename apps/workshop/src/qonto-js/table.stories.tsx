@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Table, HeaderCell, Cell, Row } from "qonto-js/components/table";
+import { Table, HeaderCell, Cell, Row } from "qonto-js/src/components/table";
 import {
   WithAscSort,
   Default as DefaultHeaderCell,

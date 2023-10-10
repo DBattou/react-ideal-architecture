@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { PageSelector } from "qonto-js/components/page-selector";
+import { PageSelector } from "qonto-js/src/components/page-selector";
 
 const meta = {
   title: "qonto-js/page-selector",
