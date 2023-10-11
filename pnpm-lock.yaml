@@ -201,6 +201,43 @@ importers:
         specifier: ^1.10.12
         version: 1.10.12(eslint@8.50.0)
 
+  packages/qonto-js-transactions-ui:
+    dependencies:
+      '@tanstack/react-table':
+        specifier: ^8.9.3
+        version: 8.9.3(react-dom@18.2.0)(react@18.2.0)
+      normalize.css:
+        specifier: ^8.0.1
+        version: 8.0.1
+      ui:
+        specifier: workspace:*
+        version: link:../ui
+    devDependencies:
+      '@types/node':
+        specifier: ^17.0.12
+        version: 17.0.45
+      '@types/react':
+        specifier: 18.2.20
+        version: 18.2.20
+      '@types/react-dom':
+        specifier: 18.2.7
+        version: 18.2.7
+      classnames:
+        specifier: ^2.3.2
+        version: 2.3.2
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      react:
+        specifier: ^18.2.0
+        version: 18.2.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^4.8.0
+        version: 4.9.5
+
   packages/qonto-mirage:
     dependencies:
       '@faker-js/faker':
