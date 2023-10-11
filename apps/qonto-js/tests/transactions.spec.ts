@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "./globalTestSetup";
 
 test("Transactions page display a search input and a transactions table", async ({
   page,
@@ -10,9 +10,13 @@ test("Transactions page display a search input and a transactions table", async 
   await expect(
     page.getByRole("table", { name: "List of transactions" })
   ).toBeVisible();
+
+  const cellText = await page.textContent("td:nth-child(2)"); // Gets the second cell of the first row
+
+  expect(cellText).toBe("Left Behind");
 });
 
-test("Inputing a search query from the search input should set the query QP in url", async ({
+test("Inputting a search query from the search input should set the query QP in url", async ({
   page,
 }) => {
   await page.goto("/transactions");
