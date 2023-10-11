@@ -1,9 +1,9 @@
 import type { SortingState } from "@tanstack/react-table";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
+import { TransactionsTable } from "qonto-js-transactions-ui";
 import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
-import { TransactionsTable } from "@/components/transactions-table";
 import {
   type TransactionsListPayload,
   searchTransactions,
