@@ -1,4 +1,4 @@
-import type { Transaction } from "@/services/transactions";
+import type { Transaction } from "../../types/transaction";
 import styles from "./styles.module.css";
 
 type TransactionCellProps = Pick<
