@@ -1,4 +1,4 @@
-import { test, expect } from "./globalTestSetup";
+import { test, expect } from "./helpers/test";
 
 test("Transactions page display a search input and a transactions table", async ({
   page,

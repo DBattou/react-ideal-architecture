@@ -1,7 +1,10 @@
 import { test as testBase, expect } from "@playwright/test";
 import { addCoverageReport } from "monocart-reporter";
+import { createWorkerFixture } from "playwright-msw";
+import handlers from "../msw/handlers";
 
 const test = testBase.extend({
+  worker: createWorkerFixture(handlers),
   autoTestFixture: [
     async ({ page }, use) => {
       const isChromium = test.info().project.name === "chromium";
