@@ -3,7 +3,7 @@
   "globalDependencies": ["**/.env.*local", "**/.env.*"],
   "pipeline": {
     "build": {
-      "env": ["PRODUCTION", "NEXT_ENV"],
+      "env": ["PRODUCTION", "NEXT_PUBLIC_ENV"],
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "storybook-static/**"]
     },
