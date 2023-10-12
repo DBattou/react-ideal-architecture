@@ -14,7 +14,7 @@ type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-makeServer({ environment: "development" });
+makeServer({ environment: process.env.NEXT_ENV });
 
 export default function App({
   Component,

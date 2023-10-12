@@ -1,9 +1,9 @@
 {
   "$schema": "https://turbo.build/schema.json",
-  "globalDependencies": ["**/.env.*local"],
+  "globalDependencies": ["**/.env.*local", "**/.env.*"],
   "pipeline": {
     "build": {
-      "env": ["PRODUCTION"],
+      "env": ["PRODUCTION", "NEXT_ENV"],
       "dependsOn": ["^build"],
       "outputs": [".next/**", "!.next/cache/**", "storybook-static/**"]
     },
