@@ -79,6 +79,10 @@ test-components:
     expire_in: 1h
     reports:
       junit: 'apps/**/.playwright/report/ct-junit.xml'
+      coverage_report:
+        coverage_format: cobertura
+        path: 'apps/**/.playwright/monocart-ct/coverage/cobertura-coverage.xml'
+  coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
 
 deploy-storybook:
   stage: deploy

@@ -20,7 +20,24 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: process.env.CI
-    ? [["junit", { outputFile: "./.playwright/report/ct-junit.xml" }]]
+    ? [
+        ["junit", { outputFile: "./.playwright/report/ct-junit.xml" }],
+        [
+          "monocart-reporter",
+          {
+            name: "My Test Report",
+            outputFile: "./.playwright/monocart-ct/report.html",
+            coverage: {
+              toIstanbul: ["html-spa", "cobertura", "text-summary"],
+              sourceFilter: (sourcePath) => {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+                return sourcePath.search(/src\//) !== -1;
+              },
+              inline: true,
+            },
+          },
+        ],
+      ]
     : [["html", { outputFolder: "./.playwright/report" }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
