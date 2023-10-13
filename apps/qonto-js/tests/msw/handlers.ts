@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { TransactionsListPayload } from "@/services/transactions";
+import type { TransactionsListPayload } from "@/services/transactions";
 
 export default [
   rest.post("/api/v6/transactions/search", (_req, res, ctx) => {

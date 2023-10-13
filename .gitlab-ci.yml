@@ -64,6 +64,10 @@ test:
     expire_in: 1h
     reports:
       junit: 'apps/**/.playwright/report/junit.xml'
+      coverage_report:
+        coverage_format: cobertura
+        path: 'apps/**/.playwright/monocart/coverage/cobertura-coverage.xml'
+  coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
 
 test-components:
   image: mcr.microsoft.com/playwright:v1.37.0-jammy

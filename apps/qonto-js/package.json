@@ -33,6 +33,7 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.5.4",
+    "monocart-reporter": "^1.7.13",
     "playwright-msw": "^2.2.1",
     "qonto-mirage": "workspace:*",
     "tsconfig": "workspace:*",
