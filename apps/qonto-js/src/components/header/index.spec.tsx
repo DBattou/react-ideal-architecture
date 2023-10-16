@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/experimental-ct-react";
+import { test, expect } from "../../../tests/helpers/test-ct";
 import { Header } from ".";
 
 test("renders the title", async ({ mount }) => {
