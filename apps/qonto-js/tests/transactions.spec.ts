@@ -11,9 +11,7 @@ test("Transactions page display a search input and a transactions table", async 
     page.getByRole("table", { name: "List of transactions" })
   ).toBeVisible();
 
-  const cellText = await page.textContent("td:nth-child(2)"); // Gets the second cell of the first row
-
-  expect(cellText).toBe("Left Behind");
+  await expect(page.getByRole("cell", { name: "Left Behind" })).toBeVisible();
 });
 
 test("Inputting a search query from the search input should set the query QP in url", async ({
