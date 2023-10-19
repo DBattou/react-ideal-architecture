@@ -2,6 +2,7 @@
   "$schema": "https://turbo.build/schema.json",
   "globalDependencies": ["**/.env.*local", "**/.env.*"],
   "pipeline": {
+    "start": { "dependsOn": ["^build"], "cache": false },
     "build": {
       "env": ["PRODUCTION", "NEXT_PUBLIC_ENV"],
       "dependsOn": ["^build"],
