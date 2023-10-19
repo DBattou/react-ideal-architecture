@@ -139,15 +139,18 @@ importers:
       '@next/eslint-plugin-next':
         specifier: ^13.5.4
         version: 13.5.4
-      monocart-reporter:
-        specifier: ^1.7.13
-        version: 1.7.13
       '@types/sinon':
         specifier: ^10.0.19
         version: 10.0.19
+      monocart-reporter:
+        specifier: ^1.7.13
+        version: 1.7.13
       playwright-msw:
         specifier: ^2.2.1
         version: 2.2.1(@playwright/test@1.37.1)(msw@1.3.2)
+      postcss-nested:
+        specifier: ^6.0.1
+        version: 6.0.1(postcss@8.4.29)
       qonto-mirage:
         specifier: workspace:*
         version: link:../../packages/qonto-mirage
@@ -7435,13 +7438,15 @@ packages:
       object.values: 1.1.7
     dev: true
 
+  /just-extend@4.2.1:
+    resolution: {integrity: sha512-g3UB796vUFIY90VIv/WX3L2c8CS2MdWUww3CNrYmqza1Fg0DURc2K/O4YrnklBdQarSJ/y8JnJYDGc+1iumQjg==}
+    dev: true
+
   /keygrip@1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
     engines: {node: '>= 0.6'}
     dependencies:
       tsscmp: 1.0.6
-  /just-extend@4.2.1:
-    resolution: {integrity: sha512-g3UB796vUFIY90VIv/WX3L2c8CS2MdWUww3CNrYmqza1Fg0DURc2K/O4YrnklBdQarSJ/y8JnJYDGc+1iumQjg==}
     dev: true
 
   /keyv@4.5.3:

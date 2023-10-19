@@ -36,6 +36,7 @@
     "monocart-reporter": "^1.7.13",
     "@types/sinon": "^10.0.19",
     "playwright-msw": "^2.2.1",
+    "postcss-nested": "^6.0.1",
     "qonto-mirage": "workspace:*",
     "sinon": "^16.1.0",
     "tsconfig": "workspace:*",
