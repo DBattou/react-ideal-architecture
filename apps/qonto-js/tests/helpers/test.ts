@@ -1,12 +1,16 @@
 import { test as testBase, expect } from "@playwright/test";
 import { addCoverageReport } from "monocart-reporter";
+import type { MockServiceWorker } from "playwright-msw";
 import { createWorkerFixture } from "playwright-msw";
 import handlers from "../msw/handlers";
 
-const test = testBase.extend({
+const test = testBase.extend<{
+  worker: MockServiceWorker;
+  autoTestFixture: string;
+}>({
   worker: createWorkerFixture(handlers),
   autoTestFixture: [
-    async ({ page }, use) => {
+    async ({ page }, use): Promise<void> => {
       const isChromium = test.info().project.name === "chromium";
 
       // coverage API is chromium only
