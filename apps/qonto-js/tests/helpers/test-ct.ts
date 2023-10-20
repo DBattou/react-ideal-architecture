@@ -1,9 +1,11 @@
 import { test as testBase, expect } from "@playwright/experimental-ct-react";
 import { addCoverageReport } from "monocart-reporter";
 
-const test = testBase.extend({
+const test = testBase.extend<{
+  autoTestFixture: string;
+}>({
   autoTestFixture: [
-    async ({ page }, use) => {
+    async ({ page }, use): Promise<void> => {
       const isChromium = test.info().project.name === "chromium";
 
       // coverage API is chromium only
