@@ -44,4 +44,12 @@ module.exports = {
     "@next/next/no-img-element": "off",
     "@typescript-eslint/no-unnecessary-condition": "off" /** false positive? */
   },
+
+  /**
+   * Remove this override when tests get extracted in their own package.
+   */
+  overrides: [{
+    files: ["**/*.spec.ts?(x)"],
+    extends: [require.resolve("@vercel/style-guide/eslint/playwright-test")]
+  }]
 };
