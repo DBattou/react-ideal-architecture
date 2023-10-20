@@ -1,5 +1,5 @@
 import { Factory } from "miragejs";
-import { Transaction } from "./model";
+import type { Transaction } from "qonto-api";
 import { faker } from "@faker-js/faker";
 
 export default Factory.extend<Partial<Transaction>>({

@@ -295,6 +295,9 @@ importers:
       miragejs:
         specifier: ^0.1.47
         version: 0.1.47
+      qonto-api:
+        specifier: workspace:*
+        version: link:../qonto-api
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
