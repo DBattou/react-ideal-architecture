@@ -22,6 +22,11 @@ stages:
   - deploy
   - pages
 
+include:
+  - project: tech/gitlab-ci-templates
+    ref: release-2
+    file: docker-image.yml
+
 build:
   stage: build
   script: NEXT_TELEMETRY_DISABLED=1 pnpm run build
