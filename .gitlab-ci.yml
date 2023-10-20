@@ -19,6 +19,8 @@ default:
 stages:
   - build
   - test
+  - staging-feature-branch
+  - staging
   - deploy
   - pages
 
@@ -26,6 +28,9 @@ include:
   - project: tech/gitlab-ci-templates
     ref: release-2
     file: docker-image.yml
+  - project: tech/argocd-cd-templates
+    file: deploy-staging.yml
+    ref: release-3
 
 build:
   stage: build
