@@ -11,7 +11,7 @@ import {
 } from "@tanstack/react-table";
 import { useState } from "react";
 import { Cell, HeaderCell, Row, Table } from "ui";
-import type { Transaction } from "../types/transaction";
+import type { Transaction } from "qonto-api";
 import { columns } from "./columns";
 
 type TransactionsTableProps = {

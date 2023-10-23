@@ -120,6 +120,9 @@ importers:
       next:
         specifier: ^13.4.1
         version: 13.4.1(@babel/core@7.22.17)(react-dom@18.2.0)(react@18.2.0)
+      qonto-api:
+        specifier: workspace:*
+        version: link:../../packages/qonto-api
       qonto-js-transactions-ui:
         specifier: workspace:*
         version: link:../../packages/qonto-js-transactions-ui
@@ -228,6 +231,18 @@ importers:
         specifier: ^1.10.12
         version: 1.10.12(eslint@8.50.0)
 
+  packages/qonto-api:
+    devDependencies:
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^4.8.0
+        version: 4.9.5
+
   packages/qonto-js-transactions-ui:
     dependencies:
       '@tanstack/react-table':
@@ -255,6 +270,9 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
+      qonto-api:
+        specifier: workspace:*
+        version: link:../qonto-api
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -280,6 +298,9 @@ importers:
       miragejs:
         specifier: ^0.1.47
         version: 0.1.47
+      qonto-api:
+        specifier: workspace:*
+        version: link:../qonto-api
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
