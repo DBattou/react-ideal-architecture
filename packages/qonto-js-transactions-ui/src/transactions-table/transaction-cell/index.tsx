@@ -1,4 +1,4 @@
-import type { Transaction } from "qonto-api";
+import type { Transaction } from "transactions-entity";
 import styles from "./styles.module.css";
 
 type TransactionCellProps = Pick<

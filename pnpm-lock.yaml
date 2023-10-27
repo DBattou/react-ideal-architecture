@@ -270,12 +270,12 @@ importers:
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
-      qonto-api:
-        specifier: workspace:*
-        version: link:../qonto-api
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      transactions-entity:
+        specifier: workspace:*
+        version: link:../transactions-entity
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
