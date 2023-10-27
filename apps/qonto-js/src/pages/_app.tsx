@@ -4,6 +4,7 @@ import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import AbilitiesProvider from "@/services/abilities/abilities-context";
 import "@/styles/global.css";
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
@@ -26,9 +27,19 @@ export default function App({
   const getLayout = Component.getLayout ?? ((page) => page);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      {getLayout(<Component {...pageProps} />)}
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <AbilitiesProvider
+      context={{
+        permissions: {
+          teams: "access",
+          bank_accounts: "create",
+          savings: "access",
+        },
+      }}
+    >
+      <QueryClientProvider client={queryClient}>
+        {getLayout(<Component {...pageProps} />)}
+        <ReactQueryDevtools />
+      </QueryClientProvider>
+    </AbilitiesProvider>
   );
 }

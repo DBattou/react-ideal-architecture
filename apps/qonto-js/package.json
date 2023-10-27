@@ -13,6 +13,8 @@
     "test:ui": "pnpm run test --ui"
   },
   "dependencies": {
+    "@casl/ability": "^6.5.0",
+    "@casl/react": "^3.1.0",
     "@playwright/experimental-ct-react": "^1.37.1",
     "@playwright/test": "^1.37.1",
     "@tanstack/react-query": "^4.35.3",
@@ -34,8 +36,8 @@
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.5.4",
-    "monocart-reporter": "^1.7.13",
     "@types/sinon": "^10.0.19",
+    "monocart-reporter": "^1.7.13",
     "next-router-mock": "^0.9.10",
     "playwright-msw": "^2.2.1",
     "postcss-nested": "^6.0.1",
