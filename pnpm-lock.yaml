@@ -298,9 +298,9 @@ importers:
       miragejs:
         specifier: ^0.1.47
         version: 0.1.47
-      qonto-api:
+      transactions-entity:
         specifier: workspace:*
-        version: link:../qonto-api
+        version: link:../transactions-entity
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
