@@ -1,5 +1,5 @@
 import camelcaseKeys from "camelcase-keys";
-import type { Transaction } from "qonto-api";
+import type { Transaction } from "transactions-entity";
 import type { Serialized } from "@/types/utils";
 
 export type TransactionsListPayload = {

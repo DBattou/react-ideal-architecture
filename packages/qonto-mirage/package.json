@@ -9,7 +9,7 @@
     "miragejs": "^0.1.47",
     "tsconfig": "workspace:*",
     "typescript": "^4.8.0",
-    "qonto-api": "workspace:*"
+    "transactions-entity": "workspace:*"
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
