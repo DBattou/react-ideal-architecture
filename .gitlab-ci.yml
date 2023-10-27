@@ -29,6 +29,9 @@ include:
     ref: release-2
     file: docker-image.yml
   - project: tech/argocd-cd-templates
+    file: common.yml
+    ref: release-3
+  - project: tech/argocd-cd-templates
     file: deploy-staging.yml
     ref: release-3
 
