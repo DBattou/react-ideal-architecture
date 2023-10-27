@@ -28,9 +28,9 @@
     "qonto-js-transactions-ui": "workspace:*",
     "react": "18.2.0",
     "react-dom": "^18.2.0",
+    "transactions-entity": "workspace:*",
     "ui": "workspace:*",
-    "use-debounce": "^9.0.4",
-    "qonto-api": "workspace:*"
+    "use-debounce": "^9.0.4"
   },
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.5.4",
