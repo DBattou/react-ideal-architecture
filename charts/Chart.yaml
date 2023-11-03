@@ -1,0 +1,9 @@
+apiVersion: v2
+version: v0.0.1
+name: web-ideal-architecture
+dependencies:
+  - alias: app
+    name: qonto-generic-app
+    version: 2.40.8
+    repository: s3://qonto-helm-charts
+

@@ -1,0 +1,57 @@
+app:
+  appName: web-ideal-architecture
+  team: web
+  priority: P3
+  language: none
+  affinity:
+    podAntiAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: web-ideal-architecture
+            topologyKey: kubernetes.io/hostname
+          weight: 90
+        - podAffinityTerm:
+            labelSelector:
+              matchLabels:
+                app: web-ideal-architecture
+            topologyKey: topology.kubernetes.io/zone
+          weight: 80
+  context: qonto
+  image:
+    pullPolicy: IfNotPresent
+    registry: 930600874599.dkr.ecr.eu-west-3.amazonaws.com
+    repository: front/web-ideal-architecture
+  livenessProbe:
+    httpGet:
+      path: /
+      port: http
+    failureThreshold: 5
+    initialDelaySeconds: 10
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 20
+  partOf: web-ideal-architecture
+  ports:
+    - containerPort: 3000
+      name: http
+      protocol: TCP
+  preStopCommand:
+    - sleep
+    - "10"
+  readinessProbe:
+    httpGet:
+      path: /
+      port: http
+    failureThreshold: 5
+    initialDelaySeconds: 10
+    periodSeconds: 30
+    successThreshold: 1
+    timeoutSeconds: 20
+  service:
+    ports:
+      - name: http
+        port: 3000
+    type: ClusterIP
+  strategyType: RollingUpdate

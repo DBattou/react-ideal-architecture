@@ -1,7 +1,6 @@
 variables:
   FORCE_COLOR: 1
   APP_NAME: 'web-ideal-architecture'
-  FRONT_APP: 'true'
 
 default:
   image: 930600874599.dkr.ecr.eu-west-3.amazonaws.com/tech/docker-images/node:18-112-ci
