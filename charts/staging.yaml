@@ -1,0 +1,18 @@
+app:
+  deployment:
+    extraLabels:
+      forward-logs: "false"
+  ingresses:
+    web-ideal-architecture:
+      enabled: true
+      annotations:
+        traefik.ingress.kubernetes.io/router.entrypoints: private
+        traefik.ingress.kubernetes.io/router.middlewares: traefik-hstssecureheaders@kubernetescrd
+
+        # mandatory monitoring
+        # see: https://www.notion.so/qonto/How-to-add-a-Blackbox-Exporter-probe-01ddf286228941bc977b03e1feb76457?pvs=4#4c8a850e822641d59df7c434a9c1f13d
+        qonto.co/monitoring.blackbox.module: http_2xx
+      paths:
+      - /
+      hosts:
+        - 'web-ideal-architecture-${namespace}.staging${EKS_CLUSTER_ID}.qonto.co'

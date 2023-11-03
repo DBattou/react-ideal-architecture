@@ -1,7 +1,6 @@
 variables:
   FORCE_COLOR: 1
   APP_NAME: 'web-ideal-architecture'
-  FRONT_APP: 'true'
 
 default:
   image: 930600874599.dkr.ecr.eu-west-3.amazonaws.com/tech/docker-images/node:18-112-ci
@@ -19,8 +18,21 @@ default:
 stages:
   - build
   - test
+  - staging-feature-branch
+  - staging
   - deploy
   - pages
+
+include:
+  - project: tech/gitlab-ci-templates
+    ref: release-2
+    file: docker-image.yml
+  - project: tech/argocd-cd-templates
+    file: common.yml
+    ref: release-3
+  - project: tech/argocd-cd-templates
+    file: deploy-staging.yml
+    ref: release-3
 
 build:
   stage: build
