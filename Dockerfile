@@ -1,11 +1,8 @@
 FROM node:18-alpine AS base
  
 FROM base AS builder
-RUN apk add --no-cache libc6-compat
-RUN apk update
-# Set working directory
 WORKDIR /app
-RUN npm install -g turbo
+RUN npm install -g turbo@1.10.16
 COPY . .
 RUN turbo prune --scope=qonto-js --docker
 
@@ -16,8 +13,6 @@ RUN rm -rf /app/out/full/*/*/node_modules
  
 # Add lockfile and package.json's of isolated subworkspace
 FROM base AS installer
-RUN apk add --no-cache libc6-compat
-RUN apk update
 WORKDIR /app
 
  
@@ -26,7 +21,7 @@ COPY .gitignore .gitignore
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/out/pnpm-workspace.yaml ./pnpm-workspace.yaml
-RUN npm install -g pnpm
+RUN npm install -g pnpm@8.6.11
 RUN pnpm install --frozen-lockfile
  
 # Build the project
