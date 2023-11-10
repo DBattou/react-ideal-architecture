@@ -21,7 +21,6 @@ app:
   context: qonto
   image:
     pullPolicy: IfNotPresent
-    registry: 930600874599.dkr.ecr.eu-west-3.amazonaws.com
     repository: front/web-ideal-architecture
   livenessProbe:
     httpGet:
