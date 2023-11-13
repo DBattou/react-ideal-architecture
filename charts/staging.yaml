@@ -21,7 +21,7 @@ app:
         - 'web-ideal-architecture-${namespace}.staging${EKS_CLUSTER_ID}.qonto.co'
   resources:
     limits:
-      memory: '500Mi'
+      memory: '400Mi'
     requests:
       cpu: '0.01'
-      memory: '400Mi'
+      memory: '300Mi'
