@@ -35,6 +35,11 @@ test.describe("initial render", () => {
   test("transactions table should be sorted according to the sort_by search parameter", async ({
     page,
   }) => {
+    await page.route("*/**/api/v6/transactions/search", async (route) => {
+      const json = transactionsPlayload;
+      await route.fulfill({ json });
+    });
+
     await page.goto("/transactions?sort_by=amount%3Aasc");
 
     await expect(
@@ -47,6 +52,11 @@ test.describe("initial render", () => {
   test("transactions should show n items per page according to the per_page search parameter", async ({
     page,
   }) => {
+    await page.route("*/**/api/v6/transactions/search", async (route) => {
+      const json = transactionsPlayload;
+      await route.fulfill({ json });
+    });
+
     await page.goto("/transactions?per_page=50");
 
     await expect(
