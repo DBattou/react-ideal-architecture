@@ -1,4 +1,4 @@
-import { transactionsPlayload } from "@/fixtures/transactions";
+import { transactionsPlayload } from "@/mocks/fixtures/transactions";
 import { test, expect } from "./helpers/test";
 
 test.describe(() => {
