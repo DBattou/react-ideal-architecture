@@ -2,6 +2,7 @@ import type { SortingState } from "@tanstack/react-table";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { TransactionsTable } from "qonto-js-transactions-ui";
+import { useDebouncedCallback } from "use-debounce";
 import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
 import {
@@ -101,6 +102,17 @@ export default function TransactionsIndex(): JSX.Element {
     void router.replace({ query: router.query });
   };
 
+  const handleQueryChange = useDebouncedCallback((q: string) => {
+    if (q) {
+      router.query.query = q;
+    } else {
+      delete router.query.query;
+    }
+    delete router.query.page;
+
+    void router.replace({ query: router.query });
+  }, 100);
+
   /**
    * These will not show up with the current RQ config
    * but I'm using them for "data" type narrowing.
@@ -117,7 +129,7 @@ export default function TransactionsIndex(): JSX.Element {
           currency: "eur",
         })}
       />
-      <Filters />
+      <Filters initialQuery={query} onQueryChange={handleQueryChange} />
       <div className={styles.tableWrapper}>
         <TransactionsTable
           onSortingChange={handleSortingChange}

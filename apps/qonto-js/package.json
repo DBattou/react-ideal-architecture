@@ -38,7 +38,6 @@
     "@next/eslint-plugin-next": "^13.5.4",
     "@types/sinon": "^10.0.19",
     "monocart-reporter": "^1.7.13",
-    "next-router-mock": "^0.9.10",
     "playwright-msw": "^2.2.1",
     "postcss-nested": "^6.0.1",
     "qonto-mirage": "workspace:*",
