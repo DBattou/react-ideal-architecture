@@ -11,6 +11,7 @@
   ],
   "compilerOptions": {
     "strictNullChecks": true,
+    "baseUrl": ".", // for aliases to work in playwright
     "paths": {
       "@/*": [
         "./src/*"
