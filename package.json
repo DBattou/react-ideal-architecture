@@ -20,5 +20,8 @@
     "turbo": "latest"
   },
   "packageManager": "pnpm@8.6.11",
-  "name": "ideal-architecture"
+  "name": "ideal-architecture",
+  "msw": {
+    "workerDirectory": "apps/qonto-js/public"
+  }
 }
