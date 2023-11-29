@@ -1,7 +1,7 @@
 import { test, expect } from "../../../tests/helpers/test-ct";
 import type { AppContext } from "../../services/abilities/bank-account";
 import { buildBankAccountAbilities } from "../../services/abilities/bank-account";
-import AbilitiesProvider from "../../services/abilities/abilities-context";
+import { AbilitiesProvider } from "../../services/abilities/abilities-context";
 import { BankAccount } from ".";
 
 const defaultContext: AppContext = {

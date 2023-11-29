@@ -1,3 +1,4 @@
+'use client';
 import React, { createContext, useContext, useEffect, useState } from "react";
 import type { AppContext, BankAccountAbilities } from "./bank-account";
 import { buildBankAccountAbilities } from "./bank-account";
@@ -31,7 +32,7 @@ type AbilitiesProviderProps = {
   context: AppContext;
 };
 
-export default function AbilitiesProvider({
+export function AbilitiesProvider({
   children,
   context,
 }: AbilitiesProviderProps): JSX.Element {
