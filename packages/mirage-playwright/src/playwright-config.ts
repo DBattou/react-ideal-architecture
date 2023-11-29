@@ -7,7 +7,6 @@ import type {
 } from "miragejs/server";
 import type { AnyFactories, AnyModels, AnyRegistry } from "miragejs/-types";
 import { Page, Route, Request as PlaywrightRequest } from "@playwright/test";
-import { convertPathToPlaywrightUrl } from "./utils";
 import RouteRecognizer from "route-recognizer";
 
 type RawHandler = RouteHandler<AnyRegistry> | {};
@@ -141,8 +140,8 @@ export default class PlaywrightConfig {
   // TODO: infer models and factories
   mirageConfig?: ServerConfig<AnyModels, AnyFactories>;
 
-  router: RouteRecognizer;
-  handlers: Promise<void>[] = [];
+  private router: Record<string, RouteRecognizer> = {};
+  private playwrightHandler?: (route: Route, request: PlaywrightRequest) => any;
 
   private passthroughs;
   private passthroughChecks: ((req: PlaywrightRequest) => boolean)[] = [];
@@ -158,7 +157,6 @@ export default class PlaywrightConfig {
 
   constructor() {
     this.passthroughs = new PassthroughRegistry();
-    this.router = new RouteRecognizer();
   }
 
   create(
@@ -188,6 +186,7 @@ export default class PlaywrightConfig {
     // TODO: playwright doesn't distinguish between verbs, we can probably get away with creating 1 handler per URL
     // TODO: figure out a way to distinguish between verbs so we're sure the right handler is used
     verbs.forEach(([verb, alias]) => {
+      this.router[verb] = new RouteRecognizer();
       this[verb] = (path: string, ...args: RouteArgs) => {
         let [rawHandler, customizedCode, options] = extractRouteArguments(args);
 
@@ -204,51 +203,13 @@ export default class PlaywrightConfig {
           options
         );
 
-        console.log("adding path", ["/", this.namespace, path].join(""));
-        this.router.add([
-          { path: ["/", this.namespace, path].join(""), handler },
-        ]);
-
         let fullPath = this._getFullPath(path);
-        let playwrightHandler = this.page!.route(
-          convertPathToPlaywrightUrl(fullPath),
-          async (route: Route) => {
-            const request = route.request();
-            console.log("HANDLING", fullPath, request.url());
-            const method = request.method();
-            const url = new URL(request.url());
-            const requestHeaders = await request.allHeaders();
-            const postData = request.postData();
-
-            let params = {};
-            let queryParams = {};
-            let matches = this.router.recognize(fullPath);
-            let match = matches ? matches[0] : null;
-            if (match) {
-              params = match.params;
-              queryParams = matches!.queryParams;
-            }
-
-            let mirageRequest: MirageRequest = {
-              requestBody: postData ?? "",
-              requestHeaders,
-              url: fullPath,
-              params,
-              queryParams,
-            };
-
-            let [status, headers, body] = await handler(mirageRequest);
-
-            console.log("fulfilling route", status, headers);
-            await route.fulfill({
-              status,
-              headers,
-              body: body as string, // TODO: ideally get rid of this cast, we should figure out if there is any chance it'd return {}
-            });
-          }
+        console.info(
+          "[Mirage] Registering route: ",
+          verb.toUpperCase(),
+          fullPath
         );
-
-        this.handlers.push(playwrightHandler);
+        this.router[verb].add([{ path: fullPath, handler }]);
       };
       server[verb] = this[verb];
 
@@ -257,6 +218,47 @@ export default class PlaywrightConfig {
         server[alias] = this[verb];
       }
     });
+
+    this.playwrightHandler = async (route: Route) => {
+      const request = route.request();
+      const method = request.method();
+      const url = new URL(request.url());
+      const requestHeaders = await request.allHeaders();
+      const postData = request.postData();
+
+      let handler;
+      let params = {};
+      let queryParams = {};
+      let matches = this.router[method.toLowerCase()]?.recognize(url.pathname);
+
+      let match = matches ? matches[0] : null;
+      if (match) {
+        handler = match.handler;
+        params = match.params;
+        queryParams = matches!.queryParams;
+      } else {
+        throw new Error(`No Mirage route registered for ${url.pathname}`);
+      }
+
+      let mirageRequest: MirageRequest = {
+        requestBody: postData ?? "",
+        requestHeaders,
+        url: url.pathname,
+        params,
+        queryParams,
+      };
+
+      // @ts-ignore
+      let [status, headers, body] = await handler(mirageRequest);
+      await route.fulfill({
+        status,
+        headers,
+        body: body as string, // TODO: ideally get rid of this cast, we should figure out if there is any chance it'd return {}
+      });
+    };
+
+    // TODO: simply catch all and implement proper passthrough functionality
+    this.page!.route("/api/**", this.playwrightHandler);
   }
 
   // TODO: infer models and factories
@@ -479,10 +481,10 @@ export default class PlaywrightConfig {
   }
 
   shutdown() {
-    // await Promise.all(
-    //   this.handlers.map((handler) =>
-    //     this.page.unroute(convertPathToPlaywrightUrl)
-    //   )
-    // );
+    // TODO: check if "create" is called when we run a second test, otherwise we
+    //  could setup the playwrightHandler in the start() call instead.
+    if (this.page && this.playwrightHandler) {
+      this.page.unroute("/api/**", this.playwrightHandler);
+    }
   }
 }

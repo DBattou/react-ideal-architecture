@@ -11,10 +11,7 @@ interface MakeServerArgs {
   page?: Page;
 }
 
-export function makeServer({
-  environment = "test",
-  page,
-}: MakeServerArgs): Server {
+export function makeServer({ environment = "test", page }: MakeServerArgs) {
   let config = {};
   if (environment === "test") {
     if (!page) {
