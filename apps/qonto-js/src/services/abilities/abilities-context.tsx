@@ -32,7 +32,7 @@ type AbilitiesProviderProps = {
   context: AppContext;
 };
 
-export default function AbilitiesProvider({
+export function AbilitiesProvider({
   children,
   context,
 }: AbilitiesProviderProps): JSX.Element {

@@ -1,6 +1,6 @@
 import "@/styles/global.css";
 import { ReactQueryProvider } from "@/providers/react-query";
-import AbilitiesProvider from "@/services/abilities/abilities-context";
+import { AbilitiesProvider } from "@/services/abilities/abilities-context";
 
 export default function RootLayout({
   children,
