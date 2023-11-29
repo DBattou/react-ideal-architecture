@@ -54,11 +54,7 @@ export function makeServer({ environment = "test", page }: MakeServerArgs) {
       setupApi(this);
 
       this.namespace = "";
-      // if (environment === "test") {
-      //   this.passthrough("/api/v6/transactions/search");
-      // }
-
-      //this.passthrough();
+      this.passthrough();
     },
 
     seeds(server) {

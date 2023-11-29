@@ -11,6 +11,8 @@ test.describe('initial render', () => {
       counterpartyName: "Left Behind",
     });
 
+    //mirageServer.passthrough("/api/v6/transactions/search");
+
     await page.goto("/transactions");
 
     await expect(page.getByPlaceholder("Search transactions...")).toBeVisible();

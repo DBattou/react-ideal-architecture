@@ -1,4 +1,3 @@
-import PassthroughRegistry from "./passthrough-registry";
 import type { Request as MirageRequest } from "miragejs";
 import type {
   HTTPVerb,
@@ -6,15 +5,16 @@ import type {
   ServerConfig as MirageServerConfig,
 } from "miragejs/server";
 import type { AnyFactories, AnyModels, AnyRegistry } from "miragejs/-types";
-import { Page, Route, Request as PlaywrightRequest } from "@playwright/test";
+import type {
+  Page,
+  Route,
+  Request as PlaywrightRequest,
+} from "@playwright/test";
 import RouteRecognizer from "route-recognizer";
 
 type RawHandler = RouteHandler<AnyRegistry> | {};
 
 type ResponseCode = number;
-
-/** code, headers, serialized response */
-type ResponseData = [ResponseCode, { [k: string]: string }, string | undefined];
 
 /** e.g. "/movies/:id" */
 type Shorthand = string;
@@ -137,13 +137,20 @@ export default class PlaywrightConfig {
   timing?: number;
   page?: Page;
   mirageServer?: MirageServer;
-  // TODO: infer models and factories
   mirageConfig?: ServerConfig<AnyModels, AnyFactories>;
 
   private router: Record<string, RouteRecognizer> = {};
   private playwrightHandler?: (route: Route, request: PlaywrightRequest) => any;
+  private playwrightPassthroughHandler = (
+    route: Route,
+    _request: PlaywrightRequest
+  ) => {
+    let request = route.request();
+    let url = request.url();
+    console.info("[Mirage] Passing through: ", url);
+    route.continue();
+  };
 
-  private passthroughs;
   private passthroughChecks: ((req: PlaywrightRequest) => boolean)[] = [];
 
   get?: BaseHandler;
@@ -154,10 +161,6 @@ export default class PlaywrightConfig {
   patch?: BaseHandler;
   head?: BaseHandler;
   options?: BaseHandler;
-
-  constructor() {
-    this.passthroughs = new PassthroughRegistry();
-  }
 
   create(
     server: MirageServer,
@@ -219,7 +222,10 @@ export default class PlaywrightConfig {
       }
     });
 
-    this.playwrightHandler = async (route: Route) => {
+    this.playwrightHandler = async (
+      route: Route,
+      _request: PlaywrightRequest
+    ) => {
       const request = route.request();
       const method = request.method();
       const url = new URL(request.url());
@@ -240,6 +246,10 @@ export default class PlaywrightConfig {
         throw new Error(`No Mirage route registered for ${url.pathname}`);
       }
 
+      if (handler === this.playwrightPassthroughHandler) {
+        return this.playwrightPassthroughHandler(route, _request);
+      }
+
       let mirageRequest: MirageRequest = {
         requestBody: postData ?? "",
         requestHeaders,
@@ -250,6 +260,7 @@ export default class PlaywrightConfig {
 
       // @ts-ignore
       let [status, headers, body] = await handler(mirageRequest);
+      // TODO: add timing support (e.g. longer delay before response)
       await route.fulfill({
         status,
         headers,
@@ -258,7 +269,7 @@ export default class PlaywrightConfig {
     };
 
     // TODO: simply catch all and implement proper passthrough functionality
-    this.page!.route("/api/**", this.playwrightHandler);
+    this.page!.route("**", this.playwrightHandler);
   }
 
   // TODO: infer models and factories
@@ -440,6 +451,7 @@ export default class PlaywrightConfig {
   }
 
   passthrough(...args: (string | HTTPVerb[])[]) {
+    console.info("[Mirage] Configuring passthroughs");
     let verbs: HTTPVerb[] = [
       "get",
       "post",
@@ -466,25 +478,29 @@ export default class PlaywrightConfig {
 
     paths.forEach((path) => {
       if (typeof path === "function") {
+        console.info("[Mirage] Adding passthroughChecks");
         this.passthroughChecks.push(path);
       } else {
+        console.info("[Mirage] Adding passthrough for: ", path);
         let fullPath = this._getFullPath(path);
-        this.passthroughs.add(fullPath, verbs);
+        verbs.forEach((verb) => {
+          this.router[verb].add([
+            { path: fullPath, handler: this.playwrightPassthroughHandler },
+          ]);
+        });
       }
     });
   }
 
   start() {
     // TODO: mirage isn't async, our handlers' init is
-    //await Promise.all(this.handlers);
-    // TODO: passthroughs?
   }
 
   shutdown() {
     // TODO: check if "create" is called when we run a second test, otherwise we
     //  could setup the playwrightHandler in the start() call instead.
     if (this.page && this.playwrightHandler) {
-      this.page.unroute("/api/**", this.playwrightHandler);
+      this.page.unroute("**", this.playwrightHandler);
     }
   }
 }
