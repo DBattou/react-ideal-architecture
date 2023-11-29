@@ -243,7 +243,7 @@ export default class PlaywrightConfig {
             await route.fulfill({
               status,
               headers,
-              body,
+              body: body as string, // TODO: ideally get rid of this cast, we should figure out if there is any chance it'd return {}
             });
           }
         );
