@@ -68,7 +68,6 @@ export default function TransactionsIndex(): JSX.Element {
       ),
     placeholderData: PLACEHOLDER_DATA,
     keepPreviousData: true,
-    enabled: router.isReady,
   });
 
   const handleSortingChange = (
