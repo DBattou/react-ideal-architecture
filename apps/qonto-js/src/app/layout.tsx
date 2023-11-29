@@ -1,5 +1,6 @@
 import "@/styles/global.css";
 import { ReactQueryProvider } from "@/providers/react-query";
+import AbilitiesProvider from "@/services/abilities/abilities-context";
 
 export default function RootLayout({
   children,
@@ -9,9 +10,20 @@ export default function RootLayout({
   return (
   <html lang="en">
     <body>
-      <ReactQueryProvider>
-        {children}
-      </ReactQueryProvider>
+      <AbilitiesProvider
+            context={{
+              permissions: {
+                teams: "access",
+                bank_accounts: "create",
+                savings: "access",
+              },
+            }}
+          >
+
+        <ReactQueryProvider>
+          {children}
+        </ReactQueryProvider>
+      </AbilitiesProvider>
     </body>
   </html>
   )
