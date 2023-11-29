@@ -7,20 +7,31 @@ import { PlaywrightInterceptor } from "mirage-playwright";
 import type { Page } from "@playwright/test";
 
 interface MakeServerArgs {
-  environment?: "test" | "development" | "production";
-  page: Page;
+  environment?: string;
+  page?: Page;
 }
 
 export function makeServer({
   environment = "test",
   page,
 }: MakeServerArgs): Server {
+  let config = {};
+  if (environment === "test") {
+    if (!page) {
+      throw new Error("[Mirage] Playwright Page must be passed to makeServer");
+    }
+
+    config = {
+      interceptor: new PlaywrightInterceptor(),
+      page,
+    };
+  }
+
   const server = createServer({
+    ...config,
     environment,
     factories,
     models,
-    interceptor: new PlaywrightInterceptor(),
-    page,
 
     routes() {
       this.namespace = "api";
