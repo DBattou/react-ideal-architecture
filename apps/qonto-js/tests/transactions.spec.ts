@@ -2,13 +2,15 @@ import { transactionsPlayload } from "@/mocks/fixtures/transactions";
 import { test, expect } from "./helpers/test";
 
 test.describe('initial render', () => {
-    test.beforeEach(({ mirageServer }) => {
-        mirageServer.createList("transaction", 3);
-    });
-    
     test("transactions page display a search input and a transactions table", async ({
     page,
+    mirageServer,
   }) => {
+    mirageServer.create("transaction", {
+      // @ts-expect-error fix issue with mirage model registry
+      counterpartyName: "Left Behind",
+    });
+
     await page.goto("/transactions");
 
     await expect(page.getByPlaceholder("Search transactions...")).toBeVisible();
