@@ -33,13 +33,13 @@ const PLACEHOLDER_DATA: TransactionsListPayload = {
 
 export default function TransactionsIndex(): JSX.Element {
   const router = useRouter();
-  const pathName = usePathname();
+  const pathName = usePathname() ?? "";
   const searchParams = useSearchParams();
 
-  const query = (searchParams.get('query')) ?? "";
-  const page = parseInt((searchParams.get('page')) ?? "1");
-  const perPage = parseInt((searchParams.get('per_page')) ?? "25");
-  const sortBy = (searchParams.get('sort_by')) ?? "emitted_at:desc";
+  const query = (searchParams?.get('query')) ?? "";
+  const page = parseInt((searchParams?.get('page')) ?? "1");
+  const perPage = parseInt((searchParams?.get('per_page')) ?? "25");
+  const sortBy = (searchParams?.get('sort_by')) ?? "emitted_at:desc";
 
   const [sortParam, sortDirection] = sortBy.split(":");
 
@@ -74,7 +74,7 @@ export default function TransactionsIndex(): JSX.Element {
     sorting: (state: SortingState) => SortingState
   ): void => {
     const [nextSort]: SortingState = sorting(currentSort);
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString());
     if (nextSort.desc && nextSort.id === "emitted_at") {
       params.delete('sort_by');
     } else {
@@ -85,7 +85,7 @@ export default function TransactionsIndex(): JSX.Element {
   };
 
   const handlePageChange = (selectedPage: number): void => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString());
     if (selectedPage !== 1) {
       params.set('page', String(selectedPage));
     } else {
@@ -96,7 +96,7 @@ export default function TransactionsIndex(): JSX.Element {
   };
 
   const handlePerPageChange = (selectedPerPage: number): void => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString());
     if (selectedPerPage !== 25) {
       params.set('per_page', String(selectedPerPage));
     } else {
@@ -108,7 +108,7 @@ export default function TransactionsIndex(): JSX.Element {
   };
 
   const handleQueryChange = useDebouncedCallback((q: string) => {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams?.toString());
     if (q) {
       params.set('query', q);
     } else {
