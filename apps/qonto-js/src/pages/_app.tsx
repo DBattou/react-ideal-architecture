@@ -1,4 +1,3 @@
-import { makeServer } from "qonto-mirage";
 import { type ReactElement, type ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
@@ -11,8 +10,6 @@ export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
-
-makeServer({ environment: process.env.NEXT_PUBLIC_ENV });
 
 export default function App({
   Component,
