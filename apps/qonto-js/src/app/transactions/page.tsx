@@ -1,6 +1,6 @@
 'use client';
 import type { SortingState } from "@tanstack/react-table";
-import { useRouter } from "next/router";
+import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { TransactionsTable } from "qonto-js-transactions-ui";
 import { useDebouncedCallback } from "use-debounce";
@@ -33,11 +33,14 @@ const PLACEHOLDER_DATA: TransactionsListPayload = {
 
 export default function TransactionsIndex(): JSX.Element {
   const router = useRouter();
+  const pathName = usePathname();
+  const searchParams = useSearchParams();
 
-  const query = (router.query.query as string) ?? "";
-  const page = parseInt((router.query.page as string) ?? "1");
-  const perPage = parseInt((router.query.per_page as string) ?? "25");
-  const sortBy = (router.query.sort_by as string) ?? "emitted_at:desc";
+  const query = (searchParams.get('query')) ?? "";
+  const page = parseInt((searchParams.get('page')) ?? "1");
+  const perPage = parseInt((searchParams.get('per_page')) ?? "25");
+  const sortBy = (searchParams.get('sort_by')) ?? "emitted_at:desc";
+
   const [sortParam, sortDirection] = sortBy.split(":");
 
   const currentSort = [
@@ -72,46 +75,49 @@ export default function TransactionsIndex(): JSX.Element {
     sorting: (state: SortingState) => SortingState
   ): void => {
     const [nextSort]: SortingState = sorting(currentSort);
-
+    const params = new URLSearchParams(searchParams.toString());
     if (nextSort.desc && nextSort.id === "emitted_at") {
-      delete router.query.sort_by;
+      params.delete('sort_by');
     } else {
-      router.query.sort_by = `${nextSort.id}:${nextSort.desc ? "desc" : "asc"}`;
+      params.set('sort_by', `${nextSort.id}:${nextSort.desc ? "desc" : "asc"}`);
     }
 
-    void router.replace({ query: router.query });
+    router.replace(`${pathName}?${params.toString()}`);
   };
 
   const handlePageChange = (selectedPage: number): void => {
+    const params = new URLSearchParams(searchParams.toString());
     if (selectedPage !== 1) {
-      router.query.page = String(selectedPage);
+      params.set('page', String(selectedPage));
     } else {
-      delete router.query.page;
+      params.delete('page');
     }
 
-    void router.replace({ query: router.query });
+    router.replace(`${pathName}?${params.toString()}`);
   };
 
   const handlePerPageChange = (selectedPerPage: number): void => {
+    const params = new URLSearchParams(searchParams.toString());
     if (selectedPerPage !== 25) {
-      router.query.per_page = String(selectedPerPage);
+      params.set('per_page', String(selectedPerPage));
     } else {
-      delete router.query.per_page;
+      params.delete('per_page');
     }
-    delete router.query.page;
+    params.delete('page');
 
-    void router.replace({ query: router.query });
+    router.replace(`${pathName}?${params.toString()}`)
   };
 
   const handleQueryChange = useDebouncedCallback((q: string) => {
+    const params = new URLSearchParams(searchParams.toString());
     if (q) {
-      router.query.query = q;
+      params.set('query', q);
     } else {
-      delete router.query.query;
+      params.delete('query');
     }
-    delete router.query.page;
+    params.delete('page');
 
-    void router.replace({ query: router.query });
+    router.replace(`${pathName}?${params.toString()}`)
   }, 100);
 
   /**
