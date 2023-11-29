@@ -1,15 +1,14 @@
 import { transactionsPlayload } from "@/mocks/fixtures/transactions";
 import { test, expect } from "./helpers/test";
 
-test.describe("initial render", () => {
-  test("transactions page display a search input and a transactions table", async ({
+test.describe('initial render', () => {
+    test.beforeEach(({ mirageServer }) => {
+        mirageServer.createList("transaction", 3);
+    });
+    
+    test("transactions page display a search input and a transactions table", async ({
     page,
   }) => {
-    await page.route("*/**/api/v6/transactions/search", async (route) => {
-      const json = transactionsPlayload;
-      await route.fulfill({ json });
-    });
-
     await page.goto("/transactions");
 
     await expect(page.getByPlaceholder("Search transactions...")).toBeVisible();
@@ -18,11 +17,7 @@ test.describe("initial render", () => {
       page.getByRole("table", { name: "List of transactions" })
     ).toBeVisible();
 
-    await expect(
-      page.getByRole("cell", {
-        name: transactionsPlayload.transactions[0].counterparty_name,
-      })
-    ).toBeVisible();
+    await expect(page.getByRole("cell", { name: "Left Behind" })).toBeVisible();
   });
 
   test("search input should initially be filled with the query search parameter", async ({

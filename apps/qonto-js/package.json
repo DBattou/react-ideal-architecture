@@ -37,6 +37,8 @@
   "devDependencies": {
     "@next/eslint-plugin-next": "^13.5.4",
     "@types/sinon": "^10.0.19",
+    "miragejs": "^0.1.47",
+    "mirage-playwright": "workspace:*",
     "monocart-reporter": "^1.7.13",
     "postcss-nested": "^6.0.1",
     "qonto-mirage": "workspace:*",

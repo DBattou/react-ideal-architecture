@@ -1,9 +1,26 @@
 import { test as testBase, expect } from "@playwright/test";
 import { addCoverageReport } from "monocart-reporter";
+import { makeServer } from "qonto-mirage";
+import type { Server } from "miragejs";
 
 const test = testBase.extend<{
+  mirageServer: Server;
   autoTestFixture: string;
 }>({
+  mirageServer: async ({ page }, use) => {
+    // Test has not started to execute...
+    console.log("creating mirage server");
+    const mirageServer = makeServer({
+      environment: "test",
+      page,
+    });
+
+    await use(mirageServer);
+
+    // Test has finished executing...
+    // [insert any cleanup actions here]
+    mirageServer.shutdown();
+  },
   autoTestFixture: [
     async ({ page }, use): Promise<void> => {
       const isChromium = test.info().project.name === "chromium";

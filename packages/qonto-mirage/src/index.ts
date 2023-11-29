@@ -1,14 +1,26 @@
-import { createServer, Response } from "miragejs";
+import { createServer, Response, Server } from "miragejs";
 import models from "./models";
 import factories from "./factories";
 import setupApi from "./api";
 import serializers from "./serializers";
+import { PlaywrightInterceptor } from "mirage-playwright";
+import type { Page } from "@playwright/test";
 
-export function makeServer({ environment = "test" }) {
-  return createServer({
+interface MakeServerArgs {
+  environment?: "test" | "development" | "production";
+  page: Page;
+}
+
+export function makeServer({
+  environment = "test",
+  page,
+}: MakeServerArgs): Server {
+  const server = createServer({
     environment,
     factories,
     models,
+    interceptor: new PlaywrightInterceptor(),
+    page,
 
     routes() {
       this.namespace = "api";
@@ -34,10 +46,11 @@ export function makeServer({ environment = "test" }) {
       setupApi(this);
 
       this.namespace = "";
-      if (environment === "test") {
-        this.passthrough("/api/v6/transactions/search");
-      }
-      this.passthrough();
+      // if (environment === "test") {
+      //   this.passthrough("/api/v6/transactions/search");
+      // }
+
+      //this.passthrough();
     },
 
     seeds(server) {
@@ -47,4 +60,8 @@ export function makeServer({ environment = "test" }) {
 
     serializers,
   });
+
+  server.logging = true;
+
+  return server;
 }

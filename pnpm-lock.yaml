@@ -151,6 +151,12 @@ importers:
       '@types/sinon':
         specifier: ^10.0.19
         version: 10.0.19
+      mirage-playwright:
+        specifier: workspace:*
+        version: link:../../packages/mirage-playwright
+      miragejs:
+        specifier: ^0.1.47
+        version: 0.1.47
       monocart-reporter:
         specifier: ^1.7.13
         version: 1.7.13
@@ -231,6 +237,28 @@ importers:
         specifier: ^1.10.12
         version: 1.10.12(eslint@8.50.0)
 
+  packages/mirage-playwright:
+    dependencies:
+      route-recognizer:
+        specifier: ^0.3.4
+        version: 0.3.4
+    devDependencies:
+      '@playwright/test':
+        specifier: ^1.40.0
+        version: 1.40.0
+      eslint-config-custom:
+        specifier: workspace:*
+        version: link:../eslint-config-custom
+      miragejs:
+        specifier: ^0.1.47
+        version: 0.1.48
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+      typescript:
+        specifier: ^4.8.0
+        version: 4.9.5
+
   packages/qonto-js-transactions-ui:
     dependencies:
       '@tanstack/react-table':
@@ -280,12 +308,18 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
     devDependencies:
+      '@playwright/test':
+        specifier: ^1.40.1
+        version: 1.40.1
       eslint-config-custom:
         specifier: workspace:*
         version: link:../eslint-config-custom
+      mirage-playwright:
+        specifier: workspace:*
+        version: link:../mirage-playwright
       miragejs:
         specifier: ^0.1.47
-        version: 0.1.47
+        version: 0.1.48
       transactions-entity:
         specifier: workspace:*
         version: link:../transactions-entity
@@ -2352,6 +2386,22 @@ packages:
       playwright-core: 1.37.1
     optionalDependencies:
       fsevents: 2.3.2
+
+  /@playwright/test@1.40.0:
+    resolution: {integrity: sha512-PdW+kn4eV99iP5gxWNSDQCbhMaDVej+RXL5xr6t04nbKLCBwYtA046t7ofoczHOm8u6c+45hpDKQVZqtqwkeQg==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      playwright: 1.40.0
+    dev: true
+
+  /@playwright/test@1.40.1:
+    resolution: {integrity: sha512-EaaawMTOeEItCRvfmkI9v6rBkF1svM8wjl/YPRrg2N2Wmp+4qJYkWtJsbew1szfKKDm6fPLy4YAanBhIlf9dWw==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      playwright: 1.40.1
+    dev: true
 
   /@radix-ui/number@1.0.1:
     resolution: {integrity: sha512-T5gIdVO2mmPW3NNhjNgEP3cqMXjXL9UbO0BzWcXfvdBs+BohbQxvd/K5hSVKmn9/lbTdsQVKbUcP5WLCwvUbBg==}
@@ -8042,6 +8092,16 @@ packages:
       pretender: 3.4.7
     dev: true
 
+  /miragejs@0.1.48:
+    resolution: {integrity: sha512-MGZAq0Q3OuRYgZKvlB69z4gLN4G3PvgC4A2zhkCXCXrLD5wm2cCnwNB59xOBVA+srZ0zEes6u+VylcPIkB4SqA==}
+    engines: {node: 6.* || 8.* || >= 10.*}
+    dependencies:
+      '@miragejs/pretender-node-polyfill': 0.1.2
+      inflected: 2.1.0
+      lodash: 4.17.21
+      pretender: 3.4.7
+    dev: true
+
   /mkdirp-classic@0.5.3:
     resolution: {integrity: sha512-gKLcREMhtuZRwRAfqP3RFW+TK4JqApVBtOIftVgjuABpAtpxhPGaDcfvbhNvD0B8iD1oUr/txX35NjcaY6Ns/A==}
     dev: true
@@ -8675,6 +8735,38 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
+  /playwright-core@1.40.0:
+    resolution: {integrity: sha512-fvKewVJpGeca8t0ipM56jkVSU6Eo0RmFvQ/MaCQNDYm+sdvKkMBBWTE1FdeMqIdumRaXXjZChWHvIzCGM/tA/Q==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dev: true
+
+  /playwright-core@1.40.1:
+    resolution: {integrity: sha512-+hkOycxPiV534c4HhpfX6yrlawqVUzITRKwHAmYfmsVreltEl6fAZJ3DPfLMOODw0H3s1Itd6MDCWmP1fl/QvQ==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dev: true
+
+  /playwright@1.40.0:
+    resolution: {integrity: sha512-gyHAgQjiDf1m34Xpwzaqb76KgfzYrhK7iih+2IzcOCoZWr/8ZqmdBw+t0RU85ZmfJMgtgAiNtBQ/KS2325INXw==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      playwright-core: 1.40.0
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /playwright@1.40.1:
+    resolution: {integrity: sha512-2eHI7IioIpQ0bS1Ovg/HszsN/XKNwEG1kbzSDDmADpclKc7CyqkHw7Mg2JCz/bbCxg25QUPcjksoMW7JcIFQmw==}
+    engines: {node: '>=16'}
+    hasBin: true
+    dependencies:
+      playwright-core: 1.40.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
   /pluralize@8.0.0:
     resolution: {integrity: sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==}
     engines: {node: '>=4'}
@@ -9290,7 +9382,6 @@ packages:
 
   /route-recognizer@0.3.4:
     resolution: {integrity: sha512-2+MhsfPhvauN1O8KaXpXAOfR/fwe8dnUXVM+xw7yt40lJRfPVQxV6yryZm0cgRvAj5fMF/mdRZbL2ptwbs5i2g==}
-    dev: true
 
   /run-applescript@5.0.0:
     resolution: {integrity: sha512-XcT5rBksx1QdIhlFOCtgZkB99ZEouFZ1E2Kc2LHqNW13U3/74YGdkQRmThTwxy4QIyookibDKYZOPqX//6BlAg==}
