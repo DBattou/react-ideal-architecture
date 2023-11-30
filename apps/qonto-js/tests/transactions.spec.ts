@@ -1,8 +1,8 @@
 import { transactionsPlayload } from "@/mocks/fixtures/transactions";
 import { test, expect } from "./helpers/test";
 
-test.describe('initial render', () => {
-    test("transactions page display a search input and a transactions table", async ({
+test.describe("initial render", () => {
+  test("transactions page display a search input and a transactions table", async ({
     page,
     mirageServer,
   }) => {
@@ -10,7 +10,6 @@ test.describe('initial render', () => {
       // @ts-expect-error fix issue with mirage model registry
       counterpartyName: "Left Behind",
     });
-
     //mirageServer.passthrough("/api/v6/transactions/search");
 
     await page.goto("/transactions");

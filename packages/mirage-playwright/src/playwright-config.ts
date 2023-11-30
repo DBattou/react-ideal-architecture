@@ -37,6 +37,7 @@ type BaseHandler = (path: string, ...args: RouteArgs) => void;
 interface ServerConfig<Models extends AnyModels, Factories extends AnyFactories>
   extends MirageServerConfig<Models, Factories> {
   page: Page;
+  interceptUrlPattern?: string;
 }
 
 type MirageRouteHandlerResponse = [
@@ -135,6 +136,7 @@ export default class PlaywrightConfig {
   urlPrefix?: string;
   namespace?: string;
   timing?: number;
+  interceptUrlPattern = "**";
   page?: Page;
   mirageServer?: MirageServer;
   mirageConfig?: ServerConfig<AnyModels, AnyFactories>;
@@ -146,8 +148,13 @@ export default class PlaywrightConfig {
     _request: PlaywrightRequest
   ) => {
     let request = route.request();
+    let verb = request.method();
     let url = request.url();
-    console.info("[Mirage] Passing through: ", url);
+    if (this.mirageServer?.shouldLog()) {
+      console.log(
+        `Mirage: Passthrough request for ${verb.toUpperCase()} ${url}`
+      );
+    }
     route.continue();
   };
 
@@ -163,18 +170,19 @@ export default class PlaywrightConfig {
   options?: BaseHandler;
 
   create(
-    server: MirageServer,
-    mirageConfig: ServerConfig<AnyModels, AnyFactories>
+    mirageServer: MirageServer,
+    config: ServerConfig<AnyModels, AnyFactories>
   ) {
-    this.mirageServer = server;
-    this.mirageConfig = mirageConfig;
+    this.mirageServer = mirageServer;
 
-    this.page = this.mirageConfig.page;
+    this.interceptUrlPattern =
+      config.interceptUrlPattern ?? this.interceptUrlPattern;
+    this.page = config.page;
     if (!this.page) {
       throw new Error("A Playwright Page must be passed in the mirageConfig");
     }
 
-    this.config(mirageConfig);
+    this.config(config);
 
     const verbs = [
       ["get"] as const,
@@ -207,18 +215,13 @@ export default class PlaywrightConfig {
         );
 
         let fullPath = this._getFullPath(path);
-        console.info(
-          "[Mirage] Registering route: ",
-          verb.toUpperCase(),
-          fullPath
-        );
         this.router[verb].add([{ path: fullPath, handler }]);
       };
-      server[verb] = this[verb];
+      mirageServer[verb] = this[verb];
 
       if (alias) {
         this[alias] = this[verb];
-        server[alias] = this[verb];
+        mirageServer[alias] = this[verb];
       }
     });
 
@@ -260,6 +263,11 @@ export default class PlaywrightConfig {
 
       // @ts-ignore
       let [status, headers, body] = await handler(mirageRequest);
+
+      if (this.mirageServer?.shouldLog()) {
+        console.log(`Mirage: [${status}] ${method.toUpperCase()} ${url}`);
+      }
+
       // TODO: add timing support (e.g. longer delay before response)
       await route.fulfill({
         status,
@@ -268,8 +276,7 @@ export default class PlaywrightConfig {
       });
     };
 
-    // TODO: simply catch all and implement proper passthrough functionality
-    this.page!.route("**", this.playwrightHandler);
+    this.page!.route(this.interceptUrlPattern, this.playwrightHandler);
   }
 
   // TODO: infer models and factories
@@ -451,7 +458,6 @@ export default class PlaywrightConfig {
   }
 
   passthrough(...args: (string | HTTPVerb[])[]) {
-    console.info("[Mirage] Configuring passthroughs");
     let verbs: HTTPVerb[] = [
       "get",
       "post",
@@ -478,10 +484,8 @@ export default class PlaywrightConfig {
 
     paths.forEach((path) => {
       if (typeof path === "function") {
-        console.info("[Mirage] Adding passthroughChecks");
         this.passthroughChecks.push(path);
       } else {
-        console.info("[Mirage] Adding passthrough for: ", path);
         let fullPath = this._getFullPath(path);
         verbs.forEach((verb) => {
           this.router[verb].add([
@@ -497,10 +501,12 @@ export default class PlaywrightConfig {
   }
 
   shutdown() {
+    // TODO: shutdown is never called due to: https://github.com/miragejs/miragejs/blob/34266bf7ebd200bbb1fade0ce7a7a9760cc93a88/lib/server.js#L664
+    //  We're manually calling it in the test fixture for now.
     // TODO: check if "create" is called when we run a second test, otherwise we
     //  could setup the playwrightHandler in the start() call instead.
     if (this.page && this.playwrightHandler) {
-      this.page.unroute("**", this.playwrightHandler);
+      this.page.unroute(this.interceptUrlPattern, this.playwrightHandler);
     }
   }
 }

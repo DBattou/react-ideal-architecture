@@ -1,4 +1,4 @@
-import { createServer, Response, Server } from "miragejs";
+import { createServer, Response } from "miragejs";
 import models from "./models";
 import factories from "./factories";
 import setupApi from "./api";
@@ -20,6 +20,9 @@ export function makeServer({ environment = "test", page }: MakeServerArgs) {
 
     config = {
       interceptor: new PlaywrightInterceptor(),
+      // We just intercept requests to `/api`, meaning at this time we don't need to configure passthroughs.
+      // Not configuring this spams the Playwright Actions tab with a lot of noise.
+      interceptUrlPattern: "/api/**",
       page,
     };
   }
@@ -54,7 +57,7 @@ export function makeServer({ environment = "test", page }: MakeServerArgs) {
       setupApi(this);
 
       this.namespace = "";
-      this.passthrough();
+      //this.passthrough();
     },
 
     seeds(server) {
