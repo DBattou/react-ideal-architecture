@@ -69,7 +69,7 @@ lint:
     - NEXT_TELEMETRY_DISABLED=1 pnpm run lint
 
 test:
-  image: mcr.microsoft.com/playwright:v1.37.0-jammy
+  image: mcr.microsoft.com/playwright:v1.40.1-jammy
   stage: test
   needs: []
   timeout: 20m
@@ -84,7 +84,7 @@ test:
   coverage: '/Statements.*?(\d+(?:\.\d+)?)%/'
 
 test-components:
-  image: mcr.microsoft.com/playwright:v1.37.0-jammy
+  image: mcr.microsoft.com/playwright:v1.40.1-jammy
   stage: test
   needs: []
   timeout: 20m
