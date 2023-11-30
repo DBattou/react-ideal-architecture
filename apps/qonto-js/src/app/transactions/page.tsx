@@ -1,35 +1,15 @@
 "use client";
 import type { SortingState } from "@tanstack/react-table";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
-import { useQuery } from "@tanstack/react-query";
 import { TransactionsTable } from "qonto-js-transactions-ui";
 import { useDebouncedCallback } from "use-debounce";
 import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
-import {
-  type TransactionsListPayload,
-  searchTransactions,
-} from "@/services/transactions";
 import { PageSelector } from "@/components/page-selector";
+import { useTransactions } from "@/hooks/use-transactions";
 import styles from "./styles.module.css";
 
 const FAKE_AMOUNT = 24.32;
-
-const PLACEHOLDER_DATA: TransactionsListPayload = {
-  transactions: [
-    {
-      id: "0",
-      counterpartyName: "Dunder Mifflin Paper Company, Inc.",
-      operationMethod: "transfer",
-      emittedAt: new Date(),
-      amount: 0,
-      side: "credit",
-      activityTag: "other_expense",
-      status: "completed",
-    },
-  ],
-  meta: { totalCount: 1 },
-};
 
 export default function TransactionsIndex(): JSX.Element {
   const router = useRouter();
@@ -50,24 +30,12 @@ export default function TransactionsIndex(): JSX.Element {
     },
   ];
 
-  const { data, isLoading, isError } = useQuery({
-    queryKey: [
-      "transactions",
-      {
-        sortDirection,
-        sortParam,
-        query,
-        page,
-        perPage,
-      },
-    ],
-    queryFn: ({ signal }) =>
-      searchTransactions(
-        { sortDirection, sortParam, query, page, perPage },
-        { signal }
-      ),
-    placeholderData: PLACEHOLDER_DATA,
-    keepPreviousData: true,
+  const { data, isLoading, isError } = useTransactions({
+    sortDirection,
+    sortParam,
+    query,
+    page,
+    perPage,
   });
 
   const handleSortingChange = (
@@ -119,13 +87,28 @@ export default function TransactionsIndex(): JSX.Element {
     router.replace(`${pathName}?${params.toString()}`);
   }, 100);
 
-  /**
-   * These will not show up with the current RQ config
-   * but I'm using them for "data" type narrowing.
-   * without them data is not guaranteed to be filled so TS is not happy
-   */
-  if (isError) return <div>OH NO</div>;
-  if (isLoading) return <div>Loading ... Beep boop...</div>;
+  function renderTransactions(): JSX.Element {
+    if (isError) return <div>OH NO</div>;
+    if (isLoading) return <div>Loading transactions... Beep boop...</div>;
+    return (
+      <>
+        <div className={styles.tableWrapper}>
+          <TransactionsTable
+            onSortingChange={handleSortingChange}
+            sorting={currentSort}
+            transactions={data.transactions}
+          />
+        </div>
+        <PageSelector
+          onPageChange={handlePageChange}
+          onPerPageChange={handlePerPageChange}
+          page={page}
+          perPage={perPage}
+          totalCount={data.meta.totalCount}
+        />
+      </>
+    );
+  }
 
   return (
     <section className={styles.mainContent}>
@@ -136,20 +119,7 @@ export default function TransactionsIndex(): JSX.Element {
         })}
       />
       <Filters initialQuery={query} onQueryChange={handleQueryChange} />
-      <div className={styles.tableWrapper}>
-        <TransactionsTable
-          onSortingChange={handleSortingChange}
-          sorting={currentSort}
-          transactions={data.transactions}
-        />
-      </div>
-      <PageSelector
-        onPageChange={handlePageChange}
-        onPerPageChange={handlePerPageChange}
-        page={page}
-        perPage={perPage}
-        totalCount={data.meta.totalCount}
-      />
+      {renderTransactions()}
     </section>
   );
 }

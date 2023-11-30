@@ -25,8 +25,25 @@ function transformTransactionsListPayload(
   };
 }
 
+export type SearchTransactionsFilters = {
+  query?: string;
+  sortParam?: string;
+  sortDirection?: string;
+  page?: number;
+  perPage?: number;
+};
+
+const DEFAULT_PAGE = 1;
+const DEFAULT_PER_PAGE = 25;
+
 export async function searchTransactions(
-  { query = "", sortParam = "", sortDirection = "", page = 1, perPage = 25 },
+  {
+    query = "",
+    sortParam = "",
+    sortDirection = "",
+    page = DEFAULT_PAGE,
+    perPage = DEFAULT_PER_PAGE,
+  }: SearchTransactionsFilters,
   fetchOptions: Partial<RequestInit>
 ): Promise<TransactionsListPayload> {
   const result = await fetch(`/api/v6/transactions/search`, {
