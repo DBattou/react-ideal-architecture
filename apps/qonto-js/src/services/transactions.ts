@@ -33,13 +33,16 @@ export type SearchTransactionsFilters = {
   perPage?: number;
 };
 
+const DEFAULT_PAGE = 1;
+const DEFAULT_PER_PAGE = 25;
+
 export async function searchTransactions(
   {
     query = "",
     sortParam = "",
     sortDirection = "",
-    page = 1,
-    perPage = 25,
+    page = DEFAULT_PAGE,
+    perPage = DEFAULT_PER_PAGE,
   }: SearchTransactionsFilters,
   fetchOptions: Partial<RequestInit>
 ): Promise<TransactionsListPayload> {
