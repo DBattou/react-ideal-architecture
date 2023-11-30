@@ -19,10 +19,8 @@ const test = testBase.extend<{
     // [insert any cleanup actions here]
 
     // TODO: shutdown is not automatically called due to: https://github.com/miragejs/miragejs/blob/34266bf7ebd200bbb1fade0ce7a7a9760cc93a88/lib/server.js#L664
-    // @ts-expect-error Mirage types are out of sync with reality
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-member-access
+    // @ts-expect-error The Mirage type definitions don't type `interceptor`
     mirageServer.interceptor.shutdown();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     mirageServer.shutdown();
   },
   autoTestFixture: [
