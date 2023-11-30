@@ -7,7 +7,6 @@ test.describe("initial render", () => {
     mirageServer,
   }) => {
     mirageServer.create("transaction", {
-      // @ts-expect-error fix issue with mirage model registry
       counterpartyName: "Left Behind",
     });
     //mirageServer.passthrough("/api/v6/transactions/search");

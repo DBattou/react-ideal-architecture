@@ -1,17 +1,15 @@
 import { test as testBase, expect } from "@playwright/test";
 import { addCoverageReport } from "monocart-reporter";
 import { makeServer } from "qonto-mirage";
-import type { Server } from "miragejs";
 
 const test = testBase.extend<{
-  mirageServer: Server; // TODO: fix this type
+  mirageServer: ReturnType<typeof makeServer>; // TODO: improve this type
   autoTestFixture: string;
 }>({
   mirageServer: async ({ page }, use) => {
     // Test has not started to execute...
     const mirageServer = makeServer({
       environment: "test",
-      // @ts-expect-error TODO: relates to the mirageServer type issue above
       page,
     });
 
