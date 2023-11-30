@@ -1,6 +1,7 @@
 import "@/styles/global.css";
 import { ReactQueryProvider } from "@/providers/react-query";
 import { AbilitiesProvider } from "@/services/abilities/abilities-context";
+import { MSWComponent } from "@/providers/msw";
 
 export default function RootLayout({
   children,
@@ -8,6 +9,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }): JSX.Element {
   return (
+    <>
+    <MSWComponent />
     <html lang="en">
       <body>
         <AbilitiesProvider
@@ -23,5 +26,6 @@ export default function RootLayout({
         </AbilitiesProvider>
       </body>
     </html>
+    </>
   );
 }
