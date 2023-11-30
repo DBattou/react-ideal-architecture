@@ -10,22 +10,22 @@ export default function RootLayout({
 }): JSX.Element {
   return (
     <>
-    <MSWComponent />
-    <html lang="en">
-      <body>
-        <AbilitiesProvider
-          context={{
-            permissions: {
-              teams: "access",
-              bank_accounts: "create",
-              savings: "access",
-            },
-          }}
-        >
-          <ReactQueryProvider>{children}</ReactQueryProvider>
-        </AbilitiesProvider>
-      </body>
-    </html>
+      <MSWComponent />
+      <html lang="en">
+        <body>
+          <AbilitiesProvider
+            context={{
+              permissions: {
+                teams: "access",
+                bank_accounts: "create",
+                savings: "access",
+              },
+            }}
+          >
+            <ReactQueryProvider>{children}</ReactQueryProvider>
+          </AbilitiesProvider>
+        </body>
+      </html>
     </>
   );
 }
