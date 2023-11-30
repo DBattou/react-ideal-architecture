@@ -1,4 +1,3 @@
-import { transactionsPlayload } from "@/mocks/fixtures/transactions";
 import { test, expect } from "./helpers/test";
 
 test.describe("initial render", () => {
@@ -9,7 +8,6 @@ test.describe("initial render", () => {
     mirageServer.create("transaction", {
       counterpartyName: "Left Behind",
     });
-    //mirageServer.passthrough("/api/v6/transactions/search");
 
     await page.goto("/transactions");
 
@@ -19,7 +17,11 @@ test.describe("initial render", () => {
       page.getByRole("table", { name: "List of transactions" })
     ).toBeVisible();
 
-    await expect(page.getByRole("cell", { name: "Left Behind" })).toBeVisible();
+    await expect(
+      page.getByRole("cell", {
+        name: "Left Behind",
+      })
+    ).toBeVisible();
   });
 
   test("search input should initially be filled with the query search parameter", async ({
@@ -34,11 +36,9 @@ test.describe("initial render", () => {
 
   test("transactions table should be sorted according to the sort_by search parameter", async ({
     page,
+    mirageServer,
   }) => {
-    await page.route("*/**/api/v6/transactions/search", async (route) => {
-      const json = transactionsPlayload;
-      await route.fulfill({ json });
-    });
+    mirageServer.create("transaction");
 
     await page.goto("/transactions?sort_by=amount%3Aasc");
 
@@ -51,11 +51,9 @@ test.describe("initial render", () => {
 
   test("transactions should show n items per page according to the per_page search parameter", async ({
     page,
+    mirageServer,
   }) => {
-    await page.route("*/**/api/v6/transactions/search", async (route) => {
-      const json = transactionsPlayload;
-      await route.fulfill({ json });
-    });
+    mirageServer.create("transaction");
 
     await page.goto("/transactions?per_page=50");
 
@@ -90,7 +88,10 @@ test.describe("interactions", () => {
 
   test('clicking on a "per_page" button should update the per_page search parameter', async ({
     page,
+    mirageServer,
   }) => {
+    mirageServer.create("transaction");
+
     await page.goto("/transactions");
 
     await page
@@ -104,7 +105,10 @@ test.describe("interactions", () => {
 
   test('clicking on a "per_page" button should reset the page search parameter', async ({
     page,
+    mirageServer,
   }) => {
+    mirageServer.create("transaction");
+
     await page.goto("/transactions?page=2");
 
     await page
@@ -118,11 +122,9 @@ test.describe("interactions", () => {
 
   test('clicking on a "page" button should set the page search parameter', async ({
     page,
+    mirageServer,
   }) => {
-    await page.route("*/**/api/v6/transactions/search", async (route) => {
-      const json = transactionsPlayload;
-      await route.fulfill({ json });
-    });
+    mirageServer.createList("transaction", 26);
 
     await page.goto("/transactions");
 
