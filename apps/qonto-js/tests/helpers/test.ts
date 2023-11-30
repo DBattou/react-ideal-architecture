@@ -1,9 +1,28 @@
 import { test as testBase, expect } from "@playwright/test";
 import { addCoverageReport } from "monocart-reporter";
+import { makeServer } from "qonto-mirage";
 
 const test = testBase.extend<{
+  mirageServer: ReturnType<typeof makeServer>; // TODO: improve this type
   autoTestFixture: string;
 }>({
+  mirageServer: async ({ page }, use) => {
+    // Test has not started to execute...
+    const mirageServer = makeServer({
+      environment: "test",
+      page,
+    });
+
+    await use(mirageServer);
+
+    // Test has finished executing...
+    // [insert any cleanup actions here]
+
+    // TODO: shutdown is not automatically called due to: https://github.com/miragejs/miragejs/blob/34266bf7ebd200bbb1fade0ce7a7a9760cc93a88/lib/server.js#L664
+    // @ts-expect-error The Mirage type definitions don't type `interceptor`
+    mirageServer.interceptor.shutdown();
+    mirageServer.shutdown();
+  },
   autoTestFixture: [
     async ({ page }, use): Promise<void> => {
       const isChromium = test.info().project.name === "chromium";

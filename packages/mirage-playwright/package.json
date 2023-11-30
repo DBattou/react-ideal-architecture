@@ -1,24 +1,22 @@
 {
-  "name": "qonto-mirage",
+  "name": "mirage-playwright",
   "version": "0.0.0",
   "private": true,
   "main": "src/index.ts",
   "types": "src/index.ts",
   "devDependencies": {
-    "@playwright/test": "^1.40.1",
     "eslint-config-custom": "workspace:*",
-    "mirage-playwright": "workspace:*",
-    "miragejs": "^0.1.48",
+    "miragejs": "^0.1.47",
     "tsconfig": "workspace:*",
     "typescript": "^4.8.0",
-    "transactions-entity": "workspace:*"
+    "@playwright/test": "^1.40.0"
   },
   "dependencies": {
-    "@faker-js/faker": "^8.0.2",
-    "lodash.camelcase": "^4.3.0"
+    "route-recognizer": "^0.3.4"
   },
   "peerDependencies": {
-    "mirage-playwright": "workspace:*",
+    "@playwright/test": "^1.40.0",
     "miragejs": "^0.1.48"
-  }
+  },
+  "sideEffects": false
 }

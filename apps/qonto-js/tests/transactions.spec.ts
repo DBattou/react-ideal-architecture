@@ -4,11 +4,12 @@ import { test, expect } from "./helpers/test";
 test.describe("initial render", () => {
   test("transactions page display a search input and a transactions table", async ({
     page,
+    mirageServer,
   }) => {
-    await page.route("*/**/api/v6/transactions/search", async (route) => {
-      const json = transactionsPlayload;
-      await route.fulfill({ json });
+    mirageServer.create("transaction", {
+      counterpartyName: "Left Behind",
     });
+    //mirageServer.passthrough("/api/v6/transactions/search");
 
     await page.goto("/transactions");
 
@@ -18,11 +19,7 @@ test.describe("initial render", () => {
       page.getByRole("table", { name: "List of transactions" })
     ).toBeVisible();
 
-    await expect(
-      page.getByRole("cell", {
-        name: transactionsPlayload.transactions[0].counterparty_name,
-      })
-    ).toBeVisible();
+    await expect(page.getByRole("cell", { name: "Left Behind" })).toBeVisible();
   });
 
   test("search input should initially be filled with the query search parameter", async ({

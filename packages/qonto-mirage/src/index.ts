@@ -3,9 +3,32 @@ import models from "./models";
 import factories from "./factories";
 import setupApi from "./api";
 import serializers from "./serializers";
+import { PlaywrightInterceptor } from "mirage-playwright";
+import type { Page } from "@playwright/test";
 
-export function makeServer({ environment = "test" }) {
-  return createServer({
+interface MakeServerArgs {
+  environment?: string;
+  page?: Page;
+}
+
+export function makeServer({ environment = "test", page }: MakeServerArgs) {
+  let config = {};
+  if (environment === "test") {
+    if (!page) {
+      throw new Error("[Mirage] Playwright Page must be passed to makeServer");
+    }
+
+    config = {
+      interceptor: new PlaywrightInterceptor(),
+      // We just intercept requests to `/api`, meaning at this time we don't need to configure passthroughs.
+      // Not configuring this spams the Playwright Actions tab with a lot of noise.
+      interceptUrlPattern: "/api/**",
+      page,
+    };
+  }
+
+  const server = createServer({
+    ...config,
     environment,
     factories,
     models,
@@ -34,10 +57,7 @@ export function makeServer({ environment = "test" }) {
       setupApi(this);
 
       this.namespace = "";
-      if (environment === "test") {
-        this.passthrough("/api/v6/transactions/search");
-      }
-      this.passthrough();
+      //this.passthrough();
     },
 
     seeds(server) {
@@ -47,4 +67,8 @@ export function makeServer({ environment = "test" }) {
 
     serializers,
   });
+
+  server.logging = true;
+
+  return server;
 }
