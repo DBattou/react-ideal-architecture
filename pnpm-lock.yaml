@@ -318,7 +318,7 @@ importers:
         specifier: workspace:*
         version: link:../mirage-playwright
       miragejs:
-        specifier: ^0.1.47
+        specifier: ^0.1.48
         version: 0.1.48
       transactions-entity:
         specifier: workspace:*
