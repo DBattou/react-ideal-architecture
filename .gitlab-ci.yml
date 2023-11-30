@@ -64,7 +64,9 @@ pages:
 lint:
   needs: []
   timeout: 20m
-  script: NEXT_TELEMETRY_DISABLED=1 pnpm run lint
+  script: 
+    - pnpm prettier --check "**/*.{ts,tsx,md}"
+    - NEXT_TELEMETRY_DISABLED=1 pnpm run lint
 
 test:
   image: mcr.microsoft.com/playwright:v1.37.0-jammy
