@@ -9,13 +9,14 @@
     "eslint-config-custom": "workspace:*",
     "mirage-playwright": "workspace:*",
     "miragejs": "^0.1.48",
+    "transactions-entity": "workspace:*",
     "tsconfig": "workspace:*",
-    "typescript": "^4.8.0",
-    "transactions-entity": "workspace:*"
+    "typescript": "^4.8.0"
   },
   "dependencies": {
     "@faker-js/faker": "^8.0.2",
-    "lodash.camelcase": "^4.3.0"
+    "lodash.camelcase": "^4.3.0",
+    "mirage-msw": "^0.1.2"
   },
   "peerDependencies": {
     "mirage-playwright": "workspace:*",
