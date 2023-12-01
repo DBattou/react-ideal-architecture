@@ -22,6 +22,6 @@
   "packageManager": "pnpm@8.6.11",
   "name": "ideal-architecture",
   "msw": {
-    "workerDirectory": "apps/qonto-js/public"
+    "workerDirectory": "apps/auth/public"
   }
 }
