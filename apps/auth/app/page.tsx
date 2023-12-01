@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import Lottie from "@/components/lottie";
 import { LoginForm } from "@/components/login-form";
