@@ -1,15 +1,20 @@
+import { MockServer } from "../providers/mock-server";
 import "../styles/global.css";
+import styles from "./layout.module.css";
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }): JSX.Element {
   return (
-  <html lang="en">
-    <body>
-      {children}
-    </body>
-  </html>
-  )
+    <>
+      <MockServer />
+      <html lang="en">
+        <body>
+          <div className={styles["l-container__app"]}>{children}</div>
+        </body>
+      </html>
+    </>
+  );
 }
