@@ -1,4 +1,5 @@
 import { createServer, Response } from "miragejs";
+import MSWInterceptor from "mirage-msw";
 import models from "./models";
 import factories from "./factories";
 import setupApi from "./api";
@@ -24,6 +25,12 @@ export function makeServer({ environment = "test", page }: MakeServerArgs) {
       // Not configuring this spams the Playwright Actions tab with a lot of noise.
       interceptUrlPattern: "/api/**",
       page,
+    };
+  }
+
+  if (environment === "development") {
+    config = {
+      interceptor: new MSWInterceptor(),
     };
   }
 
