@@ -32,5 +32,8 @@
     "qonto-mirage": "workspace:*",
     "tsconfig": "workspace:*",
     "typescript": "^4.8.0"
+  },
+  "msw": {
+    "workerDirectory": "public"
   }
 }

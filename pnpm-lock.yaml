@@ -307,6 +307,9 @@ importers:
       lodash.camelcase:
         specifier: ^4.3.0
         version: 4.3.0
+      mirage-msw:
+        specifier: ^0.1.2
+        version: 0.1.2
     devDependencies:
       '@playwright/test':
         specifier: ^1.40.1
@@ -7985,6 +7988,12 @@ packages:
       minipass: 3.3.6
       yallist: 4.0.0
     dev: true
+
+  /mirage-msw@0.1.2:
+    resolution: {integrity: sha512-hQIAPQ03RlfMS4oAtt4XD4ENStPsim2MUBf8sZNy5nWTlVXo3VbH1hVHwAHVHLIS3LW4wPq+Y2ufKmzSvkFavQ==}
+    dependencies:
+      route-recognizer: 0.3.4
+    dev: false
 
   /miragejs@0.1.48:
     resolution: {integrity: sha512-MGZAq0Q3OuRYgZKvlB69z4gLN4G3PvgC4A2zhkCXCXrLD5wm2cCnwNB59xOBVA+srZ0zEes6u+VylcPIkB4SqA==}
