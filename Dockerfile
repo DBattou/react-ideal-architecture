@@ -26,6 +26,7 @@ RUN pnpm install --frozen-lockfile
  
 # Build the project
 COPY --from=builder /app/out/full/ .
+RUN rm /app/apps/qonto-js/public/mockServiceWorker.js
 RUN NEXT_TELEMETRY_DISABLED=1 pnpm run build
  
 # FROM base AS runner
