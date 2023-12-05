@@ -18,12 +18,14 @@ type TransactionsTableProps = {
   transactions: Transaction[];
   onSortingChange: OnChangeFn<SortingState>;
   sorting: SortingState;
+  onRowClick: (transactionID: Transaction["id"]) => void;
 };
 
 export function TransactionsTable({
   transactions,
   onSortingChange,
   sorting,
+  onRowClick,
 }: TransactionsTableProps): JSX.Element {
   const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
@@ -65,7 +67,12 @@ export function TransactionsTable({
       </thead>
       <tbody>
         {table.getRowModel().rows.map((row) => (
-          <Row key={row.id}>
+          <Row
+            key={row.id}
+            onClick={(): void => {
+              onRowClick(row.original.id);
+            }}
+          >
             {row.getVisibleCells().map((cell) => (
               <Cell key={cell.id}>
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}

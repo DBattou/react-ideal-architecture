@@ -3,6 +3,7 @@ import type { SortingState } from "@tanstack/react-table";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 import { TransactionsTable } from "qonto-js-transactions-ui";
 import { useDebouncedCallback } from "use-debounce";
+import type { Transaction } from "transactions-entity";
 import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
 import { PageSelector } from "@/components/page-selector";
@@ -87,6 +88,10 @@ export default function TransactionsIndex(): JSX.Element {
     router.replace(`${pathName}?${params.toString()}`);
   }, 100);
 
+  const handleRowClick = (id: Transaction["id"]): void => {
+    router.push(`/transactions/${id}?${searchParams.toString()}`);
+  };
+
   function renderTransactions(): JSX.Element {
     if (isError) return <div>OH NO</div>;
     if (isLoading) return <div>Loading transactions... Beep boop...</div>;
@@ -94,6 +99,7 @@ export default function TransactionsIndex(): JSX.Element {
       <>
         <div className={styles.tableWrapper}>
           <TransactionsTable
+            onRowClick={handleRowClick}
             onSortingChange={handleSortingChange}
             sorting={currentSort}
             transactions={data.transactions}
