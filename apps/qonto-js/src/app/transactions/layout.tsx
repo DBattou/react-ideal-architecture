@@ -8,7 +8,7 @@ import { Header } from "@/components/header";
 import { Filters } from "@/components/filters";
 import { PageSelector } from "@/components/page-selector";
 import { useTransactions } from "@/hooks/use-transactions";
-import styles from "./styles.module.css";
+import styles from "./layout.module.css";
 
 const FAKE_AMOUNT = 24.32;
 
