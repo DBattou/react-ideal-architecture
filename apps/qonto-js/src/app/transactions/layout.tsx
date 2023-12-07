@@ -12,7 +12,7 @@ import styles from "./styles.module.css";
 
 const FAKE_AMOUNT = 24.32;
 
-export default function TransactionsIndex(): JSX.Element {
+export default function TransactionsLayout({ children }): JSX.Element {
   const router = useRouter();
   const pathName = usePathname() ?? "";
   const searchParams = useSearchParams();
@@ -117,15 +117,18 @@ export default function TransactionsIndex(): JSX.Element {
   }
 
   return (
-    <section className={styles.mainContent}>
-      <Header
-        title={FAKE_AMOUNT.toLocaleString("en-US", {
-          style: "currency",
-          currency: "eur",
-        })}
-      />
-      <Filters initialQuery={query} onQueryChange={handleQueryChange} />
-      {renderTransactions()}
-    </section>
+    <>
+      <section className={styles.mainContent}>
+        <Header
+          title={FAKE_AMOUNT.toLocaleString("en-US", {
+            style: "currency",
+            currency: "eur",
+          })}
+        />
+        <Filters initialQuery={query} onQueryChange={handleQueryChange} />
+        {renderTransactions()}
+      </section>
+      {children}
+    </>
   );
 }
