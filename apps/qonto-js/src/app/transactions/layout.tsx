@@ -117,7 +117,7 @@ export default function TransactionsLayout({ children }): JSX.Element {
   }
 
   return (
-    <>
+    <div className={styles.wrapper}>
       <section className={styles.mainContent}>
         <Header
           title={FAKE_AMOUNT.toLocaleString("en-US", {
@@ -129,6 +129,6 @@ export default function TransactionsLayout({ children }): JSX.Element {
         {renderTransactions()}
       </section>
       {children}
-    </>
+    </div>
   );
 }
