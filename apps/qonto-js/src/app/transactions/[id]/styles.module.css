@@ -1,0 +1,10 @@
+.panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    width: 384px;
+    margin-top: 0;
+    border-right: 0;
+    border-left: 1px solid var(--border-tertiary);
+  }
